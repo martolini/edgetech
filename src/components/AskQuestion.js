@@ -16,10 +16,10 @@ class AskQuestionComponent extends Component {
     question.set('title', this.title.value.trim())
     question.set('category', this.category.value)
     question.set('description', this.description.value.trim())
-    question.set('author', this.props.user.id)
+    question.set('author', this.props.user)
     question.save(null, {
       success: question => dispatch(pushPath(`/question/${question.id}`)),
-      error: (question, error) => alert(error)
+      error: (question, error) => console.log(error)
     })
   }
 
