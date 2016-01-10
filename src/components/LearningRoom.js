@@ -1,38 +1,18 @@
 import React, { Component } from 'react'
-import Parse from 'parse'
-import Pusher from 'pusher-js'
+import { CodeEditor } from './CodeEditor'
+import { VideoRoom } from './VideoRoom'
 import { connect } from 'react-redux'
-import { fetchQuestion, fetchMessages, sendMessage, receivedCode } from '../actions'
-import AceEditor from 'react-ace'
-import brace from 'brace'
-import 'brace/mode/javascript'
-import 'brace/theme/github'
+import { fetchQuestion, joinedLearningRoom } from '../actions'
+import Firebase from 'firebase'
+import Parse from 'parse'
 
 
 class LearningRoomComponent extends Component {
-  constructor(props) {
-    super(props)
-    const firebaseurl = `https://edgetech.firebaseio.com/questions/${this.props.params.id}`
-    this.sendMessage = this.sendMessage.bind(this)
-    this.onCodeEditorChange = this.onCodeEditorChange.bind(this)
-  }
 
   componentDidMount() {
     const { id } = this.props.params
     const { dispatch } = this.props
     dispatch(fetchQuestion(id))
-  }
-
-  sendMessage(text) {
-    const { dispatch } = this.props
-    let message = {
-      text: text,
-      sender: Parse.User.current().getEmail()
-    }
-    dispatch(sendMessage(message, this.props.learningRoom.question))
-  }
-
-  onCodeEditorChange(val) {
   }
 
   renderError(error) {
@@ -50,19 +30,16 @@ class LearningRoomComponent extends Component {
       return this.renderError(this.props.error)
     }
     return (
-      <div className="row">
+      <div className="row" style={{height: '100%' }}>
         <div className="col-xs-8">
           <h4>Paste or type your code here so it's easier to help</h4>
-          <AceEditor
-            mode='javascript'
-            theme='github'
-            editorProps={{$blockScrolling: true}}
-            onChange={this.onCodeEditorChange}
-            // readOnly={ Parse.User.current().id != this.props.learningRoom.question.get('author').id }
-          />
+          <CodeEditor questionId={ this.props.params.id }/>
         </div>
         <div className="col-xs-4">
-
+          <h4>Talk to your tutor</h4>
+          <VideoRoom questionId={ this.props.params.id }
+            isTutor={ this.props.learningRoom.question.get('author').id !== Parse.User.current().id }
+            />
         </div>
       </div>
     )
@@ -71,7 +48,6 @@ class LearningRoomComponent extends Component {
 
 export const LearningRoom = connect(state => {
   return {
-    learningRoom: state.learningRoom,
-    chat: state.chat
+    learningRoom: state.learningRoom
   }
 })(LearningRoomComponent)

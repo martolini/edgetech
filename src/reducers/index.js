@@ -5,8 +5,7 @@ import {
   QUESTIONS_REQUEST, QUESTIONS_SUCCESS, QUESTIONS_ERROR,
   FETCH_QUESTION_REQUEST, FETCH_QUESTION_SUCCESS, FETCH_QUESTION_ERROR,
   SEND_MESSAGE_SUCCESS, SEND_MESSAGE_ERROR, RECEIVED_MESSAGE,
-  REQUEST_MESSAGES, REQUEST_MESSAGES_SUCCESS, REQUEST_MESSAGES_ERROR,
-  RECEIVED_CODE
+  REQUEST_MESSAGES, REQUEST_MESSAGES_SUCCESS, REQUEST_MESSAGES_ERROR
 } from '../actions'
 import { combineReducers } from 'redux'
 
@@ -104,7 +103,7 @@ function question(state={
 }
 
 function learningRoom(state = {
-  tutor: null,
+  users: [],
   question: null,
   loading: true,
   error: null,
@@ -124,10 +123,6 @@ function learningRoom(state = {
       return Object.assign({}, state, {
         loading: false,
         error: action.error
-      })
-    case RECEIVED_CODE:
-      return Object.assign({}, state, {
-        code: action.code
       })
     case SEND_MESSAGE_SUCCESS:
       return Object.assign({}, state, {

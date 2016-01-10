@@ -252,12 +252,3 @@ export function fetchMessages(questionId) {
     })
   }
 }
-
-export const RECEIVED_CODE = 'RECEIVED_CODE'
-
-export function receivedCode(code) {
-  return {
-    type: RECEIVED_CODE,
-    code
-  }
-}
