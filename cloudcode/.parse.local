@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "edgetech"
+    },
+    "edgetech": {
+      "applicationId": "oPNuENwQtcw2ZRB7Z8197Q8IFZNmGVdmGBfVxkl4"
+    }
+  }
+}

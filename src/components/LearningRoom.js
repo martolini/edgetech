@@ -1,22 +1,79 @@
 import React, { Component } from 'react'
 import { CodeEditor } from './CodeEditor'
 import { VideoRoom } from './VideoRoom'
-import { connect } from 'react-redux'
-import { fetchQuestion, joinedLearningRoom } from '../actions'
+import { Question } from '../models'
 import Firebase from 'firebase'
 import Parse from 'parse'
 
 
-class LearningRoomComponent extends Component {
+export class LearningRoom extends Component {
 
-  componentDidMount() {
-    const { id } = this.props.params
-    const { dispatch } = this.props
-    dispatch(fetchQuestion(id))
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: true,
+      error: null,
+      question: null
+    }
+    this.fetchQuestion = this.fetchQuestion.bind(this)
+    this.answerQuestion = this.answerQuestion.bind(this)
   }
 
-  renderError(error) {
-    return <h2>{ error }</h2>
+  fetchQuestion(questionId) {
+    let query = new Parse.Query(Question)
+    query.get(questionId, {
+      success: question => {
+        if (question.get('author').id === this.props.user.id) {
+          this.setState({
+            loading: false,
+            question: question
+          })
+        } else {
+          if (!question.get('tutor')) {
+            return this.answerQuestion(question)
+          } else if (question.get('tutor').id === this.props.user.id) {
+            this.setState({
+              question: question,
+              loading: false
+            })
+          } else {
+            this.setState({
+              loading: false,
+              error: 'This question is already answered'
+            })
+          }
+        }
+      },
+      error: (question, error) => {
+        this.setState({
+          loading: false,
+          error: error.message
+        })
+      }
+    })
+  }
+
+  answerQuestion(question) {
+    Parse.Cloud.run('answerQuestion', {
+      questionId: question.id
+    }, {
+      success: question => this.setState({
+        question: question,
+        loading: false
+      }),
+      error: error => this.setState({
+        loading: false,
+        error: error.message
+      })
+    })
+  }
+
+  componentDidMount() {
+    this.fetchQuestion(this.props.params.id)
+  }
+
+  renderError() {
+    return <h2>{ this.state.error }</h2>
   }
 
   renderLoading() {
@@ -24,10 +81,10 @@ class LearningRoomComponent extends Component {
   }
 
   render() {
-    if (this.props.learningRoom.loading) {
+    if (this.state.loading) {
       return this.renderLoading()
-    } else if (this.props.error) {
-      return this.renderError(this.props.error)
+    } else if (!!this.state.error) {
+      return this.renderError()
     }
     return (
       <div className="row" style={{height: '100%' }}>
@@ -37,17 +94,9 @@ class LearningRoomComponent extends Component {
         </div>
         <div className="col-xs-4">
           <h4>Talk to your tutor</h4>
-          <VideoRoom questionId={ this.props.params.id }
-            isTutor={ this.props.learningRoom.question.get('author').id !== Parse.User.current().id }
-            />
+          <VideoRoom questionId={ this.state.question.id } />
         </div>
       </div>
     )
   }
 }
-
-export const LearningRoom = connect(state => {
-  return {
-    learningRoom: state.learningRoom
-  }
-})(LearningRoomComponent)

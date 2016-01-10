@@ -2,16 +2,13 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGGED_OUT,
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_ERROR,
   ASK_QUESTION_REQUEST, ASK_QUESTION_SUCCESS, ASK_QUESTION_ERROR,
-  QUESTIONS_REQUEST, QUESTIONS_SUCCESS, QUESTIONS_ERROR,
-  FETCH_QUESTION_REQUEST, FETCH_QUESTION_SUCCESS, FETCH_QUESTION_ERROR,
-  SEND_MESSAGE_SUCCESS, SEND_MESSAGE_ERROR, RECEIVED_MESSAGE,
-  REQUEST_MESSAGES, REQUEST_MESSAGES_SUCCESS, REQUEST_MESSAGES_ERROR
+  QUESTIONS_REQUEST, QUESTIONS_SUCCESS, QUESTIONS_ERROR
 } from '../actions'
 import { combineReducers } from 'redux'
 
 
 function auth(state = {
-  email: null,
+  user: null,
   error: null,
   loading: false
 }, action) {
@@ -22,37 +19,38 @@ function auth(state = {
       })
     case SIGNUP_SUCCESS:
       return {
-        email: action.email,
+        user: action.user,
         loading: false,
         error: null
       }
     case SIGNUP_ERROR:
       return {
-        email: null,
+        user: null,
         error: action.error,
         loading: false
       }
     case LOGIN_REQUEST:
       return {
-        email: null,
+        user: null,
         error: null,
         loading: true
       }
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS: {
       return {
-        email: action.email,
+        user: action.user,
         error: null,
         loading: false
       }
+    }
     case LOGIN_ERROR:
       return {
-        email: null,
+        user: null,
         loading: false,
         error: action.error
       }
     case LOGGED_OUT:
       return {
-        email: null,
+        user: null,
         loading: false,
         error: null
       }
@@ -102,43 +100,8 @@ function question(state={
   }
 }
 
-function learningRoom(state = {
-  users: [],
-  question: null,
-  loading: true,
-  error: null,
-  code: ''
-}, action) {
-  switch(action.type) {
-    case FETCH_QUESTION_REQUEST:
-      return Object.assign({}, state, {
-        loading: true
-      })
-    case FETCH_QUESTION_SUCCESS:
-      return Object.assign({}, state, {
-        question: action.question,
-        loading: false
-      })
-    case FETCH_QUESTION_ERROR:
-      return Object.assign({}, state, {
-        loading: false,
-        error: action.error
-      })
-    case SEND_MESSAGE_SUCCESS:
-      return Object.assign({}, state, {
-        question: action.question
-      })
-    case SEND_MESSAGE_ERROR:
-      return Object.assign({}, state, {
-        error: action.error
-      })
-    default:
-      return state
-  }
-}
 
 export default {
   auth,
-  question,
-  learningRoom
+  question
 }

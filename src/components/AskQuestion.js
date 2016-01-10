@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { askQuestion } from '../actions'
-import Parse from 'parse'
+import { Question } from '../models'
+import { pushPath } from 'redux-simple-router'
 
 class AskQuestionComponent extends Component {
   constructor(props) {
@@ -12,12 +12,15 @@ class AskQuestionComponent extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const { dispatch } = this.props
-    dispatch(askQuestion({
-      category: this.category.value,
-      title: this.title.value,
-      description: this.description.value,
-      user: Parse.User.current()
-    }))
+    let question = new Question()
+    question.set('title', this.title.value.trim())
+    question.set('category', this.category.value)
+    question.set('description', this.description.value.trim())
+    question.set('author', this.props.user.id)
+    question.save(null, {
+      success: question => dispatch(pushPath(`/question/${question.id}`)),
+      error: (question, error) => alert(error)
+    })
   }
 
   render() {
@@ -74,4 +77,4 @@ class AskQuestionComponent extends Component {
   }
 }
 
-export const AskQuestion = connect(state => state.question)(AskQuestionComponent)
+export const AskQuestion = connect()(AskQuestionComponent)

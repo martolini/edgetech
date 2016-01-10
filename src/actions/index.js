@@ -6,11 +6,10 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGGED_OUT = 'LOGGED_OUT'
 
-export function loginSuccess(email, token) {
+export function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
-    email,
-    token
+    user
   }
 }
 
@@ -38,7 +37,7 @@ export function login(data) {
   return dispatch => {
     dispatch(loginRequest())
     Parse.User.logIn(email, password, {
-      success: user => dispatch(loginSuccess(user.getEmail())),
+      success: user => dispatch(loginSuccess(user)),
       error: (user, error) => dispatch(loginError(error.message))
     })
   }
@@ -55,9 +54,10 @@ function signupRequest() {
   }
 }
 
-function signupSuccess() {
+function signupSuccess(user) {
   return {
-    type: SIGNUP_SUCCESS
+    type: SIGNUP_SUCCESS,
+    user
   }
 }
 
@@ -78,7 +78,7 @@ export function signup(data) {
     user.set('password', password)
     user.signUp(null, {
       success: user => {
-        return dispatch(signupSuccess());
+        return dispatch(signupSuccess(user));
       },
       error: (user, error) => {
         dispatch(signupError(error.message))
@@ -90,9 +90,7 @@ export function signup(data) {
 export const ASK_QUESTION_REQUEST = 'ASK_QUESTION_REQUEST'
 export const ASK_QUESTION_SUCCESS = 'ASK_QUESTION_SUCCESS'
 export const ASK_QUESTION_ERROR = 'ASK_QUESTION_ERROR'
-export const FETCH_QUESTION_REQUEST = 'FETCH_QUESTION_REQUEST'
-export const FETCH_QUESTION_SUCCESS = 'FETCH_QUESTION_SUCCESS'
-export const FETCH_QUESTION_ERROR = 'FETCH_QUESTION_ERROR'
+
 
 function askQuestionRequest() {
   return {
@@ -130,40 +128,6 @@ export function askQuestion(data) {
   }
 }
 
-function fetchQuestionRequest() {
-  return {
-    type: FETCH_QUESTION_REQUEST,
-    loading: true
-  }
-}
-
-function fetchQuestionSuccess(question) {
-  return {
-    type: FETCH_QUESTION_SUCCESS,
-    loading: false,
-    question
-  }
-}
-
-function fetchQuestionError(error) {
-  return {
-    type: FETCH_QUESTION_ERROR,
-    loading: false,
-    error
-  }
-}
-
-export function fetchQuestion(questionId) {
-  return dispatch => {
-    dispatch(fetchQuestionRequest())
-    let query = new Parse.Query(Question)
-    query.get(questionId, {
-      success: question => dispatch(fetchQuestionSuccess(question)),
-      error: (question, error) => dispatch(fetchQuestionError(error.message))
-    })
-  }
-}
-
 export const QUESTIONS_REQUEST = 'QUESTIONS_REQUEST'
 export const QUESTIONS_SUCCESS = 'QUESTIONS_SUCCESS'
 export const QUESTIONS_ERROR = 'QUESTIONS_ERROR'
@@ -186,69 +150,5 @@ function questionsError(error) {
   return {
     type: QUESTIONS_ERROR,
     error
-  }
-}
-
-export const SEND_MESSAGE = 'SEND_MESSAGE'
-export const SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS'
-export const SEND_MESSAGE_ERROR = 'SEND_MESSAGE_ERROR'
-export const RECEIVED_MESSAGE = 'RECEIVED_MESSAGE'
-export const REQUEST_MESSAGES = 'REQUEST_MESSAGES'
-export const REQUEST_MESSAGES_SUCCESS = 'REQUEST_MESSAGES_SUCCESS'
-export const REQUEST_MESSAGES_ERROR = 'REQUEST_MESSAGES_ERROR'
-
-function sendMessageSuccess(question) {
-  return {
-    type: SEND_MESSAGE_SUCCESS,
-    question
-  }
-}
-
-function sendMessageError(error) {
-  return {
-    type: SEND_MESSAGE_ERROR,
-    error: error
-  }
-}
-
-export function sendMessage(message, question) {
-  return dispatch => {
-    question.add('messages', message)
-    question.save(null, {
-      success: question => dispatch(sendMessageSuccess(question)),
-      error: (question, error) => dispatch(sendMessageError(error.message))
-    })
-  }
-}
-
-export function requestMessages() {
-  return {
-    type: REQUEST_MESSAGES
-  }
-}
-
-function requestMessagesSuccess(messages) {
-  return {
-    type: REQUEST_MESSAGES_SUCCESS,
-    messages
-  }
-}
-
-function requestMessagesError(error) {
-  return {
-    type: REQUEST_MESSAGES_ERROR,
-    error
-  }
-}
-
-export function fetchMessages(questionId) {
-  return dispatch => {
-    dispatch(requestMessages())
-    let query = new Parse.Query(ChatMessage)
-    query.equalTo('question', questionId)
-    query.find({
-      success: messages => dispatch(requestMessagesSuccess(messages)),
-      error: (result, error) => dispatch(requestMessagesError(result))
-    })
   }
 }
