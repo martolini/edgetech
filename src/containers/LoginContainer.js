@@ -1,30 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
-import Parse from 'parse'
+import { firebaseRef } from '../config'
+import { loginWithFacebook } from '../actions'
 
-function redirectIfLoggedIn(dispatch) {
-  if (!!Parse.User.current()) {
-    dispatch(pushPath('/app'))
-  }
-}
 
 class LoginContainerComponent extends Component {
   constructor(props) {
     super(props)
+    this.onAuth = this.onAuth.bind(this)
   }
 
-  componentWillMount() {
-    redirectIfLoggedIn(this.props.dispatch)
+  componentDidMount() {
+    firebaseRef.onAuth(this.onAuth)
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    redirectIfLoggedIn(nextProps.dispatch)
+  componentWillUnmount() {
+    firebaseRef.offAuth(this.onAuth)
+  }
+
+  onAuth(data) {
+    const { dispatch } = this.props
+    if (!!data) {
+      dispatch(pushPath('/app'))
+    }
+  }
+
+  loginWithFacebook(e) {
+    e.preventDefault()
+    const { dispatch } = this.props
+    dispatch(loginWithFacebook())
   }
 
   render() {
-    return this.props.children
+    return React.cloneElement(this.props.children, {loginWithFacebook: this.loginWithFacebook.bind(this)})
   }
 }
 
-export const LoginContainer = connect(state => state.auth)(LoginContainerComponent)
+export const LoginContainer = connect()(LoginContainerComponent)

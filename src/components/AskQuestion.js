@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Question } from '../models'
 import { pushPath } from 'redux-simple-router'
+import { firebaseRef } from '../config'
+import { askQuestion } from '../actions'
 
 class AskQuestionComponent extends Component {
   constructor(props) {
@@ -12,15 +14,13 @@ class AskQuestionComponent extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const { dispatch } = this.props
-    let question = new Question()
-    question.set('title', this.title.value.trim())
-    question.set('category', this.category.value)
-    question.set('description', this.description.value.trim())
-    question.set('author', this.props.user)
-    question.save(null, {
-      success: question => dispatch(pushPath(`/question/${question.id}`)),
-      error: (question, error) => console.log(error)
-    })
+    let question = {
+      title: this.title.value.trim(),
+      category: this.category.value,
+      description: this.description.value.trim(),
+      author: this.props.user.id
+    }
+    dispatch(askQuestion(question))
   }
 
   render() {

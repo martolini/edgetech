@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { login } from '../actions'
+import { login, loginWithFacebook } from '../actions'
 
 class LoginComponent extends Component {
 

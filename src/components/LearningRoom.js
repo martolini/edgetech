@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { CodeEditor } from './CodeEditor'
 import { VideoRoom } from './VideoRoom'
-import { Question } from '../models'
-import Parse from 'parse'
+import { firebaseRef } from '../config'
+import { connect } from 'react-redux'
+import { pushPath } from 'redux-simple-router'
 
 
-export class LearningRoom extends Component {
+class LearningRoomComponent extends Component {
 
   constructor(props) {
     super(props)
@@ -14,66 +15,65 @@ export class LearningRoom extends Component {
       error: null,
       question: null
     }
-    this.fetchQuestion = this.fetchQuestion.bind(this)
-    this.answerQuestion = this.answerQuestion.bind(this)
-    this.isTutor = this.isTutor.bind(this)
+    this.leaveRoom = this.leaveRoom.bind(this)
+    this.onQuestionChange = this.onQuestionChange.bind(this)
+    this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
   }
 
-  fetchQuestion(questionId) {
-    let query = new Parse.Query(Question)
-    query.get(questionId, {
-      success: question => {
-        if (question.get('author').id === this.props.user.id) {
-          this.setState({
-            loading: false,
-            question: question
-          })
-        } else {
-          if (!question.get('tutor')) {
-            return this.answerQuestion(question)
-          } else if (question.get('tutor').id === this.props.user.id) {
-            this.setState({
-              question: question,
-              loading: false,
-            })
-          } else {
-            this.setState({
-              loading: false,
-              error: 'This question is already answered'
-            })
-          }
-        }
-      },
-      error: (question, error) => {
-        this.setState({
-          loading: false,
-          error: error.message
-        })
-      }
+  onQuestionChange(question) {
+    this.setState({
+      question: question.val()
     })
   }
 
-  isTutor() {
-    return this.state.question.get('tutor').id === this.props.user.id
+  componentWillUnmount() {
+    this.questionRef.off('value', this.onQuestionChange)
   }
 
-  answerQuestion(question) {
-    Parse.Cloud.run('answerQuestion', {
-      questionId: question.id
-    }, {
-      success: question => this.setState({
-        question: question,
-        loading: false,
-      }),
-      error: error => this.setState({
-        loading: false,
-        error: error.message
-      })
-    })
+  leaveRoom(e) {
+    e.preventDefault()
+    if (this.state.question.author === this.props.user.id) {
+      this.questionRef.set(Object.assign({}, this.state.question, { closed: true }))
+    } else {
+      this.questionRef.set(Object.assign({}, this.state.question, { tutor: null }))
+    }
+    const { dispatch } = this.props
+    dispatch(pushPath('/app'))
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState !== this.state
   }
 
   componentDidMount() {
-    this.fetchQuestion(this.props.params.id)
+    this.questionRef.on('value', this.onQuestionChange)
+    this.questionRef.once('value', snapshot => {
+      if (!snapshot.exists()) {
+        this.setState({
+          loading: false,
+          error: 'This is an invalid question'
+        })
+      } else {
+        let question = snapshot.val()
+        if (question.author !== this.props.user.id) {
+          if (!!question.tutor) {
+            if (question.tutor !== this.props.user.id) {
+              return this.setState({
+                loading: false,
+                error: 'Someone else is tutoring this...'
+              })
+            }
+          } else {
+            this.questionRef.set(Object.assign({}, question, { tutor: this.props.user.id }))
+          }
+        }
+        this.setState({
+          question: question,
+          loading: false,
+          error: null
+        })
+      }
+    })
   }
 
   renderError() {
@@ -89,20 +89,27 @@ export class LearningRoom extends Component {
       return this.renderLoading()
     } else if (!!this.state.error) {
       return this.renderError()
+    } else if (this.state.question.closed === true) {
+      return <h1>This question is closed by the author...</h1>
     }
-    let tutorText = this.isTutor() ? this.state.question.get('tutor').getEmail() + 'has arrived' : 'Waiting...'
     return (
       <div className="row" style={{height: '100%' }}>
         <div className="col-xs-8">
           <h4>Paste or type your code here so it's easier to help</h4>
-          <CodeEditor questionId={ this.props.params.id } userId={this.props.user.id}/>
+          <CodeEditor
+            questionId={ this.state.question.id }
+            category={ this.state.question.category }
+            userId={this.props.user.id}
+          />
         </div>
         <div className="col-xs-4">
           <h4>Waiting for your tutor</h4>
-          <button className="btn btn-danger">Leave room</button>
-          <VideoRoom questionId={ this.state.question.id } />
+          <button className="btn btn-danger" onClick={this.leaveRoom}>Leave room</button>
+          <VideoRoom questionId={ this.props.params.id } />
         </div>
       </div>
     )
   }
 }
+
+export const LearningRoom = connect()(LearningRoomComponent)
