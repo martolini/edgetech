@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { loggedOut } from '../actions'
+import { logout } from '../actions'
 import { connect } from 'react-redux'
 import Parse from 'parse'
 
@@ -9,8 +9,7 @@ class NavbarComponent extends Component {
   handleLogout(e) {
     e.preventDefault()
     const { dispatch } = this.props
-    Parse.User.logOut()
-    dispatch(loggedOut())
+    dispatch(logout())
   }
 
   render() {

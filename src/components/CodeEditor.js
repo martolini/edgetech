@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
-import Firebase from 'firebase'
+import { firebaseRef, CODEMODES } from '../config'
 
-class CodeEditorComponent extends Component {
-  constructor(props) {
-    super(props)
-  }
+export class CodeEditor extends Component {
 
   componentDidMount() {
-    let firepadRef = new Firebase(`https://edgetech.firebaseio.com/questions/${this.props.questionId}`)
     let editor = ace.edit('firepad-container')
     editor.setTheme('ace/theme/monokai')
+    editor.$blockScrolling = Infinity;
     let session = editor.getSession()
     session.setUseWrapMode(true)
     session.setUseWorker(false)
-    session.setMode('ace/mode/javascript')
-    this.firepad = Firepad.fromACE(firepadRef, editor, {
-      defaultText: 'function getHelp() {\n  mentorPlease();\n}'
+    session.setMode(`ace/mode/${CODEMODES[this.props.category]}`)
+    this.firepad = Firepad.fromACE(firebaseRef.child(`coding/${this.props.questionId}`), editor, {
+      defaultText: 'function getHelp() {\n  mentorPlease();\n}',
+      userId: this.props.userId
     })
   }
 
@@ -26,4 +24,8 @@ class CodeEditorComponent extends Component {
   }
 }
 
-export const CodeEditor = CodeEditorComponent
+CodeEditor.PropTypes = {
+  category: React.PropTypes.string,
+  questionId: React.PropTypes.string,
+  userId: React.PropTypes.string
+}

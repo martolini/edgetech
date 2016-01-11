@@ -32,7 +32,7 @@ render((
         </Route>
         <Route path="/app" component={App}>
           <IndexRoute component={Dashboard} />
-          <Route path="/question" component={AskQuestion} />
+          <Route path="/ask" component={AskQuestion} />
           <Route path="/question/:id" component={LearningRoom} />
         </Route>
         <Route path="*" component={NoMatch} />

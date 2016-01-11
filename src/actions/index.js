@@ -1,5 +1,7 @@
 import Parse from 'parse'
 import { Question, ChatMessage } from '../models'
+import { firebaseRef } from '../config'
+import { pushPath } from 'redux-simple-router'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -9,13 +11,23 @@ export const LOGGED_OUT = 'LOGGED_OUT'
 export function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
-    user
+    user: {
+      id: user.uid,
+      email: user.password.email
+    }
   }
 }
 
 export function loggedOut() {
   return {
     type: LOGGED_OUT
+  }
+}
+
+export function logout() {
+  return dispatch => {
+    firebaseRef.unauth()
+    dispatch(loggedOut())
   }
 }
 
@@ -33,12 +45,24 @@ function loginRequest() {
 }
 
 export function login(data) {
-  const { email, password } = data;
   return dispatch => {
     dispatch(loginRequest())
-    Parse.User.logIn(email, password, {
-      success: user => dispatch(loginSuccess(user)),
-      error: (user, error) => dispatch(loginError(error.message))
+    firebaseRef.authWithPassword(data, (error, data) => {
+      if (error) {
+        dispatch(loginError(error.message))
+      } else {
+      }
+    })
+  }
+}
+
+export function loginWithFacebook(data) {
+  return dispatch => {
+    firebaseRef.authWithOAuthPopup('facebook', (error, data) => {
+      if (!!error) {
+        dispatch(loginError(error.message))
+      }
+    }, {
     })
   }
 }
@@ -46,18 +70,10 @@ export function login(data) {
 export const SIGNUP = 'SIGNUP'
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_ERROR = 'SIGNUP_ERROR'
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 
 function signupRequest() {
   return {
     type: SIGNUP_REQUEST
-  }
-}
-
-function signupSuccess(user) {
-  return {
-    type: SIGNUP_SUCCESS,
-    user
   }
 }
 
@@ -72,16 +88,15 @@ export function signup(data) {
   const { email, password } = data
   return dispatch => {
     dispatch(signupRequest())
-    let user = new Parse.User()
-    user.set('username', email)
-    user.set('email', email)
-    user.set('password', password)
-    user.signUp(null, {
-      success: user => {
-        return dispatch(signupSuccess(user));
-      },
-      error: (user, error) => {
+    firebaseRef.createUser(data, (error, user) => {
+      if (!!error) {
         dispatch(signupError(error.message))
+      } else {
+        firebaseRef.authWithPassword(data, (error, data) => {
+          if (!!error) {
+            dispatch(signupError(error.message))
+          }
+        })
       }
     })
   }
@@ -112,43 +127,27 @@ function askQuestionError(error) {
   }
 }
 
-export function askQuestion(data) {
-  const { category, title, description, user } = data
+export function askQuestion(question) {
   return dispatch => {
     dispatch(askQuestionRequest())
-    let question = new Question()
-    question.set('title', title)
-    question.set('category', category)
-    question.set('description', description)
-    question.set('author', user)
-    question.save(null, {
-      success: question => dispatch(askQuestionSuccess(question)),
-      error: (question, error) => dispatch(askQuestionError(error.message))
+    let questionRef = firebaseRef.child('questions').push()
+    question = Object.assign({}, question, { id: questionRef.key() })
+    questionRef.set(question, error => {
+      if (!!error) {
+        dispatch(askQuestionError(error.message))
+      } else {
+        dispatch(askQuestionSuccess(question))
+        dispatch(pushPath(`/question/${question.id}`))
+      }
     })
   }
 }
 
-export const QUESTIONS_REQUEST = 'QUESTIONS_REQUEST'
-export const QUESTIONS_SUCCESS = 'QUESTIONS_SUCCESS'
-export const QUESTIONS_ERROR = 'QUESTIONS_ERROR'
+export const QUESTIONS_UPDATED = 'QUESTIONS_UPDATED'
 
-export function questionsRequest() {
+export function questionsUpdated(questions) {
   return {
-    type: QUESTIONS_REQUEST,
-    loading: true
-  }
-}
-
-function questionsSuccess(question) {
-  return {
-    type: QUESTIONS_SUCCESS,
-    question
-  }
-}
-
-function questionsError(error) {
-  return {
-    type: QUESTIONS_ERROR,
-    error
+    type: QUESTIONS_UPDATED,
+    questions
   }
 }
