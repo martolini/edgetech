@@ -93,20 +93,30 @@ class LearningRoomComponent extends Component {
       return <h1>This question is closed by the author...</h1>
     }
     return (
-      <div className="container-fluid">
-        <div className="row" style={{height: '100%' }}>
-          <div className="col-xs-8">
-            <h4>Paste or type your code here so it's easier to help</h4>
-            <CodeEditor
-              questionId={ this.state.question.id }
-              category={ this.state.question.category }
-              userId={this.props.user.id}
-            />
+      <div className="container">
+        <div className="col-xs-8">
+
+          <h4>Paste or type your code here so it's easier to help</h4>
+          <VideoRoom questionId={ this.props.params.id } />
+        </div>
+        <div className="col-xs-4">
+          <h3 className="time-count">00:10</h3>
+          <br/>
+          <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
+          <div className="panel panel-default">
+            <div className="panel-heading">Your getting help from:</div>
+            <div className="panel-body">
+              Mr. Niceguy
+            </div>
           </div>
-          <div className="col-xs-4">
-            <h4>Waiting for your tutor</h4>
-            <VideoRoom questionId={ this.props.params.id } />
-          </div>
+        </div>
+
+        <div className="editor-position">
+          <CodeEditor
+            questionId={ this.state.question.id }
+            category={ this.state.question.category }
+            userId={this.props.user.id}
+          />
         </div>
       </div>
     )

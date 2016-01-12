@@ -1,3 +1,55 @@
+/*Global*/
+
 body {
   background: #e9e9e9;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*Navbar*/
+
+.navbar-inverse {
+	background-color: #272822;
+}
+
+.navbar-inverse .navbar-brand {
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: white;
+}
+
+/*Learning room*/
+
+.panel-body {
+	background-color: white;
+}
+
+.leave-room-btn {
+	width: 100%;
+}
+
+.time-count {
+	font-weight: lighter;
+	text-align: center;
+}
+
+.col-xs-8 {
+	padding-left: 0px;
+}
+
+/*Code Editor*/
+
+#firepad-container {
+	height: 100vh;
+	width: 100vh;
+
+}
+
+.editor-position {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
 }
