@@ -5,6 +5,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGGED_OUT = 'LOGGED_OUT'
+export const USER_UPDATED = 'USER_UPDATED'
 
 export function loginSuccess(user) {
   return {
@@ -54,6 +55,13 @@ export function login(data) {
   }
 }
 
+export function userUpdated(user) {
+  return {
+    type: USER_UPDATED,
+    user
+  }
+}
+
 export function loginWithFacebook(data) {
   return dispatch => {
     firebaseRef.authWithOAuthPopup('facebook', (error, data) => {
@@ -93,6 +101,11 @@ export function signup(data) {
         firebaseRef.authWithPassword(data, (error, data) => {
           if (!!error) {
             dispatch(signupError(error.message))
+          } else {
+            firebaseRef.child('users').child(data.uid).set({
+              email: email,
+              mentor: false
+            })
           }
         })
       }

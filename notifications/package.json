@@ -1,0 +1,15 @@
+{
+  "name": "edgetech-notifications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-register": "^6.3.13",
+    "firebase": "^2.3.2"
+  }
+}

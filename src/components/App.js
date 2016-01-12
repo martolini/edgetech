@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Navbar } from './Navbar'
 import { connect } from 'react-redux'
 import { firebaseRef } from '../config'
-import { loginSuccess, loggedOut, questionsUpdated } from '../actions'
+import { loginSuccess, loggedOut, questionsUpdated, userUpdated } from '../actions'
 import { pushPath } from 'redux-simple-router'
+require('../css/App.css')
 
 export class AppComponent extends Component {
 
@@ -36,6 +37,14 @@ export class AppComponent extends Component {
                 questions.push(Object.assign({}, question.val(), {id: question.key()}))
               })
               dispatch(questionsUpdated(questions))
+            }
+          })
+        firebaseRef
+          .child('users')
+          .child(data.uid)
+          .on('value', snapshot => {
+            if (snapshot.exists()) {
+              dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key() })))
             }
           })
       }

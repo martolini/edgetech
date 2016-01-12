@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGGED_OUT,
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGGED_OUT, USER_UPDATED,
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_ERROR,
   ASK_QUESTION_REQUEST, ASK_QUESTION_SUCCESS, ASK_QUESTION_ERROR,
   QUESTIONS_UPDATED,
@@ -48,6 +48,8 @@ function auth(state = {
         loading: false,
         error: null
       }
+    case USER_UPDATED:
+      return Object.assign({}, state, { user: action.user })
     default:
       return state
   }
