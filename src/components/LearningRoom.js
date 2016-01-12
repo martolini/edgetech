@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 
 
-class LearningRoomComponent extends Component {
 
+class LearningRoomComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -93,38 +93,32 @@ class LearningRoomComponent extends Component {
       return <h1>This question is closed by the author...</h1>
     }
     return (
-      <div className="container">
-        <br/>
-        <br/>
-        <div className="col-xs-8">
-          <VideoRoom questionId={ this.props.params.id } />
-        </div>
-        <div className="col-xs-4">
-          <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
-          <h3 className="time-count">00:10</h3>
-          <br/>
-          <div className="panel panel-default">
-            <div className="panel-heading">
-              Question:
-            </div>
-            <div className="panel-body">
-              <h5>{ this.state.question.title }</h5>
-              { this.state.question.description }
-            </div>
-          </div>
-          <div className="panel panel-default">
-            <div className="panel-heading">Connected with: <a>Martin Skow</a></div>
-          </div>
-        </div>
-
-        <div className="editor-position">
+      <div className="container-fluid">
+        <div className="learningroom-padding-top"></div>
+        <div className="editor-position col-xs-8">
           <CodeEditor
             questionId={ this.state.question.id }
             category={ this.state.question.category }
             userId={this.props.user.id}
           />
         </div>
-        
+        <div className="video-position col-xs-4">
+          <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              Connected with: <a>Martin Skow</a>
+              <div className="time-count">00:10</div>
+            </div>
+          </div>
+          <VideoRoom questionId={ this.props.params.id } />
+          
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              Question: <h5>{ this.state.question.title }</h5>
+            </div>
+          </div>
+        </div>
+
       </div>
     )
   }
