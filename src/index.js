@@ -14,9 +14,6 @@ import createHistory from 'history/lib/createBrowserHistory'
 import { syncReduxAndRouter } from 'redux-simple-router'
 import { Provider } from 'react-redux'
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
-import Parse from 'parse'
-
-Parse.initialize("oPNuENwQtcw2ZRB7Z8197Q8IFZNmGVdmGBfVxkl4", "JdduHMvuKGaxr46csy5IjaPkncSfKwAyV9IWNEio")
 
 const history = createHistory()
 

@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { firebaseRef, CODEMODES } from '../config'
+import { firebaseRef, CODEMODES, SNIPPETS } from '../config'
 
 export class CodeEditor extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return JSON.stringify(this.props) !== JSON.stringify(nextProps)
+  }
 
   componentDidMount() {
     let editor = ace.edit('firepad-container')
@@ -12,7 +16,7 @@ export class CodeEditor extends Component {
     session.setUseWorker(false)
     session.setMode(`ace/mode/${CODEMODES[this.props.category]}`)
     this.firepad = Firepad.fromACE(firebaseRef.child(`coding/${this.props.questionId}`), editor, {
-      defaultText: 'function getHelp() {\n  mentorPlease();\n}',
+      defaultText: SNIPPETS[this.props.category],
       userId: this.props.userId
     })
   }

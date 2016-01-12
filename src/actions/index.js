@@ -1,5 +1,3 @@
-import Parse from 'parse'
-import { Question, ChatMessage } from '../models'
 import { firebaseRef } from '../config'
 import { pushPath } from 'redux-simple-router'
 

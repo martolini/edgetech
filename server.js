@@ -20,10 +20,6 @@ if (process.env.NODE_ENV !== 'production') {
   app.use('/static', express.static(path.join(__dirname, 'public/static')))
 }
 
-app.get('/firepad', (req, res) => {
-  res.sendFile(path.join(__dirname, 'firepad.html'))
-})
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'landing.html'))
 })
@@ -38,5 +34,5 @@ app.listen(process.env.port, function(err) {
     return;
   }
 
-  console.log('Listening at http://localhost:%s', process.env.port);
+  console.log(`Listening to port ${process.env.port}`)
 });
