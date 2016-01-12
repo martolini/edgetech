@@ -94,20 +94,26 @@ class LearningRoomComponent extends Component {
     }
     return (
       <div className="container">
+        <br/>
+        <br/>
         <div className="col-xs-8">
-
-          <h4>Paste or type your code here so it's easier to help</h4>
           <VideoRoom questionId={ this.props.params.id } />
         </div>
         <div className="col-xs-4">
+          <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
           <h3 className="time-count">00:10</h3>
           <br/>
-          <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
           <div className="panel panel-default">
-            <div className="panel-heading">Your getting help from:</div>
-            <div className="panel-body">
-              Mr. Niceguy
+            <div className="panel-heading">
+              Question:
             </div>
+            <div className="panel-body">
+              <h5>{ this.state.question.title }</h5>
+              { this.state.question.description }
+            </div>
+          </div>
+          <div className="panel panel-default">
+            <div className="panel-heading">Connected with: <a>Martin Skow</a></div>
           </div>
         </div>
 
@@ -118,6 +124,7 @@ class LearningRoomComponent extends Component {
             userId={this.props.user.id}
           />
         </div>
+        
       </div>
     )
   }
