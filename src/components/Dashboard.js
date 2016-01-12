@@ -6,6 +6,7 @@ class DashboardComponent extends Component {
   render() {
     return (
       <div className="container">
+        <div className="learningroom-padding-top"></div>
         <div className="row">
           <div className="col-xs-8">
             <div className="panel panel-success">

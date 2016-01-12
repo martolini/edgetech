@@ -111,7 +111,6 @@ class LearningRoomComponent extends Component {
             </div>
           </div>
           <VideoRoom questionId={ this.props.params.id } />
-          
           <div className="panel panel-default">
             <div className="panel-heading">
               Question: <h5>{ this.state.question.title }</h5>
