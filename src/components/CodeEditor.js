@@ -19,7 +19,7 @@ export class CodeEditor extends Component {
 
   render() {
     return (
-      <div id="firepad-container" style={{ height: '800px', width: 'auto' }}/>
+      <div id="firepad-container" style={{ height: '500px', width: 'auto' }}/>
     )
   }
 }

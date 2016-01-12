@@ -22,6 +22,15 @@ const history = createHistory()
 
 syncReduxAndRouter(history, store)
 
+let debugPanel = null
+if (process.env.NODE_ENV !== 'production') {
+  debugPanel = (
+    <DebugPanel top right bottom>
+      <DevTools store={store} monitor={LogMonitor} />
+    </DebugPanel>
+  )
+}
+
 render((
   <Provider store={store}>
     <div>
@@ -37,9 +46,7 @@ render((
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>
-      <DebugPanel top right bottom>
-        <DevTools store={store} monitor={LogMonitor} />
-      </DebugPanel>
+      { debugPanel }
     </div>
   </Provider>
 ), document.getElementById('root'))

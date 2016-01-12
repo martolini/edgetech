@@ -2,11 +2,12 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
-require('dotenv').load()
+import dotenv from 'dotenv'
+dotenv.load()
 
 var app = express();
 
-if (process.env.NODE_ENVIRONMENT !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   var compiler = webpack(config);
 
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -15,6 +16,8 @@ if (process.env.NODE_ENVIRONMENT !== 'production') {
   }))
 
   app.use(require('webpack-hot-middleware')(compiler))
+} else {
+  app.use('/static', express.static(path.join(__dirname, 'public/static')))
 }
 
 app.get('/firepad', (req, res) => {
@@ -26,7 +29,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
 app.listen(process.env.port, function(err) {

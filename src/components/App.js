@@ -51,9 +51,7 @@ export class AppComponent extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container">
-          { React.cloneElement(this.props.children, {user: this.props.auth.user}) }
-        </div>
+        { React.cloneElement(this.props.children, {user: this.props.auth.user}) }
       </div>
     )
   }
