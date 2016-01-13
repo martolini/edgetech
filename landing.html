@@ -4,11 +4,147 @@
     <title>Edgetech</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <style>
+      .container-fluid {
+        padding: 0px;
+      }
+      .top-section {
+        width: 100%;
+        padding: 10px;
+        padding-bottom: 50px;
+      }      
+      .landing-section {
+        width: 100%;
+        height: 600px;
+        padding-top: 30px;
+      }
+      .landing-screenshot {
+        width: 100vh;
+        box-shadow: 10px 10px 25px rgba(0,0,0,0.5);
+      }
+      .first-step-screenshot {
+        width: 350px;
+        position: relative;
+        top: -10px;
+      } 
+      .second-step-screenshot {
+        width: 300px;
+      }      
+      .third-step-screenshot {
+        width: 350px;
+      }
+      .center-text {
+        text-align: center;
+      }
+      .DARK {
+        background-color: #333;
+      }
+      .LIGHT {
+        background-color: #EEE;
+      }
+      .GREEN {
+        background-color: #4CAF50;
+      }
+      .WHITE-TEXT {
+        color: white;
+      }      
+      .DARK-TEXT {
+        color: #333;
+      }      
+      .GREEN-TEXT{
+        color: #4CAF50;
+      }
+      .LIGHT-FONT {
+        font-weight: lighter;
+      }
+      .navlinks {
+        width: 100%;
+        padding-right: 20px;
+      }      
+      .navlinks ul li a{
+        color: #4CAF50;
+        width: 100%;
+      }
+      .circle {
+
+        border-radius: 50px;
+        width: 350px;
+        height: 150px;
+        margin: auto;
+        background-color: #272822;
+        overflow: hidden;
+        box-shadow: 10px 10px 25px rgba(0,0,0,0.5);
+      }
+      .circle a {
+        top: -115px;
+        position: relative;
+      } 
+      .logo {
+        width: 400px;
+      }
+      .ask-button {
+        margin: auto;
+        width: 300px;
+        height: 150px;
+        background-color: #4CAF50;
+        text-align: center;
+        border-radius: 10px;
+      }
+      .ask-button h3 {
+        position: relative;
+        top: 50px;
+      }
+    </style>
+
   </head>
   <body>
-    <div class="container">
-      <a href="/login">Log in</a>
-      <a href="/signup">Sign up</a>
+    <div class="container-fluid">
+    <div class="navlinks pull-right">
+      <ul class="list-inline pull-right">
+        <li>
+          <a href="/login" ><h5>Log in</h5></a>
+        </li>
+        <li>
+          <a href="/signup"><h5>Sign up</h5></a>
+        </li>
+      </ul>
+    </div>
+    <div class="top-section LIGHT center-text">
+      <img class="logo" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/blurblarp.svg">
+      <h3 class="">En enklere måte å få hjelp med fag</h3>
+        <div class="row">
+          <div class="col-md-4 center-text">
+              <h5 class="">1. Lag en bruker</h5>
+            <div class="circle">
+              <img class="first-step-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/screenshot3.png">
+              <a href="#" class="btn btn-success btn-lg">Sign Up!</a>            
+            </div>
+          </div>
+          <div class="col-md-4 center-text">
+              <h5 class="">2. Spør om noe du lurer på</h5>
+            <div class="circle">
+              <img class="second-step-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/landing-screen.png">
+            </div>
+          </div>
+          <div class="col-md-4 center-text">
+              <h5 class="">3. Få hjelp av studass innen sekunder</h5>
+            <div class="circle">
+              <img class="third-step-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/screenshot2.png">
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <section class="landing-section center-text GREEN">
+        <h4 class="WHITE-TEXT LIGHT-FONT"><i>“Bli en ninjakoder på nullkommaniks med on-demand programmeringshjelp fra Blurblarp”</i></h4>
+        <br/>
+        <img class="landing-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/screenshot1.png">
+      </section>      
+      <section class="landing-section DARK ">
+        <div class="ask-button">
+          <h3 class="WHITE-TEXT">Spør nå!</h3>
+        </div>
+      </section>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
