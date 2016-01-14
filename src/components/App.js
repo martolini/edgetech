@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Navbar } from './Navbar'
+
 import { connect } from 'react-redux'
 import { firebaseRef } from '../config'
 import { loginSuccess, loggedOut, questionsUpdated, userUpdated } from '../actions'
 import { pushPath } from 'redux-simple-router'
 require('../css/App.css')
+require('../css/Learningroom.css')
 
 export class AppComponent extends Component {
 
@@ -59,7 +60,7 @@ export class AppComponent extends Component {
     }
     return (
       <div>
-        <Navbar />
+        
         { React.cloneElement(this.props.children, {user: this.props.auth.user}) }
       </div>
     )

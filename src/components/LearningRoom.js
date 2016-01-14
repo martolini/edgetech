@@ -4,6 +4,7 @@ import { VideoRoom } from './VideoRoom'
 import { firebaseRef } from '../config'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
+import { Navbar } from './LearningRoomNavbar'
 
 
 
@@ -93,7 +94,8 @@ class LearningRoomComponent extends Component {
       return <h1>This question is closed by the author...</h1>
     }
     return (
-      <div className="container-fluid">
+      <div className="container-fluid learningroom-container">
+        <Navbar />
         <div className="learningroom-padding-top"></div>
         <div className="editor-position col-xs-8">
           <CodeEditor
@@ -105,13 +107,13 @@ class LearningRoomComponent extends Component {
         <div className="video-position col-xs-4">
           <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
           <div className="panel panel-default">
-            <div className="panel-heading">
+            <div className="panel-heading learningroom-panel-heading">
               Connected with: <a>Martin Skow</a>
               <div className="time-count">00:10</div>
             </div>
           </div>
           <VideoRoom questionId={ this.props.params.id } />
-          <div className="panel panel-default">
+          <div className="panel panel-default learningroom-panel">
             <div className="panel-heading">
               Question: <h5>{ this.state.question.title }</h5>
             </div>

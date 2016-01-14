@@ -1,21 +1,7 @@
 /*Global*/
 
 body {
-  background: #272822;
-  padding: 0px;
-  margin: 0px;
-}
-
-h3 {
-	color: white;
-}
-
-label {
-	color: white;
-}
-
-.form-control {
-	color: #4CAF50;
+  background: #EEE;
 }
 
 /*Navbar*/
@@ -38,52 +24,6 @@ label {
 	border-bottom-style: solid;
 	border-color: grey;
 
-}
-
-/*Learning room*/
-
-.learningroom-padding-top {
-	width: 100vh;
-	height: 80px;
-	background-color: #272822;
-}
-
-.panel {
-    margin-bottom: 0px;
-}
-
-.panel-body {
-	background-color: #333333;
-	color: white;
-}
-.panel-heading h5{
-	color: white;
-}
-
-.panel-default>.panel-heading {
-	background-color: #333333;
-	color: white;
-}
-
-.leave-room-btn {
-	width: 100%;
-	margin-bottom: 10px;
-}
-
-.time-count {
-	float: right;
-}
-
-.col-xs-8 {
-	padding-left: 0px;
-}
-
-.video-position {
-	position: fixed;
-	right: 0;
-/*	z-index: 999;
-	top: 65px;
-	width: 500px;*/
 }
 
 /*Code Editor*/

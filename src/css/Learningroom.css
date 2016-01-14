@@ -1,0 +1,46 @@
+
+.learningroom-container {
+	background-color: #272822;
+}
+
+.learningroom-container .col-xs-8 {
+	padding-left: 0px;
+}
+
+.learningroom-padding-top {
+	width: 100vh;
+	height: 80px;
+	background-color: #272822;
+}
+
+.video-position {
+	position: fixed;
+	right: 0;
+}
+
+.video-position .panel{
+    margin-bottom: 0px;
+}
+
+.video-position .panel-heading h5{
+	color: white;
+	border-top-right-radius: 2px;
+	border-top-left-radius: 2px;
+}
+
+.video-position .panel-default>.panel-heading {
+	background-color: #333333;
+	color: white;
+}
+
+.leave-room-btn {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.time-count {
+	float: right;
+}
+
+
+

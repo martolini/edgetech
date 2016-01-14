@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 import { askQuestion } from '../actions'
+import { Navbar } from './Navbar'
 
 class AskQuestionComponent extends Component {
   constructor(props) {
@@ -25,8 +26,9 @@ class AskQuestionComponent extends Component {
   render() {
     let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
     return (
-      <div className="container">
-        <div className="learningroom-padding-top"></div>
+      <div>
+        <Navbar />
+        <div className="container">
           <br/>
           <br/>
           <div className="col-md-6 col-md-offset-3">
@@ -51,6 +53,7 @@ class AskQuestionComponent extends Component {
               </button>
             </div>
           </div>
+        </div>
       </div>
     )
   }
