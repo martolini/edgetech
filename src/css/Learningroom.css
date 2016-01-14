@@ -1,0 +1,59 @@
+
+.learningroom-container {
+	background-color: #272822;
+	height: calc(100vh - 65px);
+}
+
+.learningroom-container .col-xs-8 {
+	padding-left: 0px;
+}
+
+.video-position {
+	position: fixed;
+	right: 0;
+	padding-top: 20px;
+}
+
+.video-position .panel{
+    margin-bottom: 0px;
+}
+
+.video-position .panel-heading {
+	color: white;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+.video-position .panel-heading h5{
+	color: white;
+}
+
+.video-position .panel-default>.panel-heading {
+	background-color: #333333;
+	color: white;
+}
+
+.leave-room-btn {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.time-count {
+	float: right;
+}
+
+/*Code Editor*/
+
+#firepad-container {
+	height: calc(100vh - 80px);
+	width: 100%;
+
+}
+
+/*Video Room*/
+
+.video-room {
+	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+	box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+

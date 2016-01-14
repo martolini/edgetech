@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Navbar } from './Navbar'
 import { connect } from 'react-redux'
 import { firebaseRef } from '../config'
-import { loginSuccess, loggedOut, questionsUpdated, userUpdated } from '../actions'
+import { loginSuccess, loggedOut, questionsUpdated, userUpdated, logout } from '../actions'
 import { pushPath } from 'redux-simple-router'
 require('../css/App.css')
+require('../css/Learningroom.css')
 
 export class AppComponent extends Component {
 
@@ -25,7 +26,6 @@ export class AppComponent extends Component {
     const { dispatch } = this.props
     if (data) {
       if (!this.props.auth.user) {
-        dispatch(loginSuccess(data))
         firebaseRef
           .child('questions')
           .orderByChild('author')
@@ -45,6 +45,9 @@ export class AppComponent extends Component {
           .on('value', snapshot => {
             if (snapshot.exists()) {
               dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key() })))
+            } else {
+              dispatch(logout())
+              dispatch(pushPath('/login'))
             }
           })
       }
@@ -54,12 +57,12 @@ export class AppComponent extends Component {
   }
 
   render() {
-    if (this.props.auth.loading) {
+    if (this.props.auth.loading || !this.props.auth.user) {
       return <i className="fa fa-fw fa-spinner fa-spin"></i>
     }
     return (
       <div>
-        <Navbar />
+        { this.props.routing.path.indexOf('question/') === -1 ? <Navbar /> : null }
         { React.cloneElement(this.props.children, {user: this.props.auth.user}) }
       </div>
     )

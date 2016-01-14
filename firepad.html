@@ -37,8 +37,10 @@
       // TODO: Replace above line with:
       // var firepadRef = new Firebase('<YOUR FIREBASE URL>');
       //// Create ACE
+
       var editor = ace.edit("firepad-container");
       editor.setTheme("ace/theme/monokai");
+      
       var session = editor.getSession();
       session.setUseWrapMode(true);
       session.setUseWorker(false);
@@ -49,6 +51,7 @@
       });
     }
     window.onload = init;
+
   </script>
 </body>
 </html>

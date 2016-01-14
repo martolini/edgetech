@@ -11,6 +11,7 @@ export class CodeEditor extends Component {
     let editor = ace.edit('firepad-container')
     editor.setTheme('ace/theme/monokai')
     editor.$blockScrolling = Infinity;
+    editor.setShowPrintMargin(false)
     let session = editor.getSession()
     session.setUseWrapMode(true)
     session.setUseWorker(false)
@@ -23,7 +24,7 @@ export class CodeEditor extends Component {
 
   render() {
     return (
-      <div id="firepad-container" style={{ height: '500px', width: 'auto' }}/>
+      <div id="firepad-container"/>
     )
   }
 }
