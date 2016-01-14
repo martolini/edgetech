@@ -64,7 +64,7 @@ class LearningRoomComponent extends Component {
               })
             }
           } else {
-            this.questionRef.set(Object.assign({}, question, {tutor: { this.props.user.id }}))
+            this.questionRef.set(Object.assign({}, question, {tutor: this.props.user.id }))
           }
         }
         this.setState({
