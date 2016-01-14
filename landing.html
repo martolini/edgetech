@@ -15,12 +15,13 @@
       }      
       .landing-section {
         width: 100%;
-        height: 600px;
         padding-top: 30px;
+        padding-bottom: 50px;
       }
       .landing-screenshot {
-        width: 100vh;
-        box-shadow: 10px 10px 25px rgba(0,0,0,0.5);
+        width: 60%;
+        box-shadow: 5px 5px 30px rgba(0,0,0,0.5);
+
       }
       .first-step-screenshot {
         width: 350px;
@@ -81,18 +82,13 @@
       } 
       .logo {
         width: 400px;
+        padding-bottom: 30px;
       }
-      .ask-button {
-        margin: auto;
-        width: 300px;
-        height: 150px;
-        background-color: #4CAF50;
-        text-align: center;
-        border-radius: 10px;
-      }
-      .ask-button h3 {
-        position: relative;
-        top: 50px;
+      .green-section-button {
+        border-style: solid;
+        border-width: 1px;
+        box-shadow: none;
+        margin-bottom: 10px;
       }
     </style>
 
@@ -111,13 +107,14 @@
     </div>
     <div class="top-section LIGHT center-text">
       <img class="logo" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/blurblarp.svg">
-      <h3 class="">En enklere måte å få hjelp med fag</h3>
+      <h3 class="LIGHT-FONT">Den raskeste måten å bli best i programmeringsfag</h3>
+      <br/>
         <div class="row">
           <div class="col-md-4 center-text">
               <h5 class="">1. Lag en bruker</h5>
             <div class="circle">
               <img class="first-step-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/screenshot3.png">
-              <a href="#" class="btn btn-success btn-lg">Sign Up!</a>            
+              <a href="/signup" class="btn btn-success btn-lg">Sign Up!</a>            
             </div>
           </div>
           <div class="col-md-4 center-text">
@@ -136,14 +133,31 @@
         </div>
       </div>
       <section class="landing-section center-text GREEN">
+        <h4 class="WHITE-TEXT LIGHT-FONT">Vi er på NTNU. Hva trenger du hjelp med?</h4>
+        <br/>
+        <div class="row">
+          <div class="col-md-6 center-text">
+            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
+              TDT4100 - Objektorientert programmering (Java)
+            </a>
+            
+          </div>
+          <div class="col-md-6 center-text">
+            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
+              TDT4102 - Prosedyre- og objektorientert programmering (C++)
+            </a>
+            
+          </div>
+        </div>
+      </section>
+      <section class="landing-section center-text DARK">
         <h4 class="WHITE-TEXT LIGHT-FONT"><i>“Bli en ninjakoder på nullkommaniks med on-demand programmeringshjelp fra Blurblarp”</i></h4>
         <br/>
         <img class="landing-screenshot" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/screenshot1.png">
       </section>      
-      <section class="landing-section DARK ">
-        <div class="ask-button">
-          <h3 class="WHITE-TEXT">Spør nå!</h3>
-        </div>
+      <section class="landing-section GREEN ">
+        <br/>
+        <h4 class="WHITE-TEXT center-text">Ønsker du å lære bort? Ta <a href="mailto:hellenes.91@gmail.com" class="btn btn-success btn-lg WHITE-TEXT green-section-button">kontakt</a> da vel!</h4>
       </section>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

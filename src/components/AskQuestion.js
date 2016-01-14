@@ -16,7 +16,7 @@ class AskQuestionComponent extends Component {
     let question = {
       title: this.title.value.trim(),
       category: this.category.value,
-      description: this.description.value.trim(),
+//      description: this.description.value.trim(),
       author: this.props.user.id
     }
     dispatch(askQuestion(question))
