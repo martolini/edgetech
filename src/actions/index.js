@@ -58,7 +58,8 @@ export function login(data) {
 export function userUpdated(user) {
   return {
     type: USER_UPDATED,
-    user
+    user,
+    loading: false
   }
 }
 

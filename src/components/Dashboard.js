@@ -6,7 +6,6 @@ class DashboardComponent extends Component {
   render() {
     return (
       <div className="container">
-        <div className="learningroom-padding-top"></div>
         <div className="row">
           <div className="col-xs-8">
             <div className="panel panel-success">
@@ -29,7 +28,7 @@ class DashboardComponent extends Component {
               <div className="panel-body">
                 <ul className="list-group">
                   { this.props.questions.map(question => {
-                    return <li className="list-group-item" key={question.id}>{ question.title }</li>
+                    return <li className="list-group-item" key={question.id}>{ question.text }</li>
                   })}
                 </ul>
               </div>

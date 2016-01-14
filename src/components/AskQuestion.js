@@ -14,9 +14,8 @@ class AskQuestionComponent extends Component {
     e.preventDefault()
     const { dispatch } = this.props
     let question = {
-      title: this.title.value.trim(),
+      text: this.text.value.trim(),
       category: this.category.value,
-      description: this.description.value.trim(),
       author: this.props.user.id
     }
     dispatch(askQuestion(question))
@@ -38,10 +37,10 @@ class AskQuestionComponent extends Component {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="title">Problem</label>
-              <input type="text" className="form-control" id="title"
+              <label htmlFor="text">Problem</label>
+              <input type="text" className="form-control" id="text"
                 placeholder="What is the difference between private and public functions?"
-                ref={ref => this.title = ref}/>
+                ref={ref => this.text = ref}/>
             </div>
             <br/>
             <div className="button-group">

@@ -33,19 +33,15 @@ label {
 }
 
 .navbar {
-	margin-bottom: 0px;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-color: grey;
-
 }
 
 /*Learning room*/
 
-.learningroom-padding-top {
-	width: 100vh;
-	height: 80px;
-	background-color: #272822;
+.learningroom-container {
+	height: calc(100vh - 65px);
 }
 
 .panel {
@@ -81,6 +77,7 @@ label {
 .video-position {
 	position: fixed;
 	right: 0;
+	padding-top: 20px;
 /*	z-index: 999;
 	top: 65px;
 	width: 500px;*/
@@ -89,7 +86,7 @@ label {
 /*Code Editor*/
 
 #firepad-container {
-	height: 100vh;
+	height: calc(100vh - 80px);
 	width: 100%;
 
 }
@@ -98,7 +95,7 @@ label {
 /*	position: absolute;
 	left: 0;
 	right: 50;*/
-	
+
 }
 
 /*Video Room*/

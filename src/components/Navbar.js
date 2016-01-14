@@ -13,8 +13,8 @@ class NavbarComponent extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top">
-        <div className="container-fluid">
+      <nav className="navbar navbar-inverse">
+        <div className="container">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
               <span className="sr-only">Toggle navigation</span>
@@ -22,17 +22,17 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link to='/app' className="navbar-brand"><b>Edgetech</b></Link>
+            <Link to='/app' className="navbar-brand"><b>edgetech</b></Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a href="#" onClick={this.handleLogout.bind(this)}>{ this.props.user.email }</a>
-              </li>               
+                <a href="#">{ this.props.user.email }</a>
+              </li>
               <li>
-                <a href="#" onClick={this.handleLogout.bind(this)}>87,-</a>
-              </li>              
+                <a href="#">87,-</a>
+              </li>
               <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
               </li>
