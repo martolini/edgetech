@@ -19,35 +19,7 @@ body {
 }
 
 .navbar {
-	margin-bottom: 0px;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-color: grey;
-
 }
-
-/*Code Editor*/
-
-#firepad-container {
-	height: 100vh;
-	width: 100%;
-
-}
-
-.editor-position {
-/*	position: absolute;
-	left: 0;
-	right: 50;*/
-	
-}
-
-/*Video Room*/
-
-.video-room {
-	-webkit-box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-	box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-
-
-

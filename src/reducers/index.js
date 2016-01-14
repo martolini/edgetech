@@ -49,7 +49,7 @@ function auth(state = {
         error: null
       }
     case USER_UPDATED:
-      return Object.assign({}, state, { user: action.user })
+      return Object.assign({}, state, { user: action.user, loading: action.loading })
     default:
       return state
   }
