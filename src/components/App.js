@@ -47,12 +47,13 @@ export class AppComponent extends Component {
               dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key() })))
             } else {
               dispatch(logout())
-              dispatch(pushPath('/login'))
+              dispatch(pushPath('/'))
             }
           })
       }
     } else {
-      dispatch(pushPath('/login'))
+      // dispatch(pushPath('/login'))
+      document.location = '/'
     }
   }
 
