@@ -105,8 +105,8 @@ class LearningRoomComponent extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link to="/app" className="navbar-brand">
-                <img className="navbar-logo" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/blurblarp.svg"></img>
+              <Link to="/app" className="navbar-brand logo-font">
+                Blurblarp
               </Link>
             </div>
 

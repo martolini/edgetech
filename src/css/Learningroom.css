@@ -79,3 +79,19 @@
 .WHITE-TEXT {
 	color: white;
 }
+
+/*WaitForVideo*/
+
+.waiting-room {
+	background-color: #333;
+}
+
+.waiting-room h3{
+	color: #EEE;
+}
+
+.waiting-room i{
+	color: #EEE;
+}
+
+
