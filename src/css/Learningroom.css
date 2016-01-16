@@ -1,7 +1,11 @@
-
 .learningroom-container {
 	background-color: #272822;
 	height: calc(100vh - 65px);
+}
+
+.learningroom-container div ul {
+	margin-bottom: 0px;
+	margin-top: 20px;
 }
 
 .learningroom-container .col-xs-8 {
@@ -11,7 +15,7 @@
 .video-position {
 	position: fixed;
 	right: 0;
-	padding-top: 20px;
+	padding-top: 15px;
 }
 
 .video-position .panel{
@@ -35,19 +39,34 @@
 
 .leave-room-btn {
 	width: 100%;
-	margin-bottom: 10px;
+	border-radius: 0px;
 }
 
 .time-count {
 	float: right;
 }
 
+.navbar-logo {
+	width: 150px;
+	position: relative;
+	top: -5px;
+}
+
+/*Counter*/
+
+.counter {
+	padding-bottom: 0px !important;
+	padding-top: 7px !important;
+}
+
 /*Code Editor*/
 
 #firepad-container {
-	height: calc(100vh - 80px);
+	height: calc(100vh - 140px);
 	width: 100%;
-
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: grey;
 }
 
 /*Video Room*/
@@ -57,3 +76,6 @@
 	box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+.WHITE-TEXT {
+	color: white;
+}

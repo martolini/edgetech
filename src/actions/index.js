@@ -105,7 +105,8 @@ export function signup(data) {
           } else {
             firebaseRef.child('users').child(data.uid).set({
               email: email,
-              mentor: false
+              tutor: false,
+              username: email.substr(0, email.indexOf('@'))
             })
           }
         })
@@ -143,7 +144,12 @@ export function askQuestion(question) {
   return dispatch => {
     dispatch(askQuestionRequest())
     let questionRef = firebaseRef.child('questions').push()
-    question = Object.assign({}, question, { id: questionRef.key() })
+    question = Object.assign({}, question, {
+      id: questionRef.key(),
+      counter: 0,
+      tutor: false,
+      connected: false
+    })
     questionRef.set(question, error => {
       if (!!error) {
         dispatch(askQuestionError(error.message))
