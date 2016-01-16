@@ -17,25 +17,25 @@ class LearningRoomComponent extends Component {
       error: null,
       question: null
     }
-    this.onQuestionChange = this.onQuestionChange.bind(this)
+
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
     this.questionRef.child(`connected/${this.props.user.id}`).onDisconnect().remove()
   }
 
-  onQuestionChange(question) {
-    this.setState({
-      question: Object.assign({}, this.state.question, {
-        [ question.key() ]: question.val()
-      })
-    })
-  }
-
   componentWillUnmount() {
-    this.questionRef.off('child_changed', this.onQuestionChange)
   }
 
   componentDidMount() {
-    this.questionRef.on('child_changed', this.onQuestionChange)
+    this.questionRef.on('child_added', snapshot => {
+      this.setState({
+        question: Object.assign({}, this.state.question, { [snapshot.key()] : snapshot.val()})
+      })
+    })
+    this.questionRef.on('child_changed', snapshot => {
+      this.setState({
+        question: Object.assign({}, this.state.question, { [snapshot.key()]: snapshot.val()})
+      })
+    })
     this.questionRef.once('value', snapshot => {
       if (!snapshot.exists()) {
         this.setState({
@@ -53,10 +53,10 @@ class LearningRoomComponent extends Component {
               })
             }
           } else {
-            this.questionRef.child('tutor').update({
+            setTimeout(() => this.questionRef.child('tutor').set({
               id: this.props.user.id,
               username: this.props.user.username
-            })
+            }), 100)
           }
         }
         this.setState({

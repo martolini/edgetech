@@ -9,7 +9,7 @@ export class Counter extends Component {
       active: this.props.isTutor
     };
 
-    this.firebaseRef = firebaseRef.child(`questions/${this.props.questionId}/counter`)
+    this.firebaseRef = firebaseRef.child(`sessioncounters/${this.props.questionId}/counter`)
 
     this.pauseCounter = this.pauseCounter.bind(this)
     this.interval = setInterval(() => this.tick(), 1000);
