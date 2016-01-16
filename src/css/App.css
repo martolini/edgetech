@@ -4,6 +4,11 @@ body {
   background: #EEE;
 }
 
+.logo-font {
+	font-family: 'Lobster', cursive;
+	color: #4caf50 !important;
+}
+
 /*Navbar*/
 
 .navbar-inverse {

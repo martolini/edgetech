@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { CodeEditor } from './CodeEditor'
 import { VideoRoom } from './VideoRoom'
+import { Counter } from './Counter'
+import { WaitForVideo } from './WaitForVideo'
 import { firebaseRef } from '../config'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
-
-
+import { Link } from 'react-router'
+require('../css/Learningroom.css')
 
 class LearningRoomComponent extends Component {
   constructor(props) {
@@ -15,38 +17,25 @@ class LearningRoomComponent extends Component {
       error: null,
       question: null
     }
-    this.leaveRoom = this.leaveRoom.bind(this)
-    this.onQuestionChange = this.onQuestionChange.bind(this)
-    this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
-  }
 
-  onQuestionChange(question) {
-    this.setState({
-      question: question.val()
-    })
+    this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
+    this.questionRef.child(`connected/${this.props.user.id}`).onDisconnect().remove()
   }
 
   componentWillUnmount() {
-    this.questionRef.off('value', this.onQuestionChange)
-  }
-
-  leaveRoom(e) {
-    e.preventDefault()
-    if (this.state.question.author === this.props.user.id) {
-      this.questionRef.set(Object.assign({}, this.state.question, { closed: true }))
-    } else {
-      this.questionRef.set(Object.assign({}, this.state.question, { tutor: null }))
-    }
-    const { dispatch } = this.props
-    dispatch(pushPath('/app'))
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState !== this.state
   }
 
   componentDidMount() {
-    this.questionRef.on('value', this.onQuestionChange)
+    this.questionRef.on('child_added', snapshot => {
+      this.setState({
+        question: Object.assign({}, this.state.question, { [snapshot.key()] : snapshot.val()})
+      })
+    })
+    this.questionRef.on('child_changed', snapshot => {
+      this.setState({
+        question: Object.assign({}, this.state.question, { [snapshot.key()]: snapshot.val()})
+      })
+    })
     this.questionRef.once('value', snapshot => {
       if (!snapshot.exists()) {
         this.setState({
@@ -55,23 +44,27 @@ class LearningRoomComponent extends Component {
         })
       } else {
         let question = snapshot.val()
-        if (question.author !== this.props.user.id) {
-          if (!!question.tutor) {
-            if (question.tutor !== this.props.user.id) {
+        if (question.author.id !== this.props.user.id) {
+          if (question.tutor !== false) {
+            if (question.tutor.id !== this.props.user.id) {
               return this.setState({
                 loading: false,
                 error: 'Someone else is tutoring this...'
               })
             }
           } else {
-            this.questionRef.set(Object.assign({}, question, {tutor: this.props.user.id }))
+            setTimeout(() => this.questionRef.child('tutor').set({
+              id: this.props.user.id,
+              username: this.props.user.username
+            }), 100)
           }
         }
         this.setState({
-          question: question,
+          question: Object.assign({}, question, { connected: {}}),
           loading: false,
           error: null
         })
+        setTimeout(() => this.questionRef.child(`connected/${this.props.user.id}`).set(true), 100)
       }
     })
   }
@@ -92,6 +85,14 @@ class LearningRoomComponent extends Component {
     } else if (this.state.question.closed === true) {
       return <h1>This question is closed by the author...</h1>
     }
+    let connectedWith = this.state.question.author.username
+    if (this.state.question.author.id === this.props.user.id) {
+      if (this.state.question.tutor === false) {
+        connectedWith = 'No one'
+      } else {
+        connectedWith = this.state.question.tutor.username
+      }
+    }
     return (
 
       <div>
@@ -104,7 +105,9 @@ class LearningRoomComponent extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a href="/app" className="navbar-brand">edgetech</a>
+              <Link to="/app" className="navbar-brand logo-font">
+                Blurblarp
+              </Link>
             </div>
 
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -113,7 +116,15 @@ class LearningRoomComponent extends Component {
                   <a href="#" >{ this.props.user.email }</a>
                 </li>
                 <li>
-                  <a href="#" >87,-</a>
+                  <a href="#" >Connected with: { connectedWith }</a>
+                </li>
+                <li>
+                  <a className="counter">
+                    <Counter questionId={this.state.question.id} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
                 </li>
               </ul>
             </div>
@@ -121,6 +132,15 @@ class LearningRoomComponent extends Component {
         </nav>
         <div className="container-fluid learningroom-container">
           <div className="col-xs-8">
+            <ul className="list-inline">
+              <li>
+                Question:
+              </li>
+              <li>
+                <h5 className="WHITE-TEXT">{ this.state.question.text }</h5>
+              </li>
+            </ul>
+
             <CodeEditor
               questionId={ this.state.question.id }
               category={ this.state.question.category }
@@ -128,19 +148,7 @@ class LearningRoomComponent extends Component {
             />
           </div>
           <div className="video-position col-xs-4">
-            <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                Connected with: <a>Martin Skow</a>
-                <div className="time-count">00:10</div>
-              </div>
-            </div>
-            <VideoRoom questionId={ this.props.params.id }/>
-            <div className="panel panel-default">
-              <div className="panel-heading">
-                Question: <h5>{ this.state.question.text }</h5>
-              </div>
-            </div>
+            { Object.keys(this.state.question.connected).length === 2 ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
           </div>
         </div>
       </div>

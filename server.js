@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
+import favicon from 'serve-favicon'
 import dotenv from 'dotenv'
 dotenv.load()
 
@@ -14,11 +15,12 @@ if (process.env.NODE_ENV !== 'production') {
     noInfo: true,
     publicPath: config.output.publicPath
   }))
-
   app.use(require('webpack-hot-middleware')(compiler))
 } else {
   app.use('/static', express.static(path.join(__dirname, 'public/static')))
 }
+
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))

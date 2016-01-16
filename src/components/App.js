@@ -28,7 +28,7 @@ export class AppComponent extends Component {
       if (!this.props.auth.user) {
         firebaseRef
           .child('questions')
-          .orderByChild('author')
+          .orderByChild('author/id')
           .equalTo(data.uid)
           .on('value', snapshot => {
             if (snapshot.exists()) {

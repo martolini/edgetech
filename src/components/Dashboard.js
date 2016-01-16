@@ -28,7 +28,7 @@ class DashboardComponent extends Component {
               <div className="panel-body">
                 <ul className="list-group">
                   { this.props.questions.map(question => {
-                    return <li className="list-group-item" key={question.id}><Link to={`question/${question.id}`}>{ question.text }</Link></li>
+                    return <li className="list-group-item" key={question.id}><Link to={`/question/${question.id}`}>{ question.text }</Link></li>
                   })}
                 </ul>
               </div>
