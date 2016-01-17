@@ -10,9 +10,8 @@ export class Counter extends Component {
     };
 
     this.firebaseRef = firebaseRef.child(`sessioncounters/${this.props.questionId}/counter`)
-
     this.pauseCounter = this.pauseCounter.bind(this)
-    this.interval = setInterval(() => this.tick(), 1000);
+    this.interval = setInterval(() => this.tick(), 1000)
   }
 
   componentDidUpdate(prevProps, prevState) {

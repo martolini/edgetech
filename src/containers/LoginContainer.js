@@ -22,7 +22,7 @@ class LoginContainerComponent extends Component {
   onAuth(data) {
     const { dispatch } = this.props
     if (!!data) {
-      dispatch(pushPath('/app'))
+      dispatch(pushPath('/ask'))
     }
   }
 
