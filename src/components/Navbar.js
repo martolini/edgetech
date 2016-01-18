@@ -31,9 +31,6 @@ class NavbarComponent extends Component {
                 <a href="#">{ this.props.user.email }</a>
               </li>
               <li>
-                <a href="#">87,-</a>
-              </li>
-              <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
               </li>
             </ul>

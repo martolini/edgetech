@@ -28,3 +28,21 @@ body {
 	border-bottom-style: solid;
 	border-color: grey;
 }
+
+.section {
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+.GREEN {
+  background-color: #4CAF50;
+}
+
+.BEIGE-TEXT {
+  color: #E0E0E0;
+} 
+
+.WHITE-TEXT {
+	color: #EEE;
+}
