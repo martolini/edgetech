@@ -1,5 +1,6 @@
 import { firebaseRef } from '../config'
 import { pushPath } from 'redux-simple-router'
+import Firebase from 'firebase'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -105,7 +106,6 @@ export function signup(data) {
           } else {
             firebaseRef.child('users').child(data.uid).set({
               email: email,
-              tutor: false,
               username: email.substr(0, email.indexOf('@'))
             })
           }
@@ -148,7 +148,8 @@ export function askQuestion(question) {
       id: questionRef.key(),
       counter: 0,
       tutor: false,
-      connected: false
+      connected: false,
+      createdAt: Firebase.ServerValue.TIMESTAMP
     })
     questionRef.set(question, error => {
       if (!!error) {
