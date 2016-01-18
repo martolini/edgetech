@@ -56,21 +56,26 @@ class AskQuestionComponent extends Component {
         </div>
         <br/>
         <br/>
-        <section className="section GREEN WHITE-TEXT">
+        <section className="section GREEN ">
           <div className="container">
-            <div className="col-md-6 col-md-offset-3">
-              <h2>FAQ</h2>
-              <h4>How fast will I be connected with a student assistant?</h4>
-              Availability of student assistant can vary based on time and complexity. As long as you leave the tab open, you will be notified when an Expert joins your session, even if you are in a different tab/window.
-              <h4>How much does it cost?</h4>
-              The Blurblarp service starts at $1 per minute and goes up to your max budget upon broadcasting your request. Our routing algorithms prioritize qualified experts that can come in under or at your budget. Since expert rates vary, the higher your budget, the more likely an expert will connect. This removes a lot of back-and-forth between you and the expert so that you can be helped immediately. The first five minutes are designed as a risk free trial with the expert who joins your session. Your session will be free as long as you end within the first five minutes.
-              <h4>What if I don't want to work with the Expert who joins?</h4>
-              You can end the session at any time. Upon ending a session you will be sent to the review page where you can rate your session, leave a tip, and indicate if you wish to open your request up for another Expert to join.
-              <h4>Are your Experts good?</h4>
-              Absolutely, they are verified and selected based on their ability to help others in their respective areas/languages of expertise. Most of our experts are top contributors on StackOverflow, active members within their software communities, instructors at the best schools/bootcamps or just passionate about helping other programmers.
-              <h4>Still not sure?</h4>
-              We are here to help. If you have any specific questions, please reach out to us.
-            
+            <div className="col-md-6 col-md-offset-3 BEIGE-TEXT">
+              <h3 className="WHITE-TEXT">FAQ</h3>
+              <h4 className="WHITE-TEXT">How fast will I be connected with a student assistant?</h4>
+              Availability of student assistant can vary, but it will rarely take longer than a few minutes. 
+              As long as you leave the tab open, you will be notified when an assistant joins your session, 
+              even if you are in a different tab/window.
+              <h4 className="WHITE-TEXT">How much does it cost?</h4>
+              While we are in Beta, the service is completly free.
+              <h4 className="WHITE-TEXT">What if I don't want to work with the assistant who joins?</h4>
+              You can end the session at any time. 
+              <h4 className="WHITE-TEXT">How can I becoma a assistant?</h4>
+              Easy! Just send us a message in the chat, and we will give you tutoring access if you have the right qualifications.
+              <h4 className="WHITE-TEXT">Are your assistants good?</h4>
+              Absolutely, they are verified and selected based on their ability to help others in their respective 
+              areas/languages of expertise. Most of our assistants are highly passionate about helping other programmers.
+              <h4 className="WHITE-TEXT">Still not sure?</h4>
+              We are here to help. If you have any specific questions, just send us a message in the chat and we will 
+              come back to you as soon as we can.
             </div>
           </div>
         </section>

@@ -39,6 +39,10 @@ body {
   background-color: #4CAF50;
 }
 
-.WHITE-TEXT {
-  color: white;
+.BEIGE-TEXT {
+  color: #E0E0E0;
 } 
+
+.WHITE-TEXT {
+	color: #EEE;
+}

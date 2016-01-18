@@ -124,7 +124,7 @@ class LearningRoomComponent extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="btn btn-success btn-lg leave-room-btn">I'm Done!</a>
+                  <Link to="/ask" className="btn btn-success btn-lg leave-room-btn">I'm Done!</Link>
                 </li>
               </ul>
             </div>
