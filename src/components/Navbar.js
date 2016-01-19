@@ -23,6 +23,14 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
             </button>
             <Link to='/app' className="navbar-brand logo-font">Blurblarp</Link>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <Link to="ask">Get Help</Link>
+              </li>
+              <li>
+                <Link to="/help">Give Help</Link>
+              </li>
+            </ul>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
