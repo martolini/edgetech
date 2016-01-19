@@ -20,9 +20,22 @@ class LearningRoomComponent extends Component {
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
     this.questionRef.child(`connected/${this.props.user.id}`).onDisconnect().remove()
+    this.leaveRoom = this.leaveRoom.bind(this)
   }
 
   componentWillUnmount() {
+    
+    console.log('Number' + Object.keys(this.state.question.connected).length)
+    console.log('Tutor' + this.state.question.tutor.username)
+    
+    // If you are the last person to leave, the question will be closed.
+    if (Object.keys(this.state.question.connected).length === 1) {
+      console.log('Pass')
+      this.questionRef.child('closed').set(true)
+    }
+  
+    this.questionRef.off()
+      
   }
 
   componentDidMount() {
@@ -58,15 +71,20 @@ class LearningRoomComponent extends Component {
               username: this.props.user.username
             }), 100)
           }
-        }
+        } 
         this.setState({
           question: Object.assign({}, question, { connected: {}}),
           loading: false,
           error: null
         })
         setTimeout(() => this.questionRef.child(`connected/${this.props.user.id}`).set(true), 100)
+        
       }
     })
+  }
+
+  leaveRoom() {
+
   }
 
   renderError() {
@@ -124,7 +142,7 @@ class LearningRoomComponent extends Component {
                   </a>
                 </li>
                 <li>
-                  <Link to="/ask" className="btn btn-success btn-lg leave-room-btn">I'm Done!</Link>
+                  <Link to="/ask" onClick={this.leaveRoom} className="btn btn-success btn-lg leave-room-btn">I'm Done!</Link>
                 </li>
               </ul>
             </div>

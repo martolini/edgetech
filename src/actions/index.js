@@ -149,6 +149,7 @@ export function askQuestion(question) {
       counter: 0,
       tutor: false,
       connected: false,
+      closed: false,
       createdAt: Firebase.ServerValue.TIMESTAMP
     })
     questionRef.set(question, error => {

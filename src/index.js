@@ -8,6 +8,7 @@ import { Signup } from './components/Signup'
 import { AskQuestion } from './components/AskQuestion'
 import { NoMatch } from './components/NoMatch'
 import { LearningRoom } from './components/LearningRoom'
+import { GiveHelp } from './components/GiveHelp'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import store from './store'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -21,11 +22,11 @@ syncReduxAndRouter(history, store)
 
 let debugPanel = null
 if (process.env.NODE_ENV !== 'production') {
-  debugPanel = (
-    <DebugPanel top right bottom>
-      <DevTools store={store} monitor={LogMonitor} />
-    </DebugPanel>
-  )
+  // debugPanel = (
+  //   <DebugPanel top right bottom>
+  //     <DevTools store={store} monitor={LogMonitor} />
+  //   </DebugPanel>
+  // )
 }
 
 render((
@@ -39,6 +40,7 @@ render((
         <Route path="/app" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="/ask" component={AskQuestion} />
+          <Route path="/help" component={GiveHelp} />
           <Route path="/question/:id" component={LearningRoom} />
         </Route>
         <Route path="*" component={NoMatch} />
