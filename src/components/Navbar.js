@@ -22,7 +22,7 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link to='/app' className="navbar-brand logo-font">Blurblarp</Link>
+            <Link to='/app' className="navbar-brand logo-font">Thxbro!</Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
