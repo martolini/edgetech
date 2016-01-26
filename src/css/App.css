@@ -5,7 +5,7 @@ body {
 }
 
 .logo-font {
-	font-family: 'Lobster', cursive;
+	font-family: 'Indie Flower', cursive;
 	color: #4caf50 !important;
 }
 
@@ -49,4 +49,9 @@ body {
 
 .WHITE-TEXT {
 	color: #EEE;
+}
+
+.other-client-selection-9bff80 {
+	background-color: #467047 !important;
+	border-left: 2px solid #467047 !important;
 }

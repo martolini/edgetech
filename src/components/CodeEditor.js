@@ -13,6 +13,7 @@ export class CodeEditor extends Component {
     editor.$blockScrolling = Infinity;
     editor.setShowPrintMargin(false)
     let session = editor.getSession()
+
     session.setUseWrapMode(true)
     session.setUseWorker(false)
     session.setMode(`ace/mode/${CODEMODES[this.props.category]}`)
@@ -20,6 +21,7 @@ export class CodeEditor extends Component {
       defaultText: SNIPPETS[this.props.category],
       userId: this.props.userId
     })
+    
   }
 
   render() {
