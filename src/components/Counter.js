@@ -11,6 +11,7 @@ export class Counter extends Component {
 
     this.firebaseRef = firebaseRef.child(`sessioncounters/${this.props.questionId}/counter`)
     this.pauseCounter = this.pauseCounter.bind(this)
+    this.updateCallback = snapshot => this.setState({counter: snapshot.val()})
     this.interval = setInterval(() => this.tick(), 1000)
   }
 
@@ -23,9 +24,7 @@ export class Counter extends Component {
   }
 
   componentDidMount() {
-    this.firebaseRef.on('value', snapshot => {
-      this.setState({counter: snapshot.val()})
-    })
+    this.firebaseRef.on('value', this.updateCallback)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -46,6 +45,7 @@ export class Counter extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
+    this.firebaseRef.off('value', this.updateCallback)
   }
 
   render() {

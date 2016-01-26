@@ -8,6 +8,7 @@ import { Signup } from './components/Signup'
 import { AskQuestion } from './components/AskQuestion'
 import { NoMatch } from './components/NoMatch'
 import { LearningRoom } from './components/LearningRoom'
+import { GiveHelp } from './components/GiveHelp'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import store from './store'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -39,6 +40,7 @@ render((
         <Route path="/app" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="/ask" component={AskQuestion} />
+          <Route path="/help" component={GiveHelp} />
           <Route path="/question/:id" component={LearningRoom} />
         </Route>
         <Route path="*" component={NoMatch} />
