@@ -10,34 +10,37 @@ class GiveHelpComponent extends Component {
 		super(props)
 		this.state = {
 			category: 'TDT4100',
-			questions: [],
-			counter: 0
+			questions: []
 		}
 
 		this.changeCourse = this.changeCourse.bind(this)
+		this.onValueChange = this.onValueChange.bind(this)
 		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('closed').equalTo(false)
-		this.convertToDate = this.convertToDate.bind(this)
-		this.interval = setInterval(() => this.tick(), 1000)
+		this.interval = setInterval(() => this.tick(), 60000)
 	}
 
 	componentWillUnmount() {
 		clearInterval(this.interval);
-		this.firebaseRef.off()
+		this.firebaseRef.off('value', this.onValueChange)
+	}
+
+	onValueChange(snapshot) {
+		if (snapshot.exists()) {
+			let questions = []
+			snapshot.forEach(snap => {
+				let question = snap.val()
+				if (!question.tutor) {
+					questions.push(question)
+				}
+			})
+			if (questions.length > 0) {
+				this.setState({questions: questions})
+			}
+	  }
 	}
 
 	componentDidMount() {
-		this.firebaseRef.on('value', snapshot => {
-		  if (snapshot.exists()) {
-		      let questions = []
-		      snapshot.forEach(question => {
-
-		      	if (!question.val().closed && !question.val().tutor) {
-		        	questions.push(question.val())
-		      	};
-		      })
-		      this.setState({questions: questions})
-		  }
-		})
+		this.firebaseRef.on('value', this.onValueChange)
 	}
 
 	changeCourse(event) {
@@ -46,22 +49,8 @@ class GiveHelpComponent extends Component {
 		})
 	}
 
-	convertToDate(stamp) {
-		let time = new Date(stamp * 1000)
-		let now = Date.now()
-
-		if ((now-stamp) > 3600000)
-			return "+60"
-		else
-			return Math.floor(((now-stamp)/ 1000)/60)
-	}
-
-	// This counter is only used to update question.createdAt every minute.
 	tick() {
-		this.forceUpdate()
-	  // this.setState({
-	  //   counter: this.state.counter + 1
-	  // });
+		this.forceUpdate() // Force the questions to update every minute
 	}
 
 	render() {
