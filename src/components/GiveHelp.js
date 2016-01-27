@@ -12,13 +12,13 @@ class GiveHelpComponent extends Component {
 			category: 'TDT4100',
 			questions: []
 		}
-
+		
 		this.changeCourse = this.changeCourse.bind(this)
 		this.onValueChange = this.onValueChange.bind(this)
 		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('closed').equalTo(false)
 		this.interval = setInterval(() => this.tick(), 60000)
 	}
-
+	
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
@@ -56,7 +56,7 @@ class GiveHelpComponent extends Component {
 	render() {
 		return (
 			<div className="container">
-				<select className="form-control" id="select" onChange={this.changeCourse} value={this.state.category}>
+				<select className="form-control TOP-MARGIN-20" id="select" onChange={this.changeCourse} value={this.state.category}>
 				  { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.name }</option> )}
 				</select>
 				<table className="table table-striped table-hover">

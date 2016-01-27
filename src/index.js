@@ -9,6 +9,7 @@ import { AskQuestion } from './components/AskQuestion'
 import { NoMatch } from './components/NoMatch'
 import { LearningRoom } from './components/LearningRoom'
 import { GiveHelp } from './components/GiveHelp'
+import { WantToHelp } from './components/WantToHelp'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import store from './store'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -29,6 +30,13 @@ if (process.env.NODE_ENV !== 'production') {
   )
 }
 
+// Redirects user if not tutor
+function requireAuth(nextState, replace) {
+  if (!store.getState().auth.user.tutor) {
+    replace(null, '/denied')
+  }
+}
+
 render((
   <Provider store={store}>
     <div>
@@ -40,7 +48,8 @@ render((
         <Route path="/app" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="/ask" component={AskQuestion} />
-          <Route path="/help" component={GiveHelp} />
+          <Route path="/help" component={GiveHelp} onEnter={requireAuth}/>
+          <Route path="/denied" component={WantToHelp}/>
           <Route path="/question/:id" component={LearningRoom} />
         </Route>
         <Route path="*" component={NoMatch} />

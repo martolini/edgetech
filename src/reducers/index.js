@@ -12,6 +12,7 @@ function auth(state = {
   error: null,
   loading: false
 }, action) {
+
   switch(action.type) {
     case SIGNUP_REQUEST:
       return Object.assign({}, state, {
@@ -24,12 +25,14 @@ function auth(state = {
         loading: false
       }
     case LOGIN_REQUEST:
+
       return {
         user: null,
         error: null,
         loading: true
       }
     case LOGIN_SUCCESS: {
+
       return {
         user: action.user,
         error: null,
