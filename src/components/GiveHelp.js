@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
+var audio = new Audio('http://www.sheep.com/sounds/baalamb1.wav');
+let previousLength = 0
+
 class GiveHelpComponent extends Component {
 
 	constructor(props) {
@@ -25,6 +28,7 @@ class GiveHelpComponent extends Component {
 	}
 
 	onValueChange(snapshot) {
+		
 		if (snapshot.exists()) {
 			let questions = []
 			snapshot.forEach(snap => {
@@ -35,7 +39,21 @@ class GiveHelpComponent extends Component {
 			})
 			if (questions.length > 0) {
 				this.setState({questions: questions})
+
+				// Change title of document so tutor can get notified of incoming questions
+				document.title = '(' + questions.length + ') ' + 'Thxbro!';
+				
+				// Check if questions.length is increasing and play notification sound if true
+				if (questions.length > previousLength && previousLength !== 0) {
+					previousLength = questions.length
+					audio.play();
+				} else {
+					previousLength = questions.length
+				}
+			} else {
+				document.title = 'Thxbro!';
 			}
+
 	  }
 	}
 

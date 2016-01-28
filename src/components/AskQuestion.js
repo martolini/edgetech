@@ -22,7 +22,6 @@ class AskQuestionComponent extends Component {
       }
     }
     if (this.text.value.length > 0) {
-      console.log('what' + this.text.value.length)
       dispatch(askQuestion(question))
     } else {
       document.getElementById('form-error').innerHTML = '<h6>You need to specify what you need help with!</h6>';
