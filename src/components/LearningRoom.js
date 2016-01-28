@@ -24,13 +24,9 @@ class LearningRoomComponent extends Component {
   }
 
   componentWillUnmount() {
-    
-    console.log('Number' + Object.keys(this.state.question.connected).length)
-    console.log('Tutor' + this.state.question.tutor.username)
-    
+  
     // If you are the last person to leave, the question will be closed.
     if (Object.keys(this.state.question.connected).length === 1) {
-      console.log('Pass')
       this.questionRef.child('closed').set(true)
     }
   

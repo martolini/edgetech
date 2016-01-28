@@ -5,7 +5,7 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
 var audio = new Audio('http://www.sheep.com/sounds/baalamb1.wav');
-let previousLength = 0
+let previousLength = -1
 
 class GiveHelpComponent extends Component {
 
@@ -25,6 +25,7 @@ class GiveHelpComponent extends Component {
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
+		previousLength = -1
 	}
 
 	onValueChange(snapshot) {
