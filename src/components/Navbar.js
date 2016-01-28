@@ -22,7 +22,7 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link to='/ask' className="navbar-brand logo-font">Thxbro!</Link>
+            <Link to='/ask' className="navbar-brand logo-font">Thx bro!</Link>
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <Link to="ask">Get Help</Link>

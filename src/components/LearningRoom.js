@@ -120,7 +120,7 @@ class LearningRoomComponent extends Component {
                 <span className="icon-bar"></span>
               </button>
               <Link to="/ask" className="navbar-brand logo-font">
-                Thxbro!
+                Thx bro!
               </Link>
             </div>
 
