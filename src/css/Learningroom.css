@@ -12,6 +12,15 @@
 	padding-left: 0px;
 }
 
+.learningroom-modal {
+	background-color: #333;
+	text-align: center;
+}
+
+.learningroom-modal-footer {
+	text-align: center;
+}
+
 .video-position {
 	position: fixed;
 	right: 0;

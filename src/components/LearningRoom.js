@@ -19,15 +19,15 @@ class LearningRoomComponent extends Component {
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
-    this.questionRef.child(`connected/${this.props.user.id}`).onDisconnect().remove()
+    this.questionRef.child('author/connected').onDisconnect().set(false)
     this.leaveRoom = this.leaveRoom.bind(this)
   }
 
   componentWillUnmount() {
   
     // If you are the last person to leave, the question will be closed.
-    if (Object.keys(this.state.question.connected).length === 1) {
-      this.questionRef.child('closed').set(true)
+    if (this.props.user.id === this.state.question.author.id) {
+      this.questionRef.child('author/connected').set(false)
     }
   
     this.questionRef.off()
@@ -64,23 +64,30 @@ class LearningRoomComponent extends Component {
           } else {
             setTimeout(() => this.questionRef.child('tutor').set({
               id: this.props.user.id,
-              username: this.props.user.username
+              username: this.props.user.username,
+              connected: true
             }), 100)
           }
         } 
         this.setState({
-          question: Object.assign({}, question, { connected: {}}),
+          question: Object.assign({}, question, {}),
           loading: false,
           error: null
         })
-        setTimeout(() => this.questionRef.child(`connected/${this.props.user.id}`).set(true), 100)
         
       }
     })
   }
 
   leaveRoom() {
-
+    if (this.state.question.tutor.id) {
+      // trigger modal
+      $('#leaveModal').modal()
+    } else {
+      // leave room
+      const { dispatch } = this.props
+      dispatch(pushPath('/ask'))
+    }
   }
 
   renderError() {
@@ -96,7 +103,7 @@ class LearningRoomComponent extends Component {
       return this.renderLoading()
     } else if (!!this.state.error) {
       return this.renderError()
-    } else if (this.state.question.closed === true) {
+    } else if (this.state.question.author.connected === false) {
       return <h1>This question is closed by the author...</h1>
     }
     let connectedWith = this.state.question.author.username
@@ -138,12 +145,28 @@ class LearningRoomComponent extends Component {
                   </a>
                 </li>
                 <li>
-                  <Link to="/ask" onClick={this.leaveRoom} className="btn btn-success btn-lg leave-room-btn">I'm Done!</Link>
+                  <button data-toggle="modal" onClick={this.leaveRoom} className="btn btn-success btn-lg leave-room-btn">I'm Done!</button>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+        <div className="modal" id="leaveModal">
+          <div className="modal-dialog">
+            <div className="modal-content learningroom-modal">
+              <div className="modal-header">
+                <h3 className="modal-title WHITE-TEXT">Before you leave</h3>
+              </div>
+              <div className="modal-body">
+                <h5 className="WHITE-TEXT">Are you happy with the help you got?</h5>
+              </div>
+              <div className="modal-footer learningroom-modal-footer">
+                <Link to="/ask" type="button" className="btn btn-success btn-lg" data-dismiss="modal">Yes</Link>
+                <Link to="/ask" type="button" className="btn btn-success btn-lg">No</Link>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="container-fluid learningroom-container">
           <div className="col-xs-8">
             <ul className="list-inline">
@@ -162,7 +185,7 @@ class LearningRoomComponent extends Component {
             />
           </div>
           <div className="video-position col-xs-4">
-            { Object.keys(this.state.question.connected).length === 2 ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
+            { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
           </div>
         </div>
       </div>

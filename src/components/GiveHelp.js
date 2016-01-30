@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
-var audio = new Audio('http://www.sheep.com/sounds/baalamb1.wav');
+var audio = new Audio('http://soundbible.com/mp3/Elevator%20Ding-SoundBible.com-685385892.mp3');
 let previousLength = -1
+let questions = []
 
 class GiveHelpComponent extends Component {
 
@@ -18,7 +19,8 @@ class GiveHelpComponent extends Component {
 		
 		this.changeCourse = this.changeCourse.bind(this)
 		this.onValueChange = this.onValueChange.bind(this)
-		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('closed').equalTo(false)
+		this.updateTitle = this.updateTitle.bind(this)
+		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/connected').equalTo(true)
 		this.interval = setInterval(() => this.tick(), 60000)
 	}
 	
@@ -29,32 +31,17 @@ class GiveHelpComponent extends Component {
 	}
 
 	onValueChange(snapshot) {
-		
+		console.log('change detected?')
 		if (snapshot.exists()) {
-			let questions = []
+			
 			snapshot.forEach(snap => {
 				let question = snap.val()
-				if (!question.tutor) {
-					questions.push(question)
-				}
+				questions.push(question)
 			})
 			if (questions.length > 0) {
 				this.setState({questions: questions})
-
-				// Change title of document so tutor can get notified of incoming questions
-				document.title = '(' + questions.length + ') ' + 'Thxbro!';
-				
-				// Check if questions.length is increasing and play notification sound if true
-				if (questions.length > previousLength && previousLength !== 0) {
-					previousLength = questions.length
-					audio.play();
-				} else {
-					previousLength = questions.length
-				}
-			} else {
-				document.title = 'Thxbro!';
-			}
-
+				this.updateTitle(this.state.category)
+			} 
 	  }
 	}
 
@@ -66,10 +53,34 @@ class GiveHelpComponent extends Component {
 		this.setState({
 			category: event.target.value
 		})
+		this.updateTitle(event.target.value)
 	}
 
 	tick() {
 		this.forceUpdate() // Force the questions to update every minute
+	}
+
+	updateTitle(category){
+		if (questions.length > 0) {
+			let questionLength = 0
+			questions.map(question => {
+				if (question.category === category) {
+					questionLength++
+				};
+			})
+			// Change title of document so tutor can get notified of incoming questions
+			document.title = '(' + questionLength + ') ' + 'Thxbro!';
+			
+			// Check if questions.length is increasing and play notification sound if true
+			if (questions.length > previousLength && previousLength !== 0) {
+				previousLength = questions.length
+				audio.play();
+			} else {
+				previousLength = questions.length
+			}
+		} else {
+			document.title = 'Thxbro!';
+		}
 	}
 
 	render() {

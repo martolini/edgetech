@@ -18,7 +18,8 @@ class AskQuestionComponent extends Component {
       category: this.category.value,
       author: {
         id: this.props.user.id,
-        username: this.props.user.username
+        username: this.props.user.username,
+        connected: true
       }
     }
     if (this.text.value.length > 0) {
