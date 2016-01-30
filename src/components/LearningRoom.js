@@ -20,6 +20,8 @@ class LearningRoomComponent extends Component {
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
     this.leaveRoom = this.leaveRoom.bind(this)
+    this.updateKarma = this.updateKarma.bind(this)
+
   }
 
   componentWillUnmount() {
@@ -37,6 +39,7 @@ class LearningRoomComponent extends Component {
   }
 
   componentDidMount() {
+
     this.questionRef.on('child_added', snapshot => {
       this.setState({
         question: Object.assign({}, this.state.question, { [snapshot.key()] : snapshot.val()})
@@ -85,14 +88,32 @@ class LearningRoomComponent extends Component {
   }
 
   leaveRoom() {
+    const { dispatch } = this.props
+
     if (this.state.question.author.id === this.props.user.id && this.state.question.tutor.connected) {
       // trigger modal
       $('#leaveModal').modal()
     } else {
       // leave room
-      const { dispatch } = this.props
       dispatch(pushPath('/ask'))
     }
+  }
+
+  updateKarma(){
+    const { dispatch } = this.props
+
+    this.karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
+
+    if (this.refs.counter.state.counter < 240) {
+      this.karmaRef.transaction(karma => karma + 5)
+    } else if (this.refs.counter.state.counter > 240 && this.refs.counter.state.counter < 600) {
+      this.karmaRef.transaction(karma => karma + 10)
+    } else {
+      this.karmaRef.transaction(karma => karma + 15)
+    }
+
+    this.karmaRef.off()
+    dispatch(pushPath('/ask'))
   }
 
   renderError() {
@@ -109,7 +130,7 @@ class LearningRoomComponent extends Component {
     } else if (!!this.state.error) {
       return this.renderError()
     } else if (this.state.question.author.connected === false) {
-      return <h1>This question is closed by the author...</h1>
+      return <div className="container"><h2>This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h2></div>
     }
     let connectedWith = this.state.question.author.username
     if (this.state.question.author.id === this.props.user.id) {
@@ -139,14 +160,14 @@ class LearningRoomComponent extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="#" >{ this.props.user.username }</a>
+                  <a href="#" >{ this.props.user.username } ( {this.props.user.karma} )</a>
                 </li>
                 <li>
                   <a href="#" >Connected with: { connectedWith }</a>
                 </li>
                 <li>
                   <a className="counter">
-                    <Counter questionId={this.state.question.id} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
+                    <Counter ref="counter" questionId={this.state.question.id} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
                   </a>
                 </li>
                 <li>
@@ -166,7 +187,7 @@ class LearningRoomComponent extends Component {
                 <h5 className="WHITE-TEXT">Are you happy with the help you got?</h5>
               </div>
               <div className="modal-footer learningroom-modal-footer">
-                <Link to="/ask" type="button" className="btn btn-success btn-lg" data-dismiss="modal">Yes</Link>
+                <button type="button" className="btn btn-success btn-lg" onClick={this.updateKarma} data-dismiss="modal">Yes</button>
                 <Link to="/ask" type="button" className="btn btn-success btn-lg">No</Link>
               </div>
             </div>

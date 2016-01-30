@@ -106,7 +106,8 @@ export function signup(data) {
           } else {
             firebaseRef.child('users').child(data.uid).set({
               email: email,
-              username: email.substr(0, email.indexOf('@'))
+              username: email.substr(0, email.indexOf('@')),
+              karma: 0
             })
           }
         })
