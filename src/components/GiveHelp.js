@@ -6,7 +6,6 @@ import { firebaseRef, CATEGORIES } from '../config'
 
 var audio = new Audio('http://soundbible.com/mp3/Elevator%20Ding-SoundBible.com-685385892.mp3');
 let previousLength = -1
-let questions = []
 
 class GiveHelpComponent extends Component {
 
@@ -31,9 +30,9 @@ class GiveHelpComponent extends Component {
 	}
 
 	onValueChange(snapshot) {
-		console.log('change detected?')
 		if (snapshot.exists()) {
 			
+			let questions = []
 			snapshot.forEach(snap => {
 				let question = snap.val()
 				questions.push(question)
@@ -42,6 +41,9 @@ class GiveHelpComponent extends Component {
 				this.setState({questions: questions})
 				this.updateTitle(this.state.category)
 			} 
+	  } else {
+	  	this.setState({questions: []})
+	  	this.updateTitle(this.state.category)
 	  }
 	}
 
@@ -61,9 +63,9 @@ class GiveHelpComponent extends Component {
 	}
 
 	updateTitle(category){
-		if (questions.length > 0) {
+		if (this.state.questions.length > 0) {
 			let questionLength = 0
-			questions.map(question => {
+			this.state.questions.map(question => {
 				if (question.category === category) {
 					questionLength++
 				};
@@ -72,11 +74,11 @@ class GiveHelpComponent extends Component {
 			document.title = '(' + questionLength + ') ' + 'Thxbro!';
 			
 			// Check if questions.length is increasing and play notification sound if true
-			if (questions.length > previousLength && previousLength !== 0) {
-				previousLength = questions.length
+			if (this.state.questions.length > previousLength && previousLength !== 0) {
+				previousLength = this.state.questions.length
 				audio.play();
 			} else {
-				previousLength = questions.length
+				previousLength = this.state.questions.length
 			}
 		} else {
 			document.title = 'Thxbro!';

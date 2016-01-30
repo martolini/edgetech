@@ -19,7 +19,6 @@ class LearningRoomComponent extends Component {
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
-    this.questionRef.child('author/connected').onDisconnect().set(false)
     this.leaveRoom = this.leaveRoom.bind(this)
   }
 
@@ -67,15 +66,18 @@ class LearningRoomComponent extends Component {
               username: this.props.user.username,
               connected: true
             }), 100)
+            this.questionRef.child('tutor/connected').onDisconnect().set(false)
           }
-        } 
+        } else {
+          this.questionRef.child('author/connected').onDisconnect().set(false)
+        }
         this.setState({
           question: Object.assign({}, question, {}),
           loading: false,
           error: null
         })
         
-      }
+      } 
     })
   }
 
