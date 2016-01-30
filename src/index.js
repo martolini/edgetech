@@ -30,13 +30,6 @@ if (process.env.NODE_ENV !== 'production') {
   )
 }
 
-// Redirects user if not tutor
-function requireAuth(nextState, replace) {
-  if (!store.getState().auth.user.tutor) {
-    replace(null, '/denied')
-  }
-}
-
 render((
   <Provider store={store}>
     <div>
@@ -48,7 +41,7 @@ render((
         <Route path="/app" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="/ask" component={AskQuestion} />
-          <Route path="/help" component={GiveHelp} onEnter={requireAuth}/>
+          <Route path="/help" component={GiveHelp}/>
           <Route path="/denied" component={WantToHelp}/>
           <Route path="/question/:id" component={LearningRoom} />
         </Route>

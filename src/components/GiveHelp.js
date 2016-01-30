@@ -48,7 +48,12 @@ class GiveHelpComponent extends Component {
 	}
 
 	componentDidMount() {
-		this.firebaseRef.on('value', this.onValueChange)
+		if (this.props.user.tutor) {
+			this.firebaseRef.on('value', this.onValueChange)
+		} else {
+			const { dispatch } = this.props
+			dispatch(pushPath('/denied'))
+		}
 	}
 
 	changeCourse(event) {

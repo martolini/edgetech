@@ -27,6 +27,9 @@ class LearningRoomComponent extends Component {
     // If you are the last person to leave, the question will be closed.
     if (this.props.user.id === this.state.question.author.id) {
       this.questionRef.child('author/connected').set(false)
+      this.questionRef.child('tutor/connected').set(false)
+    } else {
+      this.questionRef.child('tutor/connected').set(false)
     }
   
     this.questionRef.off()
@@ -82,7 +85,7 @@ class LearningRoomComponent extends Component {
   }
 
   leaveRoom() {
-    if (this.state.question.tutor.id) {
+    if (this.state.question.author.id === this.props.user.id && this.state.question.tutor.connected) {
       // trigger modal
       $('#leaveModal').modal()
     } else {
