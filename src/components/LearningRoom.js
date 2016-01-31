@@ -102,17 +102,19 @@ class LearningRoomComponent extends Component {
   updateKarma(){
     const { dispatch } = this.props
 
-    this.karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
+    let karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
 
     if (this.refs.counter.state.counter < 240) {
-      this.karmaRef.transaction(karma => karma + 5)
+      // If sesison lasted less than 4 minutes, give 5 karma points
+      karmaRef.transaction(karma => karma + 5)
     } else if (this.refs.counter.state.counter > 240 && this.refs.counter.state.counter < 600) {
-      this.karmaRef.transaction(karma => karma + 10)
+      // If sesison lasted more than 4 and less than 10 minutes, give 10 karma points
+      karmaRef.transaction(karma => karma + 10)
     } else {
-      this.karmaRef.transaction(karma => karma + 15)
+      // If sesison lasted more than 10 minutes, give 15 karma points
+      karmaRef.transaction(karma => karma + 15)
     }
 
-    this.karmaRef.off()
     dispatch(pushPath('/ask'))
   }
 
