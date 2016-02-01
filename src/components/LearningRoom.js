@@ -189,7 +189,7 @@ class LearningRoomComponent extends Component {
               </div>
               <div className="modal-footer learningroom-modal-footer">
                 <button type="button" className="btn btn-success btn-lg" onClick={this.updateKarma} data-dismiss="modal">Yes</button>
-                <Link to="/ask" type="button" className="btn btn-success btn-lg">No</Link>
+                <Link to="/ask" type="button" data-dismiss="modal" className="btn btn-success btn-lg">No</Link>
               </div>
             </div>
           </div>

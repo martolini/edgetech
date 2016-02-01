@@ -75,7 +75,7 @@ class AskQuestionComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h4 className="">You're 5 most recent questions</h4>
+              <h4 className="">Your 5 most recent questions</h4>
               <RecentQuestions userId={this.props.user.id}/>
               <hr/>
               <h4 className="">FAQ</h4>

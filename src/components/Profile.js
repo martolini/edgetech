@@ -13,11 +13,12 @@ class ProfileComponent extends Component {
       profile: {}
     }
     const { dispatch } = this.props
-    this.firebaseRef = firebaseRef.child(`/users/${this.props.params.id}`)
     this.connectWith = this.connectWith.bind(this)
+    this.firebaseRef = firebaseRef.child(`/users/${this.props.params.id}`)
   }
 
   componentDidMount() {
+    console.log('mount ' + this.props.params.id)
     this.firebaseRef.on('value', snapshot => {
       if (snapshot.exists()) {
         let user = snapshot.val()
@@ -27,6 +28,13 @@ class ProfileComponent extends Component {
         })
       }
     })
+  }
+
+  componentDidUpdate(){
+    console.log('update ' + this.firebaseRef.id)
+    if (this.props.params.id !== this.state.profile) {
+
+    }
   }
 
   componentWillUnmount() {
@@ -71,6 +79,12 @@ class ProfileComponent extends Component {
           </button>
         </div>
       </div>
+      )
+    let recentQuestions = (
+      <div>
+        <h4 className="">Your 5 most recent questions</h4>
+        <RecentQuestions userId={this.props.user.id}/> 
+      </div>
       )             
     return (
       <div>
@@ -78,10 +92,8 @@ class ProfileComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h2>{this.state.profile.username}</h2>
-              <h4 className="">Your 5 most recent questions</h4>
-              <RecentQuestions userId={this.props.user.id}/>            
-              {this.props.user.id === this.props.params.id ? null : connectWithProfile}
+              <h2>{this.state.profile.username}</h2>           
+              {this.props.user.id === this.props.params.id ? recentQuestions : connectWithProfile}
             </div>
           </div>
       </div>

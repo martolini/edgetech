@@ -14,6 +14,7 @@ const mailer = nodemailer.createTransport(sgTransport({
 firebaseRef.child('questions').orderByChild('createdAt').startAt(new Date().getTime()).on('child_added', questionSnap => {
   let question = questionSnap.val()
   if (question.tutor.connected) {
+    console.log('funk god dammit')
     sendEmailNotification(question.tutor.email, question)
   } else {
     firebaseRef.child(`tutors/${question.category}`).once('value', mentorSnap => {
