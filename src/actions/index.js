@@ -148,7 +148,11 @@ export function askQuestion(question) {
     question = Object.assign({}, question, {
       id: questionRef.key(),
       counter: 0,
-      tutor: false,
+      tutor: {
+        id: question.tutor.id,
+        username: question.tutor.username,
+        connected: question.tutor.connected
+      },
       closed: false,
       createdAt: Firebase.ServerValue.TIMESTAMP
     })

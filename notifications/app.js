@@ -13,12 +13,16 @@ const mailer = nodemailer.createTransport(sgTransport({
 
 firebaseRef.child('questions').orderByChild('createdAt').startAt(new Date().getTime()).on('child_added', questionSnap => {
   let question = questionSnap.val()
-  firebaseRef.child(`tutors/${question.category}`).once('value', mentorSnap => {
-    let mentors = mentorSnap.val()
-    mentorSnap.forEach(mentor => {
-      sendEmailNotification(mentor.val().email, question)
-    })
-  })
+  if (question.tutor.connected) {
+    sendEmailNotification(question.tutor.email, question)
+  } else {
+    firebaseRef.child(`tutors/${question.category}`).once('value', mentorSnap => {
+      let mentors = mentorSnap.val()
+      mentorSnap.forEach(mentor => {
+        sendEmailNotification(mentor.val().email, question)
+      })
+    })    
+  }
 })
 
 

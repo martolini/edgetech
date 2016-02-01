@@ -25,7 +25,7 @@ class NavbarComponent extends Component {
             <Link to='/ask' className="navbar-brand logo-font">Thx bro!</Link>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to="ask">Get Help</Link>
+                <Link to="/ask">Get Help</Link>
               </li>
               <li>
                 <Link to="/help">Give Help</Link>
@@ -36,7 +36,7 @@ class NavbarComponent extends Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a href="#">{ this.props.user.username } ( {this.props.user.karma} )</a>
+                <Link to={`/user/${this.props.user.id}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
               </li>
               <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>

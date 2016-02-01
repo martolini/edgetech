@@ -35,7 +35,9 @@ class GiveHelpComponent extends Component {
 			let questions = []
 			snapshot.forEach(snap => {
 				let question = snap.val()
-				questions.push(question)
+				if (!question.tutor.id) {
+					questions.push(question)
+				}
 			})
 			if (questions.length > 0) {
 				this.setState({questions: questions})

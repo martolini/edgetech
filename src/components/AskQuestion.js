@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 import { askQuestion } from '../actions'
+import { RecentQuestions } from './RecentQuestions'
 
 class AskQuestionComponent extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
+    const { dispatch } = this.props
   }
 
   handleSubmit(e) {
@@ -20,6 +22,11 @@ class AskQuestionComponent extends Component {
         id: this.props.user.id,
         username: this.props.user.username,
         connected: true
+      },
+      tutor: {
+        id: null,
+        username: null,
+        connected: false
       }
     }
     if (this.text.value.length > 0) {
@@ -61,7 +68,6 @@ class AskQuestionComponent extends Component {
                 { this.props.loading ? spinner : 'Ask question' }
               </button>
             </div>
-          
           </div>
         </div>
         </section>
@@ -69,6 +75,9 @@ class AskQuestionComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
+              <h4 className="">You're 5 most recent questions</h4>
+              <RecentQuestions userId={this.props.user.id}/>
+              <hr/>
               <h4 className="">FAQ</h4>
               <h5 className="">How fast will I be connected with a student assistant?</h5>
               Availability of student assistant can vary, but it will rarely take longer than a few minutes. 

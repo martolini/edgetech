@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use('/static', express.static(path.join(__dirname, 'public/static')))
 }
 
-app.use(favicon(path.join(__dirname, 'public/favicon.png')))
+app.use(favicon(path.join(__dirname, 'public/favicon.ico')))
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))

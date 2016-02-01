@@ -10,6 +10,7 @@ import { NoMatch } from './components/NoMatch'
 import { LearningRoom } from './components/LearningRoom'
 import { GiveHelp } from './components/GiveHelp'
 import { WantToHelp } from './components/WantToHelp'
+import { Profile } from './components/Profile'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import store from './store'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -44,6 +45,7 @@ render((
           <Route path="/help" component={GiveHelp}/>
           <Route path="/denied" component={WantToHelp}/>
           <Route path="/question/:id" component={LearningRoom} />
+          <Route path="/user/:id" component={Profile} />
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>

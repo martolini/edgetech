@@ -59,7 +59,7 @@ class LearningRoomComponent extends Component {
       } else {
         let question = snapshot.val()
         if (question.author.id !== this.props.user.id) {
-          if (question.tutor !== false) {
+          if (question.tutor.connected !== false) {
             if (question.tutor.id !== this.props.user.id) {
               return this.setState({
                 loading: false,
@@ -101,7 +101,6 @@ class LearningRoomComponent extends Component {
 
   updateKarma(){
     const { dispatch } = this.props
-
     let karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
 
     if (this.refs.counter.state.counter < 240) {
@@ -136,7 +135,7 @@ class LearningRoomComponent extends Component {
     }
     let connectedWith = this.state.question.author.username
     if (this.state.question.author.id === this.props.user.id) {
-      if (this.state.question.tutor === false) {
+      if (this.state.question.tutor.connected === false) {
         connectedWith = 'No one'
       } else {
         connectedWith = this.state.question.tutor.username
@@ -162,7 +161,7 @@ class LearningRoomComponent extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <a href="#" >{ this.props.user.username } ( {this.props.user.karma} )</a>
+                  <Link to={`/user/${this.props.user.id}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
                 </li>
                 <li>
                   <a href="#" >Connected with: { connectedWith }</a>
