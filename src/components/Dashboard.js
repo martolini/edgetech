@@ -21,18 +21,6 @@ class DashboardComponent extends Component {
             </div>
           </div>
           <div className="col-xs-4">
-            <div className="panel panel-info">
-              <div className="panel-heading">
-                <h3 className="panel-title">Previous questions</h3>
-              </div>
-              <div className="panel-body">
-                <ul className="list-group">
-                  { this.props.questions.map(question => {
-                    return <li className="list-group-item" key={question.id}><Link to={`/question/${question.id}`}>{ question.text }</Link></li>
-                  })}
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -26,7 +26,9 @@ class AskQuestionComponent extends Component {
       tutor: {
         id: null,
         username: null,
+        email: null,
         connected: false
+
       }
     }
     if (this.text.value.length > 0) {

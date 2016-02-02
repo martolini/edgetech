@@ -151,6 +151,7 @@ export function askQuestion(question) {
       tutor: {
         id: question.tutor.id,
         username: question.tutor.username,
+        email: question.tutor.email,
         connected: question.tutor.connected
       },
       closed: false,

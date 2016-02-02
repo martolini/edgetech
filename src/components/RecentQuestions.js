@@ -64,7 +64,7 @@ export class RecentQuestions extends Component {
               return (
                 <tr key={question.id}>
                   <td>{question.text}</td>
-                  <td><Link to={`/user/${connectedWith.id}`}>{connectedWith.username}</Link></td>
+                  <td><Link to={`/user/${connectedWith.id}`} key={connectedWith.id}>{connectedWith.username}</Link></td>
                   <td>{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
                 </tr>
               )

@@ -25,19 +25,7 @@ export class AppComponent extends Component {
     const { dispatch } = this.props
     if (data) {
       if (!this.props.auth.user) {
-        firebaseRef
-          .child('questions')
-          .orderByChild('author/id')
-          .equalTo(data.uid)
-          .on('value', snapshot => {
-            if (snapshot.exists()) {
-              let questions = []
-              snapshot.forEach(question => {
-                questions.push(Object.assign({}, question.val(), {id: question.key()}))
-              })
-              dispatch(questionsUpdated(questions))
-            }
-          })
+
         firebaseRef
           .child('users')
           .child(data.uid)

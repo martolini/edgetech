@@ -1,9 +1,8 @@
-require('dotenv').load()
+require('dotenv').config({path: '../.env'});
 import nodemailer from 'nodemailer'
 import sgTransport from 'nodemailer-sendgrid-transport'
 import { firebaseRef } from '../src/config'
 import Firebase from 'firebase'
-
 
 const mailer = nodemailer.createTransport(sgTransport({
   auth:{
@@ -13,8 +12,7 @@ const mailer = nodemailer.createTransport(sgTransport({
 
 firebaseRef.child('questions').orderByChild('createdAt').startAt(new Date().getTime()).on('child_added', questionSnap => {
   let question = questionSnap.val()
-  if (question.tutor.connected) {
-    console.log('funk god dammit')
+  if (question.tutor.id) {
     sendEmailNotification(question.tutor.email, question)
   } else {
     firebaseRef.child(`tutors/${question.category}`).once('value', mentorSnap => {
@@ -25,7 +23,6 @@ firebaseRef.child('questions').orderByChild('createdAt').startAt(new Date().getT
     })    
   }
 })
-
 
 function sendEmailNotification(to, question) {
   let email = {

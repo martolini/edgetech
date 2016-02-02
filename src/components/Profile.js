@@ -5,7 +5,6 @@ import { firebaseRef, CATEGORIES } from '../config'
 import { askQuestion } from '../actions'
 import { RecentQuestions } from './RecentQuestions'
 
-
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +18,7 @@ class ProfileComponent extends Component {
 
   componentDidMount() {
     console.log('mount ' + this.props.params.id)
-    this.firebaseRef.on('value', snapshot => {
+    this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         let user = snapshot.val()
         console.log('user' + user.username)
@@ -30,11 +29,17 @@ class ProfileComponent extends Component {
     })
   }
 
-  componentDidUpdate(){
-    console.log('update ' + this.firebaseRef.id)
-    if (this.props.params.id !== this.state.profile) {
-
-    }
+  componentWillReceiveProps(nextProps) {
+    this.firebaseRef = firebaseRef.child(`/users/${nextProps.params.id}`)
+    this.firebaseRef.once('value', snapshot => {
+      if (snapshot.exists()) {
+        let user = snapshot.val()
+        console.log('user' + user.username)
+        this.setState({
+          profile: user
+        })
+      }
+    })
   }
 
   componentWillUnmount() {
@@ -56,6 +61,7 @@ class ProfileComponent extends Component {
       tutor: {
         id: this.props.params.id,
         username: this.state.profile.username,
+        email: this.state.profile.email,
         connected: false
       }
     }
