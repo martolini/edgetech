@@ -9,6 +9,8 @@ import { pushPath } from 'redux-simple-router'
 import { Link } from 'react-router'
 require('../css/Learningroom.css')
 
+var audio = new Audio('http://soundbible.com/mp3/Elevator%20Ding-SoundBible.com-685385892.mp3')
+
 class LearningRoomComponent extends Component {
   constructor(props) {
     super(props)
@@ -39,7 +41,7 @@ class LearningRoomComponent extends Component {
   }
 
   componentDidMount() {
-
+    let onePing = true
     this.questionRef.on('child_added', snapshot => {
       this.setState({
         question: Object.assign({}, this.state.question, { [snapshot.key()] : snapshot.val()})
@@ -49,6 +51,10 @@ class LearningRoomComponent extends Component {
       this.setState({
         question: Object.assign({}, this.state.question, { [snapshot.key()]: snapshot.val()})
       })
+      if (this.state.question.tutor.connected && onePing) {
+        audio.play()
+        onePing = false
+      }
     })
     this.questionRef.once('value', snapshot => {
       if (!snapshot.exists()) {

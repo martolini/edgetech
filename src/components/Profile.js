@@ -4,6 +4,8 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 import { askQuestion } from '../actions'
 import { RecentQuestions } from './RecentQuestions'
+import { Link } from 'react-router'
+
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -21,7 +23,6 @@ class ProfileComponent extends Component {
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         let user = snapshot.val()
-        console.log('user' + user.username)
         this.setState({
           profile: user
         })
@@ -72,7 +73,7 @@ class ProfileComponent extends Component {
   render() {
     let connectWithProfile =  (
       <div>
-        <h4>Connect with {this.state.profile.username}:</h4>
+        <h5>Connect with {this.state.profile.username}:</h5>
         <div className="form-group">
           <label className="" htmlFor="select">Course:</label>
           <select className="form-control" id="select" ref={ref => this.syntax = ref}>
@@ -88,7 +89,6 @@ class ProfileComponent extends Component {
       )
     let recentQuestions = (
       <div>
-        <h4 className="">Your 5 most recent questions</h4>
         <RecentQuestions userId={this.props.user.id}/> 
       </div>
       )             
@@ -98,7 +98,9 @@ class ProfileComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h2>{this.state.profile.username}</h2>           
+              <h2>{this.state.profile.username}</h2> 
+              <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>          
+              <hr/>
               {this.props.user.id === this.props.params.id ? recentQuestions : connectWithProfile}
             </div>
           </div>

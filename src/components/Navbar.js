@@ -23,7 +23,10 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
             </button>
             <Link to='/ask' className="navbar-brand logo-font">Thx bro!</Link>
-            <ul className="nav navbar-nav navbar-right">
+          </div>
+
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul className="nav navbar-nav navbar-left">
               <li>
                 <Link to="/ask">Get Help</Link>
               </li>
@@ -31,9 +34,6 @@ class NavbarComponent extends Component {
                 <Link to="/help">Give Help</Link>
               </li>
             </ul>
-          </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <Link to={`/user/${this.props.user.id}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>

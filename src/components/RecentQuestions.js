@@ -39,8 +39,8 @@ export class RecentQuestions extends Component {
     
     return (
       <div>
-
-        <table className="table table-striped table-hover">
+        <h5 className="">Your 5 most recent questions:</h5>
+        <table className="table table-striped table-bordered table-hover">
           <thead>
             <tr>
               <th>Question</th>
@@ -49,7 +49,7 @@ export class RecentQuestions extends Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.questions.map(question => {
+            { this.state.questions.reverse().map(question => {
               let connectedWith = {
                 id: null,
                 username: null
@@ -64,7 +64,7 @@ export class RecentQuestions extends Component {
               return (
                 <tr key={question.id}>
                   <td>{question.text}</td>
-                  <td><Link to={`/user/${connectedWith.id}`} key={connectedWith.id}>{connectedWith.username}</Link></td>
+                  <td><Link to={`/user/${connectedWith.id}`} className="GREEN-TEXT" key={connectedWith.id}>{connectedWith.username}</Link></td>
                   <td>{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
                 </tr>
               )

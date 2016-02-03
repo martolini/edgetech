@@ -5,7 +5,8 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
 var audio = new Audio('http://soundbible.com/mp3/Elevator%20Ding-SoundBible.com-685385892.mp3');
-let previousLength = -1
+let previousLength = 'start'
+
 
 class GiveHelpComponent extends Component {
 
@@ -75,15 +76,15 @@ class GiveHelpComponent extends Component {
 			this.state.questions.map(question => {
 				if (question.category === category) {
 					questionLength++
-				};
+				}
 			})
 			// Change title of document so tutor can get notified of incoming questions
 			document.title = '(' + questionLength + ') ' + 'Thxbro!';
 			
 			// Check if questions.length is increasing and play notification sound if true
-			if (this.state.questions.length > previousLength && previousLength !== 0) {
+			if (this.state.questions.length > previousLength && previousLength !== 'start') {
 				previousLength = this.state.questions.length
-				audio.play();
+				audio.play()
 			} else {
 				previousLength = this.state.questions.length
 			}
