@@ -39,6 +39,7 @@ class LearningRoomComponent extends Component {
   }
 
   componentDidMount() {
+
     let onePing = true
     this.questionRef.on('child_added', snapshot => {
       this.setState({
@@ -216,6 +217,8 @@ class LearningRoomComponent extends Component {
           </div>
           <div className="video-position col-xs-4">
             { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
+            <iframe src={"https://tlk.io/" + this.state.question.author.username + "-chat-room"} frameBorder="0"
+              width="100%" height="425px"></iframe>
           </div>
         </div>
       </div>
