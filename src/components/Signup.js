@@ -20,6 +20,7 @@ class SignupComponent extends Component {
     this.validChars = this.validChars.bind(this)
     this.usernameIsValid = false
     this.errMsg = null
+    this.radioBtn = false
 
   }
 
@@ -41,6 +42,7 @@ class SignupComponent extends Component {
   handleSubmit(e) {
     e.preventDefault()
     if (this.usernameIsValid) {
+      const tutor = document.getElementById('yesRadioBtn').checked
       const username = this.usernameInput.value
       const email = this.emailInput.value
       const password = this.passwordInput.value
@@ -48,12 +50,10 @@ class SignupComponent extends Component {
       dispatch(signup({
         username: username,
         email: email,
-        password: password
+        password: password,
+        tutor: tutor
       }))
-    } else {
-      // Do something
-      console.log('username taken!')
-    }
+    } 
 
   }
 
@@ -102,10 +102,12 @@ class SignupComponent extends Component {
       </span>
       )
 
+    let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
+
     let submitBtn = (
       <button type="submit" onClick={this.handleSubmit}
         className="btn btn-success btn-lg">
-        Sign up
+        { this.props.auth.loading ? spinner : 'Sign up'}
       </button>
       )
 
@@ -156,6 +158,16 @@ class SignupComponent extends Component {
                       </span>
                       <input className="form-control" type="password" placeholder="******"
                           ref={(ref) => this.passwordInput = ref}/>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <div className="input-group input-group-lg">
+                      <span className="input-group-addon">
+                        <i className="fa fa-graduation-cap fa-fw"></i>
+                      </span>
+                      <label className="tutorLabel">Do you want to have tutoring access?</label>
+                      <label className="radio-inline"><input id="yesRadioBtn" type="radio" name="optradio" />Yes</label>
+                      <label className="radio-inline"><input type="radio" name="optradio" defaultChecked="checked"/>No</label>
                     </div>
                   </div>
                   {this.usernameIsValid ? submitBtn : submitBtnDisabled}

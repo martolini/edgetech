@@ -49,7 +49,7 @@ export class TopTutors extends Component {
               return (
                 <tr key={user.id}>
                   <td>{index + 1}</td>
-                  <td><Link to={`/user/${user.id}`} className="GREEN-TEXT" key={user.id}>{user.username}</Link></td>
+                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT" key={user.username}>{user.username}</Link></td>
                   <td>{user.karma}p</td>
                 </tr>
               )

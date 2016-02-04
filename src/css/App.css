@@ -117,3 +117,8 @@ hr {
 .errMsg {
 	margin-left: 55px;
 }
+
+.tutorLabel {
+	margin-right: 20px;
+	vertical-align: text-top;
+}

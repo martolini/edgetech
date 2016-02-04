@@ -63,7 +63,7 @@ class LoginComponent extends Component {
                           ref={ref => this.passwordInput = ref}/>
                     </div>
                   </div>
-                    <button type="submit" onClick={this.handleSubmit} className="btn btn-primary btn-lg">
+                    <button type="submit" onClick={this.handleSubmit} className="btn btn-success btn-lg">
                       { this.props.auth.loading ? spinner : 'Login' }
                     </button>
                 </form>

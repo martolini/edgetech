@@ -45,7 +45,7 @@ render((
           <Route path="/help" component={GiveHelp}/>
           <Route path="/denied" component={WantToHelp}/>
           <Route path="/question/:id" component={LearningRoom} />
-          <Route path="/user/:id" component={Profile} />
+          <Route path="/user/:username" component={Profile} />
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>

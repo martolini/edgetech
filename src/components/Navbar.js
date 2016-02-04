@@ -36,7 +36,7 @@ class NavbarComponent extends Component {
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to={`/user/${this.props.user.id}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
+                <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
               </li>
               <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>

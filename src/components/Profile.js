@@ -15,27 +15,32 @@ class ProfileComponent extends Component {
     }
     const { dispatch } = this.props
     this.connectWith = this.connectWith.bind(this)
-    this.firebaseRef = firebaseRef.child(`/users/${this.props.params.id}`)
+    this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(this.props.params.username)
   }
 
   componentDidMount() {
     this.firebaseRef.once('value', snapshot => {
+
       if (snapshot.exists()) {
-        let user = snapshot.val()
-        this.setState({
-          profile: user
+        snapshot.forEach(snap => {
+          let user = snap.val()
+          this.setState({
+            profile: user
+          })
         })
       }
     })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.firebaseRef = firebaseRef.child(`/users/${nextProps.params.id}`)
+    this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(nextProps.params.username)
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
-        let user = snapshot.val()
-        this.setState({
-          profile: user
+        snapshot.forEach(snap => {
+          let user = snap.val()
+          this.setState({
+            profile: user
+          })
         })
       }
     })
@@ -58,7 +63,7 @@ class ProfileComponent extends Component {
         connected: true
       },
       tutor: {
-        id: this.props.params.id,
+        id: this.state.profile.id,
         username: this.state.profile.username,
         email: this.state.profile.email,
         connected: false
@@ -99,7 +104,7 @@ class ProfileComponent extends Component {
               <h2>{this.state.profile.username}</h2> 
               <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>          
               <hr/>
-              {this.props.user.id === this.props.params.id ? recentQuestions : connectWithProfile}
+              {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
             </div>
           </div>
       </div>

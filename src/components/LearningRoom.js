@@ -35,9 +35,7 @@ class LearningRoomComponent extends Component {
     } else {
       this.questionRef.child('tutor/connected').set(false)
     }
-  
-    this.questionRef.off()
-      
+    this.questionRef.off()  
   }
 
   componentDidMount() {
@@ -148,7 +146,6 @@ class LearningRoomComponent extends Component {
       }
     }
     return (
-
       <div>
         <nav className="navbar navbar-inverse learningroom-nav" style={{marginBottom: 0}}>
           <div className="container-fluid">
@@ -167,7 +164,7 @@ class LearningRoomComponent extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to={`/user/${this.props.user.id}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
+                  <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
                 </li>
                 <li>
                   <a href="#" >Connected with: { connectedWith }</a>
