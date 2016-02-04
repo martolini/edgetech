@@ -93,7 +93,7 @@ function signupError(error) {
 }
 
 export function signup(data) {
-  const { email, password } = data
+  const { username, email, password } = data
   return dispatch => {
     dispatch(signupRequest())
     firebaseRef.createUser(data, (error, user) => {
@@ -106,8 +106,9 @@ export function signup(data) {
           } else {
             firebaseRef.child('users').child(data.uid).set({
               email: email,
-              username: email.substr(0, email.indexOf('@')),
-              karma: 0
+              username: username,
+              karma: 0,
+              id: data.uid
             })
           }
         })

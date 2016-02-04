@@ -19,7 +19,6 @@ class ProfileComponent extends Component {
   }
 
   componentDidMount() {
-    console.log('mount ' + this.props.params.id)
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         let user = snapshot.val()
@@ -35,7 +34,6 @@ class ProfileComponent extends Component {
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         let user = snapshot.val()
-        console.log('user' + user.username)
         this.setState({
           profile: user
         })

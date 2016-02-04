@@ -36,6 +36,8 @@ class LoginComponent extends Component {
       <div className="container">
         <div className="row">
           <div className="col-xs-4 col-xs-offset-4">
+            <br/>
+            <br/>
             <div className="panel panel-default">
               <div className="panel-heading">
                 <h4>Login</h4>

@@ -76,6 +76,14 @@ hr {
 	font-weight: bolder;
 }
 
+.DANGER {
+	color: #e51c23;
+}
+
+.SUCCESS {
+	color: #4CAF50;
+}
+
 .other-client-selection-9bff80 {
 	background-color: #467047 !important;
 	border-left: 2px solid #467047 !important;
@@ -102,4 +110,10 @@ hr {
 .dark-table {
 	background-color: #333;
 
+}
+
+/*Signup*/
+
+.errMsg {
+	margin-left: 55px;
 }
