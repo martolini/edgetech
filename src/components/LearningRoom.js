@@ -3,6 +3,7 @@ import { CodeEditor } from './CodeEditor'
 import { VideoRoom } from './VideoRoom'
 import { Counter } from './Counter'
 import { WaitForVideo } from './WaitForVideo'
+import { Chat } from './Chat'
 import { firebaseRef } from '../config'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
@@ -217,8 +218,7 @@ class LearningRoomComponent extends Component {
           </div>
           <div className="video-position col-xs-4">
             { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
-            <iframe src={"https://tlk.io/" + this.state.question.author.username + "-chat-room"} frameBorder="0"
-              width="100%" height="425px"></iframe>
+            <Chat userName={this.props.user.username} authorName={this.state.question.author.username} chatId={this.state.question.chatId}/>
           </div>
         </div>
       </div>

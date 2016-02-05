@@ -147,6 +147,7 @@ export function askQuestion(question) {
   return dispatch => {
     dispatch(askQuestionRequest())
     let questionRef = firebaseRef.child('questions').push()
+    let chatRef = firebaseRef.child('chat').push()
     question = Object.assign({}, question, {
       id: questionRef.key(),
       counter: 0,
@@ -157,6 +158,7 @@ export function askQuestion(question) {
         connected: question.tutor.connected
       },
       closed: false,
+      chatId: chatRef.key(),
       createdAt: Firebase.ServerValue.TIMESTAMP
     })
     questionRef.set(question, error => {
