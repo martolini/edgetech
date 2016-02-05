@@ -218,7 +218,8 @@ class LearningRoomComponent extends Component {
           </div>
           <div className="video-position col-xs-4">
             { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
-            <Chat userName={this.props.user.username} authorName={this.state.question.author.username} chatId={this.state.question.chatId}/>
+            { this.state.question.tutor.connected ? <Chat userName={this.props.user.username} chatId={this.state.question.chatId}/> : null }
+            
           </div>
         </div>
       </div>

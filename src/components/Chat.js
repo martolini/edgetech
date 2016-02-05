@@ -10,35 +10,53 @@ import { firebaseRef, CATEGORIES } from '../config'
       messages: []
     } 
     this.chatRef = firebaseRef.child(`chat/${this.props.chatId}`)
+    this.messageListener = this.chatRef.child('messages')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.messages = []
   }
 
   componentDidMount() {
-    this.chatRef.set(this.state.messages, error => {
-      if (!!error) {
-        console.log(error.message)
-      } else {
 
+    this.messageListener.on('child_added', snapshot => { 
+
+      if (snapshot.exists() && snapshot.val().author !== this.props.userName) {
+
+        setTimeout(() => {
+          let elem = document.getElementById('chat-box');
+          console.log('height2' + elem.scrollHeight)
+          elem.scrollTop = elem.scrollHeight;
+        }, 100)
+
+        let msg = snapshot.val()
+        console.log('it worked again: ' + msg.text)
+        this.messages.push(msg)
+                
+        this.setState({
+          messages: this.messages
+        })
+
+      } else {
+        console.log('something went wrong')
       }
     })
+
   }
 
   componentWillUnmount() {
-
+    this.messageRef.off()
   }
 
-  handleSubmit(){
-
-    let messageRef = this.chatRef.child('messages').push()
+  handleSubmit(e){
+    e.preventDefault()
+    this.messageRef = this.messageListener.push()
 
     let message = {
       author: this.props.userName,
       text: this.textMessage.value,
-      id: messageRef.key()
+      id: this.messageRef.key()
     }
 
-    messageRef.set(message, error => {
+    this.messageRef.set(message, error => {
       if (!!error) {
         console.log(error.message)
       } else {
@@ -53,23 +71,56 @@ import { firebaseRef, CATEGORIES } from '../config'
 
     this.textMessage.value = " "
 
+    setTimeout(() => {
+      let elem = document.getElementById('chat-box');
+      elem.scrollTop = elem.scrollHeight;
+    }, 100)
+
   }
 
   render() {
  
     return (
       <div className="chat-room">
-        <ul className="list-clean">
-          {this.state.messages.map(message => {
-            if (this.props.userName === this.props.authorName) {
-              return <li className="message-align-left" key={message.id}><strong>{message.author}:</strong> <span className="WHITE-TEXT">{message.text}</span></li>
-            } else {
-              return <li className="message-align-right" key={message.id}><span className="WHITE-TEXT">{message.text}</span> <strong>:{message.author}</strong></li>
-            }
-          })}
-        </ul>
-        <input type="text" placeholder="Write something" ref={ref => this.textMessage = ref}/>
-        <button type="submit" onClick={this.handleSubmit} className="btn btn-success">Send</button>
+        <div id="chat-box" className="chat-message-box">
+          <ul className="list-clean">
+            {this.state.messages.map(message => {
+              if (this.props.userName === message.author) {
+                return (<li className="message-align-left" key={message.id}>
+                    <ul className="list-inline">
+                      <li className="chat-label">
+                        {message.author}
+                      </li>
+                      <li>
+                        <div className="chat-span">
+                          <span className="WHITE-TEXT">{message.text}</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>)
+              } else {
+                return (<li className="message-align-right" key={message.id}>
+                    <ul className="list-inline">
+                      <li>
+                        <div className="chat-span">
+                          <span className="WHITE-TEXT">{message.text}</span>
+                        </div>
+                      </li>
+                      <li className="chat-label">
+                        {message.author}
+                      </li>
+                    </ul>
+                  </li>)
+              }
+            })}
+          </ul>
+        </div>
+        <form onSubmit={this.handleSubmit} className="chat-form">
+          <input type="text" className="chat-input" placeholder="Chat away!" ref={ref => this.textMessage = ref}/>
+          <button type="submit" className="btn btn-primary chat-submit-button">
+            <i className="fa fa-paper-plane fa-fw"></i>
+          </button>
+        </form>
       </div>
     )
   }
