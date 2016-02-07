@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { signup } from '../actions'
-import { firebaseRef } from '../config'
+import { firebaseRef, CATEGORIES } from '../config'
 
 
 
@@ -13,15 +13,17 @@ class SignupComponent extends Component {
     this.state = {
       usernames: [],
       username: "",
+      showLanguages: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.firebaseRef = new Firebase('https://edgetech.firebaseio.com/users').orderByChild('username')
+    this.tutorRef = new Firebase('https://edgetech.firebaseio.com/tutors')
     this.updateUsername = this.updateUsername.bind(this)
     this.validChars = this.validChars.bind(this)
+    this.showLanguages = this.showLanguages.bind(this)
     this.usernameIsValid = false
     this.errMsg = null
     this.radioBtn = false
-
   }
 
   componentDidMount() {
@@ -47,18 +49,27 @@ class SignupComponent extends Component {
       const email = this.emailInput.value
       const password = this.passwordInput.value
       const { dispatch } = this.props;
+      
+      let courses = {}
+      if (tutor) {
+        CATEGORIES.map(category => {
+          courses[category.id] = document.getElementById(category.id).checked
+        })
+      }
+
       dispatch(signup({
         username: username,
         email: email,
         password: password,
-        tutor: tutor
+        tutor: tutor,
+        courses: courses
       }))
     } 
 
   }
 
   validChars() {
-    if (this.usernameInput.value.length > 3) {
+    if (this.usernameInput.value.length > 2) {
       return /^[0-9a-zA-Z_]+$/.test(this.usernameInput.value)
     } else {
       return false
@@ -80,6 +91,12 @@ class SignupComponent extends Component {
       this.usernameIsValid = true
       this.errMsg = null
     }
+  }
+
+  showLanguages(){
+    this.setState({
+      showLanguages: document.getElementById('yesRadioBtn').checked
+    })
   }
 
   render() {
@@ -117,6 +134,25 @@ class SignupComponent extends Component {
       </button>
       )
 
+    let languages = ( 
+      <div className="input-group input-group-lg">
+        <span className="input-group-addon">
+          <i className="fa fa-fw"></i>
+        </span>
+        <label className="tutorLabel">In what languages?</label>
+        { CATEGORIES.map(category => {
+          return ( 
+            <div className="checkbox">
+              <label>
+                <input type="checkbox" id={category.id}/>
+                {category.id}
+              </label>
+            </div>
+            )
+          })
+        }
+      </div>
+    )
     return (
       <div className="container">
         <div className="row">
@@ -165,10 +201,11 @@ class SignupComponent extends Component {
                       <span className="input-group-addon">
                         <i className="fa fa-graduation-cap fa-fw"></i>
                       </span>
-                      <label className="tutorLabel">Do you want to have tutoring access?</label>
-                      <label className="radio-inline"><input id="yesRadioBtn" type="radio" name="optradio" />Yes</label>
-                      <label className="radio-inline"><input type="radio" name="optradio" defaultChecked="checked"/>No</label>
+                      <label className="tutorLabel">Are you going to teach?</label>
+                      <label className="radio-inline"><input id="yesRadioBtn" type="radio" onClick={this.showLanguages} name="optradio" />Yes</label>
+                      <label className="radio-inline"><input type="radio" name="optradio" onClick={this.showLanguages} defaultChecked="checked"/>No</label>
                     </div>
+                    {this.state.showLanguages ? languages : null}
                   </div>
                   {this.usernameIsValid ? submitBtn : submitBtnDisabled}
                 </form>

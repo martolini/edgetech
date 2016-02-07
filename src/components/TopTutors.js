@@ -23,7 +23,7 @@ export class TopTutors extends Component {
           users.push(user)
         })
         this.setState({
-          topTutors: users
+          topTutors: users.reverse()
         })
       }
     })
@@ -44,7 +44,7 @@ export class TopTutors extends Component {
             </tr>
           </thead>
           <tbody className="">
-            { this.state.topTutors.reverse().map((user, index) => {
+            { this.state.topTutors.map((user, index) => {
 
               return (
                 <tr key={user.id}>

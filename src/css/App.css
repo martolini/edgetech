@@ -19,6 +19,23 @@ hr {
 	padding-left: 0px;
 }
 
+input[type="radio"]:checked:after, .radio input[type="radio"]:checked:after, .radio-inline input[type="radio"]:checked:after {
+    border-color: #4CAF50;
+}
+
+input[type="radio"]:before, .radio input[type="radio"]:before, .radio-inline input[type="radio"]:before {
+    background-color: #4CAF50;
+}
+
+input[type="checkbox"]:checked:after, .checkbox input[type="checkbox"]:checked:after, .checkbox-inline input[type="checkbox"]:checked:after {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after, .checkbox-inline input[type="checkbox"]:focus:after {
+    border-color: #4CAF50;
+}
+
 /*Navbar*/
 
 .navbar-inverse {
@@ -126,4 +143,20 @@ hr {
 .tutorLabel {
 	margin-right: 20px;
 	vertical-align: text-top;
+}
+
+/*Give help*/
+
+.give-help-select {
+	width: 150px;
+}
+
+.no-students-in-need {
+	text-align: center;
+	margin-top: 100px;
+	color: #4CAF50;
+}
+
+.topics-li {
+	margin-left: 8px;
 }

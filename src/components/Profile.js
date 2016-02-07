@@ -80,7 +80,7 @@ class ProfileComponent extends Component {
         <div className="form-group">
           <label className="" htmlFor="select">Course:</label>
           <select className="form-control" id="select" ref={ref => this.syntax = ref}>
-            { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.name }</option> )}
+            { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.id }</option> )}
           </select>
         </div>
         <div className="button-group">
@@ -102,7 +102,7 @@ class ProfileComponent extends Component {
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
               <h2>{this.state.profile.username}</h2> 
-              <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>          
+              <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>                 
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
             </div>

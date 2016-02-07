@@ -13,8 +13,9 @@ class GiveHelpComponent extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			category: 'TDT4100',
-			questions: []
+			category: 'Java',
+			questions: [],
+			emptyTable: true
 		}
 		
 		this.changeCourse = this.changeCourse.bind(this)
@@ -22,12 +23,14 @@ class GiveHelpComponent extends Component {
 		this.updateTitle = this.updateTitle.bind(this)
 		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/connected').equalTo(true)
 		this.interval = setInterval(() => this.tick(), 60000)
+		this.enableNotification = this.enableNotification.bind(this)
 	}
 	
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
-		previousLength = -1
+		previousLength = 'start'
+
 	}
 
 	onValueChange(snapshot) {
@@ -51,11 +54,13 @@ class GiveHelpComponent extends Component {
 	}
 
 	componentDidMount() {
-		if (this.props.user.tutor) {
-			this.firebaseRef.on('value', this.onValueChange)
+		this.firebaseRef.on('value', this.onValueChange)
+
+		console.log('en: ' + this.props.user.enabledNotification)
+		if (this.props.user.enabledNotification) {
+			document.getElementById('onRadioBtn').checked = true
 		} else {
-			const { dispatch } = this.props
-			dispatch(pushPath('/denied'))
+			document.getElementById('offRadioBtn').checked = true
 		}
 	}
 
@@ -72,14 +77,14 @@ class GiveHelpComponent extends Component {
 
 	updateTitle(category){
 		if (this.state.questions.length > 0) {
-			let questionLength = 0
+			let questionsLength = 0
 			this.state.questions.map(question => {
 				if (question.category === category) {
-					questionLength++
+					questionsLength++
 				}
 			})
 			// Change title of document so tutor can get notified of incoming questions
-			document.title = '(' + questionLength + ') ' + 'Thxbro!';
+			document.title = '(' + questionsLength + ') ' + 'Thxbro!';
 			
 			// Check if questions.length is increasing and play notification sound if true
 			if (this.state.questions.length > previousLength && previousLength !== 'start') {
@@ -88,17 +93,52 @@ class GiveHelpComponent extends Component {
 			} else {
 				previousLength = this.state.questions.length
 			}
+
+			if (questionsLength > 0) {
+				this.setState({
+					emptyTable: false
+				})
+			} else {
+				this.setState({
+					emptyTable: true
+				})
+			}
 		} else {
 			document.title = 'Thxbro!';
 		}
+
+	}
+
+	enableNotification(){
+		let user = firebaseRef.child(`users/${this.props.user.id}`)
+		user.update({
+			enabledNotification: document.getElementById('onRadioBtn').checked
+		})
 	}
 
 	render() {
+		let noStudentsInNeed = (<h3 className="no-students-in-need">No students in need at the moment!</h3>)
 		return (
 			<div className="container">
-				<select className="form-control TOP-MARGIN-20" id="select" onChange={this.changeCourse} value={this.state.category}>
-				  { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.name }</option> )}
-				</select>
+				<div className="TOP-MARGIN-20">
+					<ul className="list-inline">
+						<li className="topics-li">
+							<p><strong>Topics: </strong></p>
+						</li>
+						<li>
+							<select className="form-control give-help-select" id="select" onChange={this.changeCourse} value={this.state.category}>
+							  { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.id }</option> )}
+							</select>	
+						</li>				
+						<li className="pull-right">
+							<label className="radio-inline"><input id="onRadioBtn" type="radio" name="optradio" onClick={this.enableNotification}/>On</label>
+							<label className="radio-inline"><input id="offRadioBtn" type="radio" onClick={this.enableNotification} name="optradio"/>Off</label>  
+						</li>					
+						<li className="pull-right">
+							<p><strong>Email notifications: </strong></p>
+						</li>
+					</ul>
+				</div>
 				<table className="table table-striped table-hover">
 				  <thead>
 				    <tr>
@@ -120,6 +160,7 @@ class GiveHelpComponent extends Component {
 				  	})}
 				  </tbody>
 				</table>
+				{ this.state.emptyTable ? noStudentsInNeed : null }
 			</div>
 		)
 	}

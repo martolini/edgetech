@@ -93,7 +93,7 @@ function signupError(error) {
 }
 
 export function signup(data) {
-  const { username, email, password, tutor } = data
+  const { username, email, password, tutor, courses } = data
   return dispatch => {
     dispatch(signupRequest())
     firebaseRef.createUser(data, (error, user) => {
@@ -109,7 +109,9 @@ export function signup(data) {
               username: username,
               karma: 0,
               id: data.uid,
-              tutor: tutor
+              enabledNotification: tutor,
+              courses: courses
+
             })
           }
         })
@@ -157,7 +159,6 @@ export function askQuestion(question) {
         email: question.tutor.email,
         connected: question.tutor.connected
       },
-      closed: false,
       chatId: chatRef.key(),
       createdAt: Firebase.ServerValue.TIMESTAMP
     })
