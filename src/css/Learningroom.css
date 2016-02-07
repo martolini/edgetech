@@ -115,7 +115,10 @@
 	overflow-x: hidden;
 	border-bottom-style: solid;
 	border-bottom-color: grey;
-	border-bottom-width: 1px;
+	border-bottom-width: 1px;	
+	border-top-style: solid;
+	border-top-color: grey;
+	border-top-width: 1px;
 	padding-bottom: 20px;
 }
 

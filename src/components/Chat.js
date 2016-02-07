@@ -17,10 +17,12 @@ import { firebaseRef, CATEGORIES } from '../config'
 
   componentDidMount() {
 
+    // Listen to new messages
     this.messageListener.on('child_added', snapshot => { 
 
       if (snapshot.exists() && snapshot.val().author !== this.props.userName) {
 
+        // Automatically scroll down when you get a new message
         setTimeout(() => {
           let elem = document.getElementById('chat-box');
           console.log('height2' + elem.scrollHeight)
@@ -43,11 +45,13 @@ import { firebaseRef, CATEGORIES } from '../config'
   }
 
   componentWillUnmount() {
-    this.messageRef.off()
+    this.messageListener.off()
   }
 
   handleSubmit(e){
     e.preventDefault()
+
+    // Add new message
     this.messageRef = this.messageListener.push()
 
     let message = {
@@ -56,6 +60,7 @@ import { firebaseRef, CATEGORIES } from '../config'
       id: this.messageRef.key()
     }
 
+    // Set new message with data
     this.messageRef.set(message, error => {
       if (!!error) {
         console.log(error.message)
@@ -71,6 +76,7 @@ import { firebaseRef, CATEGORIES } from '../config'
 
     this.textMessage.value = " "
 
+    // Automatically scroll down when you write a new message
     setTimeout(() => {
       let elem = document.getElementById('chat-box');
       elem.scrollTop = elem.scrollHeight;

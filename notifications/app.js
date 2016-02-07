@@ -29,7 +29,7 @@ function sendEmailNotification(to, question) {
     to: to,
     from: process.env.FROM_EMAIL,
     subject: `[New ${question.category} request]`,
-    html: `${question.text}<br /><b>By</b>: ${question.author.username}<br /><a href="http://edgetech.firebaseapp.com/question/${question.id}">Click here to help</a>`
+    html: `${question.text}<br /><b>By</b>: ${question.author.username}<br /><a href="http://thxbro.io/question/${question.id}">Click here to help</a>`
   }
   mailer.sendMail(email, (err, info) => {
     if (err)
