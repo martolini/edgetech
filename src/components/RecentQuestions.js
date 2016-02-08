@@ -24,7 +24,7 @@ export class RecentQuestions extends Component {
         })
         if (questions.length > 0) {
           this.setState({
-            questions: questions
+            questions: questions.reverse()
           })
         }
       };
@@ -49,7 +49,7 @@ export class RecentQuestions extends Component {
             </tr>
           </thead>
           <tbody>
-            { this.state.questions.reverse().map(question => {
+            { this.state.questions.map(question => {
               let connectedWith = {
                 id: null,
                 username: null
