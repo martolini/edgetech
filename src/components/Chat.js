@@ -87,7 +87,7 @@ import { firebaseRef, CATEGORIES } from '../config'
   render() {
  
     return (
-      <div className="chat-room">
+      <div id="chat-room" className="chat-room">
         <div id="chat-box" className="chat-message-box">
           <ul className="list-clean">
             {this.state.messages.map(message => {

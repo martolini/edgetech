@@ -1,3 +1,9 @@
+@media only screen and (max-width : 1200px) {
+  .chat-input {
+  	width: 200px !important;
+  }
+}
+
 .learningroom-container {
 	background-color: #272822;
 	height: calc(100vh - 65px);
@@ -5,7 +11,7 @@
 
 .learningroom-container div ul {
 	margin-bottom: 0px;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .learningroom-container .col-xs-8 {
@@ -85,6 +91,24 @@
 	box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+.minimized {
+	background-color: #333;
+	width: 100%;
+	cursor: pointer;
+	padding: 1px;
+	padding-left: 20px; 
+	padding-right: 20px; 
+}
+
+.hide-room-button {
+	position: absolute;
+	right: 130px;
+}
+
+.hide-room-button:hover {
+	text-decoration: underline;
+}
+
 /*WaitForVideo*/
 
 .waiting-room {
@@ -111,6 +135,27 @@
 
 .chat-message-box {
 	height: calc(100vh - 625px);
+	overflow-y: auto;
+	overflow-x: hidden;
+	border-bottom-style: solid;
+	border-bottom-color: grey;
+	border-bottom-width: 1px;	
+	border-top-style: solid;
+	border-top-color: grey;
+	border-top-width: 1px;
+	padding-bottom: 20px;
+}
+
+.chat-room-min {
+	width: 100%;
+	height: calc(100vh - 140px);
+	margin-top: 20px;
+	background-color: #272822;
+	padding: 17px;
+}
+
+.chat-message-box-min {
+	height: calc(100vh - 240px);
 	overflow-y: auto;
 	overflow-x: hidden;
 	border-bottom-style: solid;

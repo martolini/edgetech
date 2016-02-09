@@ -5,8 +5,6 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
 var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/sound.mp3');
-let previousLength = 'start'
-
 
 class GiveHelpComponent extends Component {
 
@@ -24,12 +22,13 @@ class GiveHelpComponent extends Component {
 		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/connected').equalTo(true)
 		this.interval = setInterval(() => this.tick(), 60000)
 		this.enableNotification = this.enableNotification.bind(this)
+
+		this.previousLength = -1
 	}
 	
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
-		previousLength = 'start'
 
 	}
 
@@ -45,8 +44,11 @@ class GiveHelpComponent extends Component {
 			})
 			if (questions.length > 0) {
 				this.setState({questions: questions})
-				this.updateTitle(this.state.category)
-			} 
+			} else {
+				this.setState({questions: []})
+			}
+			this.updateTitle(this.state.category)
+
 	  } else {
 	  	this.setState({questions: []})
 	  	this.updateTitle(this.state.category)
@@ -55,8 +57,6 @@ class GiveHelpComponent extends Component {
 
 	componentDidMount() {
 		this.firebaseRef.on('value', this.onValueChange)
-
-		console.log('en: ' + this.props.user.enabledNotification)
 		if (this.props.user.enabledNotification) {
 			document.getElementById('onRadioBtn').checked = true
 		} else {
@@ -68,6 +68,7 @@ class GiveHelpComponent extends Component {
 		this.setState({
 			category: event.target.value
 		})
+		this.previousLength = -1
 		this.updateTitle(event.target.value)
 	}
 
@@ -85,14 +86,12 @@ class GiveHelpComponent extends Component {
 			})
 			// Change title of document so tutor can get notified of incoming questions
 			document.title = '(' + questionsLength + ') ' + 'Thxbro!';
-			
 			// Check if questions.length is increasing and play notification sound if true
-			if (this.state.questions.length > previousLength && previousLength !== 'start') {
-				previousLength = this.state.questions.length
+			if (questionsLength > this.previousLength && this.previousLength !== -1) {
 				audio.play()
-			} else {
-				previousLength = this.state.questions.length
 			}
+			
+			this.previousLength = questionsLength
 
 			if (questionsLength > 0) {
 				this.setState({
@@ -105,6 +104,10 @@ class GiveHelpComponent extends Component {
 			}
 		} else {
 			document.title = 'Thxbro!';
+			this.previousLength = 0
+			this.setState({
+				emptyTable: true
+			})
 		}
 
 	}

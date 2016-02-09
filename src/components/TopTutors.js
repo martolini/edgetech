@@ -33,7 +33,6 @@ export class TopTutors extends Component {
     
     return (
       <div>
-
         <h4>Top 10 tutors:</h4>
         <table className="table table-bordered table-striped table-hover">
           <thead>
@@ -48,9 +47,9 @@ export class TopTutors extends Component {
 
               return (
                 <tr key={user.id}>
-                  <td>{index + 1}</td>
-                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT" key={user.username}>{user.username}</Link></td>
-                  <td>{user.karma}p</td>
+                  <td >{index + 1}</td>
+                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
+                  <td >{user.karma}p</td>
                 </tr>
               )
             })}
