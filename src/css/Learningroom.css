@@ -100,6 +100,10 @@
 	padding-right: 20px; 
 }
 
+.minimized:hover {
+	text-decoration: underline;
+}
+
 .hide-room-button {
 	position: absolute;
 	right: 130px;
@@ -208,6 +212,7 @@
 	border-radius: 5px;
 	padding: 0px 10px 0px 10px;
 	max-width: 200px;
+	word-wrap: break-word;
 }
 
 .chat-label {

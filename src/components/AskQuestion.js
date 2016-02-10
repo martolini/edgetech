@@ -12,6 +12,16 @@ class AskQuestionComponent extends Component {
     const { dispatch } = this.props
   }
 
+  componentDidMount(){
+    // Set navbar link to active
+    document.getElementById("get-help-link").className = "active"
+  }
+
+  componentWillUnmount(){
+    // Set navbar link to in-active
+    document.getElementById("get-help-link").className = ""
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     const { dispatch } = this.props

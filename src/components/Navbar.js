@@ -27,15 +27,15 @@ class NavbarComponent extends Component {
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav navbar-left">
-              <li>
+              <li id="get-help-link">
                 <Link to="/ask">Get Help</Link>
               </li>
-              <li>
+              <li id="give-help-link">
                 <Link to="/help">Give Help</Link>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
-              <li>
+              <li id="profile-link">
                 <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
               </li>
               <li>

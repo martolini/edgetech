@@ -23,7 +23,8 @@ class LearningRoomComponent extends Component {
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
     this.leaveRoom = this.leaveRoom.bind(this)
-    this.updateKarma = this.updateKarma.bind(this)
+    this.revertKarma = this.revertKarma.bind(this)
+    this.goToAsk = this.goToAsk.bind(this)
 
   }
 
@@ -76,7 +77,8 @@ class LearningRoomComponent extends Component {
             setTimeout(() => this.questionRef.child('tutor').set({
               id: this.props.user.id,
               username: this.props.user.username,
-              connected: true
+              connected: true,
+              oldKarma: this.props.user.karma // We need this so we can reset karma if nessecary
             }), 100)
             this.questionRef.child('tutor/connected').onDisconnect().set(false)
           }
@@ -105,12 +107,19 @@ class LearningRoomComponent extends Component {
     }
   }
 
-  updateKarma(){
+  revertKarma(){
     const { dispatch } = this.props
     let karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
 
-    karmaRef.transaction(karma => karma + Math.floor(this.refs.counter.state.counter / 100))
+    // Resetting karma
+    karmaRef.transaction(karma => this.state.question.tutor.oldKarma)
 
+    dispatch(pushPath('/ask'))
+  }
+
+  // Suddenly couldn't use Link with data-dismiss="modal" so had to redirect with a function instead.
+  goToAsk(){
+    const { dispatch } = this.props
     dispatch(pushPath('/ask'))
   }
 
@@ -164,7 +173,7 @@ class LearningRoomComponent extends Component {
                 </li>
                 <li>
                   <a className="counter">
-                    <Counter ref="counter" questionId={this.state.question.id} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
+                    <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
                   </a>
                 </li>
                 <li>
@@ -184,8 +193,8 @@ class LearningRoomComponent extends Component {
                 <h5 className="WHITE-TEXT">Are you happy with the help you got?</h5>
               </div>
               <div className="modal-footer learningroom-modal-footer">
-                <button type="button" className="btn btn-success btn-lg" onClick={this.updateKarma} data-dismiss="modal">Yes</button>
-                <Link to="/ask" type="button" data-dismiss="modal" className="btn btn-success btn-lg">No</Link>
+                <button type="button" onClick={this.goToAsk} data-dismiss="modal" className="btn btn-success btn-lg">Yes</button>
+                <button type="button" className="btn btn-success btn-lg" onClick={this.revertKarma} data-dismiss="modal">No</button>
               </div>
             </div>
           </div>

@@ -30,6 +30,8 @@ class GiveHelpComponent extends Component {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
 
+		// Set navbar link to in-active
+		document.getElementById("give-help-link").className = ""
 	}
 
 	onValueChange(snapshot) {
@@ -62,6 +64,9 @@ class GiveHelpComponent extends Component {
 		} else {
 			document.getElementById('offRadioBtn').checked = true
 		}
+
+		// Set navbar link to active
+		document.getElementById("give-help-link").className = "active"
 	}
 
 	changeCourse(event) {

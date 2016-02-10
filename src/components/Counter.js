@@ -6,10 +6,11 @@ export class Counter extends Component {
     super(props);
     this.state = {
       counter: 0,
-      active: this.props.isTutor
-    };
+      active: this.props.isTutor,
+      karmaUpdate: 10
+    }
 
-    this.firebaseRef = firebaseRef.child(`sessioncounters/${this.props.questionId}/counter`)
+    this.firebaseRef = firebaseRef.child(`sessioncounters/${this.props.question.id}/counter`)
     this.pauseCounter = this.pauseCounter.bind(this)
     this.updateCallback = snapshot => this.setState({counter: snapshot.val()})
     this.interval = setInterval(() => this.tick(), 1000)
@@ -28,12 +29,19 @@ export class Counter extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.questionId !== nextProps.questionId || this.props.isTutor !== nextProps.isTutor || this.state.counter !== nextState.counter || this.active !== this.state.active
+    return this.props.question.id !== nextProps.question.id || this.props.isTutor !== nextProps.isTutor || this.state.counter !== nextState.counter || this.active !== this.state.active
   }
 
   tick() {
     if (this.props.isTutor && this.state.active) {
       this.firebaseRef.transaction(counter => counter + 1)
+      if (this.state.counter === this.state.karmaUpdate) {
+        let karmaRef = firebaseRef.child(`users/${this.props.question.tutor.id}/karma`)
+        karmaRef.transaction(karma => karma + 5)
+        this.setState({
+          karmaUpdate: this.state.karmaUpdate + 300 // Adding 5p karma every 5 minute
+        }) 
+      }
     }
   }
 

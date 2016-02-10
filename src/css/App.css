@@ -50,6 +50,10 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 	color: white;
 }
 
+.navbar-inverse .navbar-nav > li:hover {
+	background-color: #272822;
+}
+
 .general-nav {
 	margin-bottom: 0px;
 	border-radius: 0px;
@@ -66,6 +70,12 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
   width: 100%;
   padding-bottom: 100px;
 }
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    background-color: #4CAF50;
+}
+
+/*Enums*/
 
 .GREEN {
   background-color: #4CAF50;
