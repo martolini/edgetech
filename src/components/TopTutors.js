@@ -44,11 +44,11 @@ export class TopTutors extends Component {
           </thead>
           <tbody className="">
             { this.state.topTutors.map((user, index) => {
-
+              
               return (
                 <tr key={user.id}>
                   <td >{index + 1}</td>
-                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
+                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username} <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span></Link></td>
                   <td >{user.karma}p</td>
                 </tr>
               )

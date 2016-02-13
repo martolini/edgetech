@@ -12,6 +12,7 @@ class NavbarComponent extends Component {
   }
 
   render() {
+    
     return (
       <nav className="navbar navbar-inverse general-nav">
         <div className="container">
@@ -36,7 +37,7 @@ class NavbarComponent extends Component {
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">
-                <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
+                <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } <span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}} /></Link>
               </li>
               <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>

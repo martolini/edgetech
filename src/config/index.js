@@ -14,6 +14,10 @@ export const CATEGORIES = [
     name: 'Javascript'
   },
   {
+    id: 'Python',
+    name: 'Python'
+  },
+  {
     id: 'Test',
     name: 'Demo'
   }
@@ -23,15 +27,80 @@ export const CODEMODES = {
   'Java': 'java',
   'C++': 'c_cpp',
   'Javascript': 'javascript',
-  'Test': 'javascript'
+  'Test': 'javascript',
+  'Python': 'python'
 }
 
 export const SNIPPETS = {
   'Java': 'public class Hero {\n    public static void main(String[] args) {\n        System.out.println("Waiting for a hero to help you out!");\n    }    \n}',
   'C++': '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Waiting for a hero to help you out..." << endl;\n    return 0;\n}',
   'Javascript': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
-  'Test': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}'
+  'Test': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
+  'Python': 'import antigravity\nprint "hello world!"'
 }
+
+export const LEVELS = [
+  {
+    id: 0,
+    nextLevel: 5,
+    stars: '',
+    rank: 'Student'
+  },  
+  {
+    id: 1,
+    nextLevel: 20,
+    stars: '<i class="fa fa-star-o GOLD"></i>',
+    rank: 'Bachelor'
+  },
+  {
+    id: 2,
+    nextLevel: 40,
+    stars: '<i class="fa fa-star-half-o GOLD"></i>',
+    rank: 'Tutor'
+  },
+  {
+    id: 3,
+    nextLevel: 100,
+    stars: '<i class="fa fa-star GOLD"></i>',
+    rank: 'Mentor'
+  },
+  {
+    id: 4,
+    nextLevel: 150,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star-o GOLD"></i>',
+    rank: 'Master'
+  },
+  {
+    id: 5,
+    nextLevel: 250,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star-half-o GOLD"></i>',
+    rank: 'Scientist'
+  },
+  {
+    id: 6,
+    nextLevel: 500,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i>',
+    rank: 'Doctor'
+  },
+  {
+    id: 7,
+    nextLevel: 750,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star-o GOLD"></i>',
+    rank: 'Professor'
+  },
+  {
+    id: 8,
+    nextLevel: 1000,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star-half-o GOLD"></i>',
+    rank: 'Headmaster'
+  },
+  {
+    id: 9,
+    nextLevel: 10000,
+    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i>',
+    rank: 'Super Saiyan'
+  }
+]
 
 export const RANKINGS = [
   {

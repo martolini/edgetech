@@ -17,6 +17,8 @@ class ProfileComponent extends Component {
     this.connectWith = this.connectWith.bind(this)
     this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(this.props.params.username)
     this.updateLanguages = this.updateLanguages.bind(this)
+    this.stars = " "
+    this.rank = " "
   }
 
   componentDidMount() {
@@ -33,8 +35,6 @@ class ProfileComponent extends Component {
       if (this.props.user.courses['C++']) {
         document.getElementById('C++').checked = true
       }
-
-      
     } 
 
     this.firebaseRef.once('value', snapshot => {
@@ -42,6 +42,8 @@ class ProfileComponent extends Component {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
           let user = snap.val()
+          this.stars = ( <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span> )
+          this.rank = user.level.rank
           this.setState({
             profile: user
           })
@@ -56,6 +58,8 @@ class ProfileComponent extends Component {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
           let user = snap.val()
+          this.stars = ( <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span> )
+          this.rank = user.level.rank
           this.setState({
             profile: user
           })
@@ -74,7 +78,11 @@ class ProfileComponent extends Component {
     let coursesRef = firebaseRef.child(`users/${this.props.user.id}/courses`)
     let courses = []
     CATEGORIES.map(category => {
-      courses[category.id] = document.getElementById(category.id).checked
+      if (category.id == 'Test') {
+        // Do nothing
+      } else {
+        courses[category.id] = document.getElementById(category.id).checked            
+      }
     })
     
     coursesRef.set(courses)
@@ -131,14 +139,18 @@ class ProfileComponent extends Component {
       <div className="input-group input-group-lg">
         <h5 className="tutorLabel">Check a language to get notified when someone needs help:</h5>
         { CATEGORIES.map(category => {
-          return ( 
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" onClick={this.updateLanguages} id={category.id}/>
-                {category.id}
-              </label>
-            </div>
-            )
+          if (category.id == 'Test') {
+            return null
+          } else {
+            return ( 
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" onClick={this.updateLanguages} id={category.id}/>
+                  {category.id}
+                </label>
+              </div>
+              )
+          }
           })
         }
       </div> )
@@ -149,8 +161,9 @@ class ProfileComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h2>{this.state.profile.username}</h2> 
+              <h2>{this.state.profile.username} {this.stars}</h2> 
               <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>
+              <h5>Rank: <span className="label label-success">{this.rank}</span></h5>
               {this.props.user.username === this.props.params.username ? languages : null}                
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}

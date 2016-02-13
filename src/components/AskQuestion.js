@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
-import { firebaseRef, CATEGORIES } from '../config'
+import { firebaseRef, CATEGORIES, LEVELS } from '../config'
 import { askQuestion } from '../actions'
 import { TopTutors } from './TopTutors'
 
@@ -15,6 +15,7 @@ class AskQuestionComponent extends Component {
   componentDidMount(){
     // Set navbar link to active
     document.getElementById("get-help-link").className = "active"
+
   }
 
   componentWillUnmount(){
@@ -38,7 +39,6 @@ class AskQuestionComponent extends Component {
         username: null,
         email: null,
         connected: false
-
       }
     }
     if (this.text.value.length > 0) {
@@ -55,6 +55,7 @@ class AskQuestionComponent extends Component {
 
   render() {
     let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
+
     return (
       <div>
         <div className="container">
@@ -87,7 +88,6 @@ class AskQuestionComponent extends Component {
             <br/>
             <br/>
             <TopTutors/>
-            
           </div>
         </div>
 

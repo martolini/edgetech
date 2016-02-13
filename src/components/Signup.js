@@ -53,7 +53,11 @@ class SignupComponent extends Component {
       let courses = {}
       if (tutor) {
         CATEGORIES.map(category => {
-          courses[category.id] = document.getElementById(category.id).checked
+          if (category.id == 'Test') {
+            // Do nothing
+          } else {
+            courses[category.id] = document.getElementById(category.id).checked            
+          }
         })
       }
 
@@ -141,14 +145,18 @@ class SignupComponent extends Component {
         </span>
         <label className="tutorLabel">In what languages?</label>
         { CATEGORIES.map(category => {
-          return ( 
-            <div className="checkbox">
-              <label>
-                <input type="checkbox" id={category.id}/>
-                {category.id}
-              </label>
-            </div>
-            )
+          if (category.id == 'Test') {
+            return null
+          } else {
+            return ( 
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" id={category.id}/>
+                  {category.id}
+                </label>
+              </div>
+              )
+          }
           })
         }
       </div>

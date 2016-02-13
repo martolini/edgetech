@@ -1,4 +1,4 @@
-import { firebaseRef } from '../config'
+import { firebaseRef, LEVELS } from '../config'
 import { pushPath } from 'redux-simple-router'
 import Firebase from 'firebase'
 
@@ -110,7 +110,8 @@ export function signup(data) {
               karma: 0,
               id: data.uid,
               enabledNotification: tutor,
-              courses: courses
+              courses: courses,
+              level: LEVELS[0]
 
             })
           }

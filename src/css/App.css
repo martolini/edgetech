@@ -116,6 +116,10 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 	color: #4CAF50;
 }
 
+.GOLD {
+	color: #FFD700;
+}
+
 .other-client-selection-9bff80 {
 	background-color: #467047 !important;
 	border-left: 2px solid #467047 !important;

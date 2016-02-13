@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebaseRef } from '../config'
+import { firebaseRef, LEVELS } from '../config'
 
 export class Counter extends Component {
   constructor(props) {
@@ -34,10 +34,27 @@ export class Counter extends Component {
 
   tick() {
     if (this.props.isTutor && this.state.active) {
+      // Increment the counter
       this.firebaseRef.transaction(counter => counter + 1)
+
+      // Check if we should give new karmapoints
       if (this.state.counter === this.state.karmaUpdate) {
+
+        // Fetch karma reference
         let karmaRef = firebaseRef.child(`users/${this.props.question.tutor.id}/karma`)
-        karmaRef.transaction(karma => karma + 5)
+        karmaRef.transaction(karma => {
+
+          // Check if tutor should be given a new rank
+          if (this.props.thisUser.karma >= this.props.thisUser.level.nextLevel - 5) {
+            
+            // Fetch level reference
+            let levelRef = firebaseRef.child(`users/${this.props.question.tutor.id}/level`)
+            
+            // Increment level by one
+            levelRef.set(LEVELS[this.props.thisUser.level.id + 1])
+          }
+          return karma + 5 // Increment karma by 5 points
+        })
         this.setState({
           karmaUpdate: this.state.karmaUpdate + 300 // Adding 5p karma every 5 minute
         }) 

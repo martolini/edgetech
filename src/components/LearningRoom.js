@@ -18,7 +18,8 @@ class LearningRoomComponent extends Component {
     this.state = {
       loading: true,
       error: null,
-      question: null
+      question: null,
+      startingLevel: this.props.user.level.id
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
@@ -137,7 +138,32 @@ class LearningRoomComponent extends Component {
     } else if (!!this.state.error) {
       return this.renderError()
     } else if (this.state.question.author.connected === false) {
-      return <div className="container"><h2>This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h2></div>
+      if (this.props.user.level.id > this.state.startingLevel) {
+        $('#newLevelModal').modal()
+        return ( 
+          <div>
+            <div className="container"><h2>This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h2></div> 
+            <div className="modal" id="newLevelModal">
+              <div className="modal-dialog">
+                <div className="modal-content learningroom-modal">
+                  <div className="modal-header">
+                    <h3 className="modal-title WHITE-TEXT">Congratulations!</h3>
+                    <h1><span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span></h1>
+                  </div>
+                  <div className="modal-body">
+                    <h5 className="WHITE-TEXT">You've just been promoted to the rank of {this.props.user.level.rank}!</h5>
+                  </div>
+                  <div className="modal-footer learningroom-modal-footer">
+                    <button type="button" data-dismiss="modal" className="btn btn-success btn-lg">Awesome!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          )
+      } else {
+        return <div className="container"><h2>This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h2></div>
+      }
     }
     let connectedWith = this.state.question.author.username
     if (this.state.question.author.id === this.props.user.id) {
@@ -173,7 +199,7 @@ class LearningRoomComponent extends Component {
                 </li>
                 <li>
                   <a className="counter">
-                    <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id }/>
+                    <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id } thisUser={this.props.user}/>
                   </a>
                 </li>
                 <li>
