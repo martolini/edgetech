@@ -30,13 +30,17 @@ class LearningRoomComponent extends Component {
   }
 
   componentWillUnmount() {
-  
+    
+    this.questionRef.child('tutor/connected').set(false)
+    
     // If you are the last person to leave, the question will be closed.
     if (this.props.user.id === this.state.question.author.id) {
       this.questionRef.child('author/connected').set(false)
-      this.questionRef.child('tutor/connected').set(false)
+      if (this.state.question.tutor.connected) {
+        this.questionRef.child('isActive').set(false)
+      }
     } else {
-      this.questionRef.child('tutor/connected').set(false)
+      this.questionRef.child('isActive').set(false)
     }
     this.questionRef.off()  
   }
@@ -82,9 +86,13 @@ class LearningRoomComponent extends Component {
               oldKarma: this.props.user.karma // We need this so we can reset karma if nessecary
             }), 100)
             this.questionRef.child('tutor/connected').onDisconnect().set(false)
+            this.questionRef.child('isActive').onDisconnect().set(false)
           }
         } else {
           this.questionRef.child('author/connected').onDisconnect().set(false)
+          if (this.state.question.tutor.connected) {
+            this.questionRef.child('isActive').onDisconnect().set(false)
+          }
         }
         this.setState({
           question: Object.assign({}, question, {}),
@@ -173,6 +181,7 @@ class LearningRoomComponent extends Component {
         connectedWith = this.state.question.tutor.username
       }
     }
+
     return (
       <div>
         <nav className="navbar navbar-inverse learningroom-nav" style={{marginBottom: 0}}>
@@ -199,7 +208,7 @@ class LearningRoomComponent extends Component {
                 </li>
                 <li>
                   <a className="counter">
-                    <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id } thisUser={this.props.user}/>
+                    { this.state.question.isActive ? <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id } thisUser={this.props.user}/> : null }
                   </a>
                 </li>
                 <li>
@@ -243,7 +252,7 @@ class LearningRoomComponent extends Component {
             />
           </div>
           <div className="video-position col-xs-4">
-            { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo /> }
+            { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id }/> : <WaitForVideo isActive={ this.state.question.isActive }/> }
             { this.state.question.tutor.connected ? <Chat userName={this.props.user.username} chatId={this.state.question.chatId}/> : null }
             
           </div>

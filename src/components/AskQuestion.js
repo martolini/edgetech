@@ -14,13 +14,17 @@ class AskQuestionComponent extends Component {
 
   componentDidMount(){
     // Set navbar link to active
-    document.getElementById("get-help-link").className = "active"
+    if (document.getElementById("get-help-link") !== null) {
+      document.getElementById("get-help-link").className = "active"
+    }
 
   }
 
   componentWillUnmount(){
     // Set navbar link to in-active
-    document.getElementById("get-help-link").className = ""
+    if (document.getElementById("get-help-link") !== null) {
+      document.getElementById("get-help-link").className = ""
+    }
   }
 
   handleSubmit(e) {

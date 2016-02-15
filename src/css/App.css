@@ -36,6 +36,15 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
     border-color: #4CAF50;
 }
 
+.button-link {
+	color: #4CAF50;
+}
+
+.button-link:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 /*Navbar*/
 
 .navbar-inverse {

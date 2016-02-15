@@ -23,7 +23,9 @@ class ProfileComponent extends Component {
 
   componentDidMount() {
     // Set navbar link to active
-    document.getElementById("profile-link").className = "active"
+    if (document.getElementById("profile-link") !== null) {
+      document.getElementById("profile-link").className = "active"
+    }
 
     if (this.props.user.username === this.props.params.username && this.props.user.courses) {
       if (this.props.user.courses.Java) {
@@ -71,7 +73,9 @@ class ProfileComponent extends Component {
   componentWillUnmount() {
     this.firebaseRef.off()
     // Set navbar link to in-active
-    document.getElementById("profile-link").className = ""
+    if (document.getElementById("profile-link") !== null) {
+      document.getElementById("profile-link").className = ""
+    }
   }
 
   updateLanguages() {
@@ -143,7 +147,7 @@ class ProfileComponent extends Component {
             return null
           } else {
             return ( 
-              <div className="checkbox">
+              <div className="checkbox" key={category.id}>
                 <label>
                   <input type="checkbox" onClick={this.updateLanguages} id={category.id}/>
                   {category.id}

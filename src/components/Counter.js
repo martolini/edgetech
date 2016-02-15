@@ -38,7 +38,7 @@ export class Counter extends Component {
       this.firebaseRef.transaction(counter => counter + 1)
 
       // Check if we should give new karmapoints
-      if (this.state.counter === this.state.karmaUpdate) {
+      if (this.state.counter === this.state.karmaUpdate && this.props.question.isActive) {
 
         // Fetch karma reference
         let karmaRef = firebaseRef.child(`users/${this.props.question.tutor.id}/karma`)

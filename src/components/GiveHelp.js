@@ -31,7 +31,9 @@ class GiveHelpComponent extends Component {
 		this.firebaseRef.off('value', this.onValueChange)
 
 		// Set navbar link to in-active
-		document.getElementById("give-help-link").className = ""
+		if (document.getElementById("give-help-link") !== null) {
+			document.getElementById("give-help-link").className = ""
+		}
 	}
 
 	onValueChange(snapshot) {
@@ -66,7 +68,9 @@ class GiveHelpComponent extends Component {
 		}
 
 		// Set navbar link to active
-		document.getElementById("give-help-link").className = "active"
+		if (document.getElementById("give-help-link") !== null) {
+			document.getElementById("give-help-link").className = "active"
+		}
 	}
 
 	changeCourse(event) {

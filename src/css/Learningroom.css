@@ -84,6 +84,16 @@
 	border-top-color: grey;
 }
 
+.other-client-selection-ffc880 {
+    background-color: #234C25 !important;
+    border-left: 2px solid #234C25 !important;
+}
+
+.other-client-selection-ff80f4 {
+    background-color: #234C25 !important;
+    border-left: 2px solid #234C25 !important;
+}
+
 /*Video Room*/
 
 .video-room {

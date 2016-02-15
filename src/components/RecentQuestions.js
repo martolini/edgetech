@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { firebaseRef } from '../config'
 import { Link } from 'react-router'
+import { pushPath } from 'redux-simple-router'
+import { connect } from 'react-redux';
 
 
-
-export class RecentQuestions extends Component {
+export class RecentQuestionsComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,6 +13,7 @@ export class RecentQuestions extends Component {
     };
 
     this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/id').equalTo(this.props.userId).limitToLast(5)
+    this.openQuestion = this.openQuestion.bind(this)
   }
 
   componentDidMount() {
@@ -33,6 +35,15 @@ export class RecentQuestions extends Component {
 
   componentWillUnmount() {
     this.firebaseRef.off()
+  }
+
+  openQuestion(question){
+    const { dispatch } = this.props
+
+    let openRef = firebaseRef.child(`questions/${question.id}/author/connected`)
+    openRef.set(true)
+
+    dispatch(pushPath(`/question/${question.id}`))
   }
 
   render() {
@@ -63,7 +74,7 @@ export class RecentQuestions extends Component {
               }
               return (
                 <tr key={question.id}>
-                  <td>{question.text}</td>
+                  <td><p className="button-link" onClick={this.openQuestion.bind(this, question)}>{question.text}</p></td>
                   <td><Link to={`/user/${connectedWith.username}`} className="GREEN-TEXT" key={connectedWith.id}>{connectedWith.username}</Link></td>
                   <td>{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
                 </tr>
@@ -76,4 +87,4 @@ export class RecentQuestions extends Component {
   }
 }
 
-
+export const RecentQuestions = connect()(RecentQuestionsComponent)
