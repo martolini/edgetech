@@ -54,7 +54,7 @@ export const LEVELS = [
   },
   {
     id: 2,
-    nextLevel: 40,
+    nextLevel: 50,
     stars: '<i class="fa fa-star-half-o GOLD"></i>',
     rank: 'Tutor'
   },

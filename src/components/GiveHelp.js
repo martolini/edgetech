@@ -71,6 +71,12 @@ class GiveHelpComponent extends Component {
 		if (document.getElementById("give-help-link") !== null) {
 			document.getElementById("give-help-link").className = "active"
 		}
+
+		if (this.props.user.hasLeveledUp) {
+		  $('#newLevelModal').modal()
+		  let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`) 
+		  hasLeveledUpRef.set(false)
+		}
 	}
 
 	changeCourse(event) {
@@ -133,6 +139,22 @@ class GiveHelpComponent extends Component {
 		return (
 			<div className="container">
 				<div className="TOP-MARGIN-20">
+					<div className="modal" id="newLevelModal">
+					  <div className="modal-dialog">
+					    <div className="modal-content learningroom-modal">
+					      <div className="modal-header">
+					        <h3 className="modal-title WHITE-TEXT">Congratulations!</h3>
+					        <h1><span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span></h1>
+					      </div>
+					      <div className="modal-body">
+					        <h5 className="WHITE-TEXT">You've just been promoted to the rank of {this.props.user.level.rank}!</h5>
+					      </div>
+					      <div className="modal-footer learningroom-modal-footer">
+					        <button type="button" data-dismiss="modal" className="btn btn-success btn-lg">Awesome!</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 					<ul className="list-inline">
 						<li className="topics-li">
 							<p><strong>Topics: </strong></p>
@@ -165,8 +187,8 @@ class GiveHelpComponent extends Component {
 					  		return (
 					  			<tr key={question.id}>
 					  				<td><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
-					  				<td>{question.author.username}</td>
-					  				<td>{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
+					  				<td className="WHITE-TEXT">{question.author.username}</td>
+					  				<td className="WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
 					  			</tr>
 					  		)}
 				  	})}

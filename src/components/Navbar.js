@@ -33,7 +33,7 @@ class NavbarComponent extends Component {
               </li>
               <li id="give-help-link">
                 <Link to="/help">Give Help</Link>
-              </li>
+              </li>              
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">

@@ -165,7 +165,8 @@ class ProfileComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h2>{this.state.profile.username} {this.stars}</h2> 
+              <h2>{this.state.profile.username} {this.stars}</h2>
+              <hr/> 
               <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>
               <h5>Rank: <span className="label label-success">{this.rank}</span></h5>
               {this.props.user.username === this.props.params.username ? languages : null}                

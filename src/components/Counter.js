@@ -49,9 +49,14 @@ export class Counter extends Component {
             
             // Fetch level reference
             let levelRef = firebaseRef.child(`users/${this.props.question.tutor.id}/level`)
+
+            let hasLeveledUpRef = firebaseRef.child(`users/${this.props.question.tutor.id}/hasLeveledUp`)
             
             // Increment level by one
             levelRef.set(LEVELS[this.props.thisUser.level.id + 1])
+
+            // Set variable to notify tutor of new level when question is over
+            hasLeveledUpRef.set(true)
           }
           return karma + 5 // Increment karma by 5 points
         })

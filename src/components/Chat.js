@@ -25,20 +25,26 @@ import { firebaseRef, CATEGORIES } from '../config'
         // Automatically scroll down when you get a new message
         setTimeout(() => {
           let elem = document.getElementById('chat-box');
-          console.log('height2' + elem.scrollHeight)
           elem.scrollTop = elem.scrollHeight;
         }, 100)
 
         let msg = snapshot.val()
-        console.log('it worked again: ' + msg.text)
         this.messages.push(msg)
                 
         this.setState({
           messages: this.messages
         })
 
-      } else {
-        console.log('something went wrong')
+      } else if (!this.props.isActive) {
+        let msg = snapshot.val()
+        this.messages.push(msg)
+                
+        this.setState({
+          messages: this.messages
+        })
+
+        document.getElementById("chat-room").className = "chat-room-min"
+        document.getElementById("chat-box").className = "chat-message-box-min"
       }
     })
 
@@ -64,8 +70,6 @@ import { firebaseRef, CATEGORIES } from '../config'
     this.messageRef.set(message, error => {
       if (!!error) {
         console.log(error.message)
-      } else {
-        console.log('it worked')
       }
     })
 
