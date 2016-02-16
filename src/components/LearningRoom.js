@@ -146,7 +146,11 @@ class LearningRoomComponent extends Component {
     } else if (!!this.state.error) {
       return this.renderError()
     } else if (this.state.question.author.connected === false) {
-      return <div className="container"><h2>This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h2></div>
+      return (
+        <div className="container">
+          <h3 className="logo-font-dark closed-question">This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h3>
+        </div>
+      )
     }
     let connectedWith = this.state.question.author.username
     if (this.state.question.author.id === this.props.user.id) {

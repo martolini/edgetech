@@ -42,12 +42,13 @@ import { firebaseRef, CATEGORIES } from '../config'
         this.setState({
           messages: this.messages
         })
-
-        document.getElementById("chat-room").className = "chat-room-min"
-        document.getElementById("chat-box").className = "chat-message-box-min"
       }
-    })
 
+    })
+    if (!this.props.isActive) {
+      document.getElementById("chat-room").className = "chat-room-min"
+      document.getElementById("chat-box").className = "chat-message-box-min"
+    }
   }
 
   componentWillUnmount() {

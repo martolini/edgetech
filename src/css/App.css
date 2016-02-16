@@ -20,6 +20,11 @@ hr {
 	color: #4caf50 !important;
 }
 
+.logo-font-dark {
+	font-family: 'Lobster', cursive;
+	color: #333 !important;
+}
+
 .logo-font-white {
 	font-family: 'Lobster', cursive;
 	color: white !important;

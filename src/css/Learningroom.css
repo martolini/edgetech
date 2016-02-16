@@ -67,6 +67,17 @@
 	top: -5px;
 }
 
+.closed-question {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.closed-question-button {
+	border-style: solid;
+	padding: 5px;
+	color: #4CAF50;
+}
+
 /*Counter*/
 
 .counter {
