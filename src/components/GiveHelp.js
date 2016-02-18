@@ -158,7 +158,7 @@ class GiveHelpComponent extends Component {
 		})
 	}
 
-	goToQuestion(){
+	goToQuestion(question){
 		const { dispatch } = this.props
 		dispatch(pushPath(`/question/${question.id}`))
 	}
@@ -226,7 +226,7 @@ class GiveHelpComponent extends Component {
 							  				<td className="give-help-tr"><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
 							  				<td className="give-help-tr WHITE-TEXT">{question.author.username}</td>
 							  				<td className="give-help-tr WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
-							  				<td className="WHITE-TEXT pull-right"><button className="btn btn-success">Give Help!</button></td>
+							  				<td className="WHITE-TEXT pull-right"><button className="btn btn-success" onClick={this.goToQuestion.bind(this, question)}>Give Help!</button></td>
 							  			</tr>
 							  		)}
 						  	})}

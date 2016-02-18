@@ -260,7 +260,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .give-help-sidenav:hover {
-	background-color: #265D28;
+	background-color: #282A28;
 	color: #EEE;
 	cursor: pointer;
 }

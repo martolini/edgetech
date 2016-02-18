@@ -19,8 +19,8 @@ export const CATEGORIES = [
   },
   {
     id: 'Test',
-    name: 'Demo'
-  }
+    name: 'Test'
+  } 
 ]
 
 export const CODEMODES = {
