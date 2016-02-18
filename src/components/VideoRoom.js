@@ -33,7 +33,7 @@ export class VideoRoom extends Component {
     		</div> )
     	let max = ( <div><button onClick={this.changeWindow} className="input-group-addon WHITE-TEXT hide-room-button">Hide video room <i className="fa fa-compress fa-fw"></i></button>
     		<iframe src={"https://appear.in/" + this.props.questionId } frameBorder="0" className="video-room"
-          width="100%" height="425px"></iframe></div> )
+          width="100%" height="430px"></iframe></div> )
       return (
       	<div>
       	{ this.state.isOpenWindow ? max : min }

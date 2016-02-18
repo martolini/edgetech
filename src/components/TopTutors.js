@@ -33,7 +33,7 @@ export class TopTutors extends Component {
     
     return (
       <div>
-        <h4>Top Tutors:</h4>
+        <h4 className="logo-font-dark CENTER-TEXT">Who is helping out the most?</h4>
         <table className="table table-bordered table-striped table-hover">
           <thead>
             <tr>

@@ -10,6 +10,7 @@ export class WaitForVideo extends Component {
             <i className="fa fa-5x fa-refresh fa-spin text-center"></i>
           </div>
           <h3>Searching for a tutor...</h3>
+          <h5 className="WHITE-TEXT">This might take a couple of minutes. We'll give you a ping when someone arrives ;)</h5>
         </div>
       </div>
     )

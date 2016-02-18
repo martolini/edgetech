@@ -117,7 +117,8 @@
 
 .hide-room-button {
 	position: absolute;
-	right: 130px;
+	right: 220px;
+	font-size: 24px;
 }
 
 .hide-room-button:hover {
@@ -142,14 +143,14 @@
 
 .chat-room {
 	width: 100%;
-	height: calc(100vh - 525px);
+	height: calc(100vh - 530px);
 	margin-top: 20px;
 	background-color: #272822;
 	padding: 17px;
 }
 
 .chat-message-box {
-	height: calc(100vh - 625px);
+	height: calc(100vh - 630px);
 	overflow-y: auto;
 	overflow-x: hidden;
 	border-bottom-style: solid;

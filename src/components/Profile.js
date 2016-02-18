@@ -36,6 +36,9 @@ class ProfileComponent extends Component {
       }
       if (this.props.user.courses['C++']) {
         document.getElementById('C++').checked = true
+      }      
+      if (this.props.user.courses.Python) {
+        document.getElementById('Python').checked = true
       }
     } 
 
@@ -139,9 +142,10 @@ class ProfileComponent extends Component {
       </div>
       )   
 
-    let languages = ( 
+    let langCheck = ( 
       <div className="input-group input-group-lg">
-        <h5 className="tutorLabel">Check a language to get notified when someone needs help:</h5>
+        <br/>
+        <p className="tutorLabel">Check a language to get notified when someone needs help:</p>
         { CATEGORIES.map(category => {
           if (category.id == 'Test') {
             return null
@@ -159,6 +163,26 @@ class ProfileComponent extends Component {
         }
       </div> )
 
+    let langList = ( 
+      <div className="input-group input-group-lg">
+        <br/>
+        <p className="tutorLabel">Languages {this.state.profile.username} knows:</p>
+        <ul className="list-clean">
+          { CATEGORIES.map(category => {
+            if (category.id == 'Test') {
+              return null
+            } else {
+              return ( 
+                <li key={category.id}>
+                  {category.id}
+                </li>
+                )
+              }
+            })
+          }
+        </ul>
+      </div> )
+
     return (
       <div>
         <br/>
@@ -169,7 +193,7 @@ class ProfileComponent extends Component {
               <hr/> 
               <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>
               <h5>Rank: <span className="label label-success">{this.rank}</span></h5>
-              {this.props.user.username === this.props.params.username ? languages : null}                
+              {this.props.user.username === this.props.params.username ? langCheck : langList}                
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
             </div>

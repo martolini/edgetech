@@ -88,7 +88,7 @@ class AskQuestionComponent extends Component {
                 </div>
               </div>
             </div>
-            <img className="seriously" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/seriously.png" />
+            <img className="seriously scaling" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/seriously.png" />
             <form className="ask-questions-form" onSubmit={this.handleSubmit}>
               <h3 className="logo-font-white">What do you need help with?</h3>
               <div className="form-group">

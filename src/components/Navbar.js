@@ -12,7 +12,11 @@ class NavbarComponent extends Component {
   }
 
   render() {
-    
+    let admin = (
+      <li>
+        <Link to="/admin">Admin</Link>
+      </li>
+      )
     return (
       <nav className="navbar navbar-inverse general-nav">
         <div className="container">
@@ -33,7 +37,8 @@ class NavbarComponent extends Component {
               </li>
               <li id="give-help-link">
                 <Link to="/help">Give Help</Link>
-              </li>              
+              </li>               
+              { this.props.user.admin ? admin : null }
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">

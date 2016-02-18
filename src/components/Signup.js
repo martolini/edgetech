@@ -168,8 +168,8 @@ class SignupComponent extends Component {
             <br/>
             <br/>
             <div className="panel panel-default">
-              <div className="panel-heading">
-                <h4>Sign up</h4>
+              <div className="panel-heading DARK">
+                <h3 className="logo-font">Sign up</h3>
               </div>
               <div className="panel-body">
                 { this.props.auth.error && alert }
@@ -219,7 +219,7 @@ class SignupComponent extends Component {
                 </form>
               </div>
               <div className="panel-footer">
-                <Link to="/login">Already have an account? Log in here.</Link>
+                <Link className="GREEN-TEXT" to="/login">Already have an account? Log in here.</Link>
               </div>
             </div>
           </div>

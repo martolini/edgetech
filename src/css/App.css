@@ -133,8 +133,13 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .DARK {
-	background-color: #333;
+	background-color: #333 !important;
 }
+
+.LIGHT {
+	background-color: #EEE !important;
+}
+
 
 .GREEN-TEXT {
 	color: #4CAF50;
@@ -169,6 +174,10 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 .GOLD {
 	color: #FFD700;
+}
+
+.CENTER-TEXT {
+	text-align: center;
 }
 
 .other-client-selection-9bff80 {
@@ -222,4 +231,77 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 .topics-li {
 	margin-left: 8px;
+}
+
+.give-help-sidebar {
+	margin-top: 36px;
+}
+
+.give-help-sidenav {
+	background-color: #333;
+	color: #EEE;
+	margin: 0px;
+	border-style: none;
+	border-width: 1px;
+	padding: 25px;
+}
+
+.badge {
+	background-color: #4CAF50;
+}
+
+.give-help-sidenav-active {
+	background-color: #4CAF50;
+	color: #EEE;
+	margin: 0px;
+	border-style: none;
+	border-width: 1px;
+	padding: 25px;
+}
+
+.give-help-sidenav:hover {
+	background-color: #265D28;
+	color: #EEE;
+	cursor: pointer;
+}
+
+.give-help-tr {
+	padding: 15px !important;
+}
+
+.list-group-item:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+/*Ask Question*/
+
+
+.scaling{
+    float: left;
+    -webkit-animation-name: scalex;
+    -webkit-animation-duration:3s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease-in-out;
+    -moz-animation-name: scale;
+    -moz-animation-duration:3s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-timing-function:ease-in-out;
+}
+    
+@-webkit-keyframes scalex{
+    from {-webkit-transform: scale(0.95);}
+    65% {-webkit-transform: scale(1.0);}
+    to {-webkit-transform: scale(0.95);}    
+}
+        
+@-moz-keyframes scale{
+    from {-moz-transform: scale(0.95);}
+    65% {-moz-transform: scale(1.0);}
+    to {-moz-transform: scale(0.95);}    
 }

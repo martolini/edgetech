@@ -13,7 +13,8 @@ class GiveHelpComponent extends Component {
 		this.state = {
 			category: 'Java',
 			questions: [],
-			emptyTable: true
+			emptyTable: true,
+			categoryCount: {}
 		}
 		
 		this.changeCourse = this.changeCourse.bind(this)
@@ -22,8 +23,10 @@ class GiveHelpComponent extends Component {
 		this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/connected').equalTo(true)
 		this.interval = setInterval(() => this.tick(), 60000)
 		this.enableNotification = this.enableNotification.bind(this)
+		this.goToQuestion = this.goToQuestion.bind(this)
 
 		this.previousLength = -1
+		this.prevId = 0
 	}
 	
 	componentWillUnmount() {
@@ -60,6 +63,9 @@ class GiveHelpComponent extends Component {
 	}
 
 	componentDidMount() {
+
+		this.changeCourse(this.state.category)
+
 		this.firebaseRef.on('value', this.onValueChange)
 		if (this.props.user.enabledNotification) {
 			document.getElementById('onRadioBtn').checked = true
@@ -79,12 +85,22 @@ class GiveHelpComponent extends Component {
 		}
 	}
 
-	changeCourse(event) {
+	changeCourse(id) {
 		this.setState({
-			category: event.target.value
+			category: id
 		})
 		this.previousLength = -1
-		this.updateTitle(event.target.value)
+		this.updateTitle(id)
+		
+		// Toggle active class state
+		if (id !== this.prevId) {
+			document.getElementById(id).className = "list-group-item give-help-sidenav-active"
+			if (this.prevId !== 0) {
+				document.getElementById(this.prevId).className = "list-group-item give-help-sidenav GREEN-TEXT"
+			}
+			this.prevId = id
+		}
+
 	}
 
 	tick() {
@@ -94,27 +110,35 @@ class GiveHelpComponent extends Component {
 	updateTitle(category){
 		if (this.state.questions.length > 0) {
 			let questionsLength = 0
-			this.state.questions.map(question => {
-				if (question.category === category) {
-					questionsLength++
-				}
+
+			let categoryCount = {}
+
+			CATEGORIES.map(cat => {
+				categoryCount[cat.id] = 0
 			})
+
+			this.state.questions.map(question => {
+				categoryCount[question.category]++
+			})
+
 			// Change title of document so tutor can get notified of incoming questions
-			document.title = '(' + questionsLength + ') ' + 'Thxbro!';
+			document.title = '(' + categoryCount[category] + ') ' + 'Thxbro!';
 			// Check if questions.length is increasing and play notification sound if true
-			if (questionsLength > this.previousLength && this.previousLength !== -1) {
+			if (categoryCount[category] > this.previousLength && this.previousLength !== -1) {
 				audio.play()
 			}
 			
-			this.previousLength = questionsLength
+			this.previousLength = categoryCount[category]
 
-			if (questionsLength > 0) {
+			if (categoryCount[category] > 0) {
 				this.setState({
-					emptyTable: false
+					emptyTable: false,
+					categoryCount: categoryCount
 				})
 			} else {
 				this.setState({
-					emptyTable: true
+					emptyTable: true,
+					categoryCount: categoryCount
 				})
 			}
 		} else {
@@ -134,11 +158,16 @@ class GiveHelpComponent extends Component {
 		})
 	}
 
+	goToQuestion(){
+		const { dispatch } = this.props
+		dispatch(pushPath(`/question/${question.id}`))
+	}
+
 	render() {
-		let noStudentsInNeed = (<h3 className="no-students-in-need">No students in need at the moment!</h3>)
+		let noStudentsInNeed = (<h3 className="no-students-in-need logo-font">No students in need with {this.state.category} at the moment!</h3>)
 		return (
 			<div className="container">
-				<div className="TOP-MARGIN-20">
+				<div className="TOP-MARGIN-20"></div>
 					<div className="modal" id="newLevelModal">
 					  <div className="modal-dialog">
 					    <div className="modal-content learningroom-modal">
@@ -155,46 +184,56 @@ class GiveHelpComponent extends Component {
 					    </div>
 					  </div>
 					</div>
-					<ul className="list-inline">
-						<li className="topics-li">
-							<p><strong>Topics: </strong></p>
-						</li>
-						<li>
-							<select className="form-control give-help-select" id="select" onChange={this.changeCourse} value={this.state.category}>
-							  { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.id }</option> )}
-							</select>	
-						</li>				
-						<li className="pull-right">
-							<label className="radio-inline"><input id="onRadioBtn" type="radio" name="optradio" onClick={this.enableNotification}/>On</label>
-							<label className="radio-inline"><input id="offRadioBtn" type="radio" onClick={this.enableNotification} name="optradio"/>Off</label>  
-						</li>					
-						<li className="pull-right">
-							<p><strong>Email notifications: </strong></p>
-						</li>
-					</ul>
-				</div>
-				<table className="table table-striped table-hover">
-				  <thead>
-				    <tr>
-				      <th>Question</th>
-				      <th>Student</th>
-				      <th>Time</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	{ this.state.questions.map(question => {
-				  		if(question.category === this.state.category) {
-					  		return (
-					  			<tr key={question.id}>
-					  				<td><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
-					  				<td className="WHITE-TEXT">{question.author.username}</td>
-					  				<td className="WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
-					  			</tr>
-					  		)}
-				  	})}
-				  </tbody>
-				</table>
-				{ this.state.emptyTable ? noStudentsInNeed : null }
+					<div className="col-xs-3">
+						
+						<div className="list-group give-help-sidebar">
+							{ CATEGORIES.map(category => {
+								return (
+									<h6 key={category.id} id={category.id} className="list-group-item give-help-sidenav GREEN-TEXT" onClick={this.changeCourse.bind(this, category.id)} value={category.id}>
+										{ this.state.categoryCount[category.id] > 0 && this.state.category !== category.id ? <span className="badge">{this.state.categoryCount[category.id]}</span> : null }
+										{ category.id }
+									</h6> 
+									)
+							})}
+						</div>	
+					</div>
+					<div className="col-xs-9">
+							<ul className="list-inline">
+			
+								<li className="pull-right">
+									<label className="radio-inline"><input id="onRadioBtn" type="radio" name="optradio" onClick={this.enableNotification}/>On</label>
+									<label className="radio-inline"><input id="offRadioBtn" type="radio" onClick={this.enableNotification} name="optradio"/>Off</label>  
+								</li>					
+								<li className="pull-right">
+									<p><strong>Email notifications: </strong></p>
+								</li>
+							</ul>
+						
+						<table className="table table-bordered table-striped table-hover">
+						  <thead>
+						    <tr>
+						      <th className="give-help-tr">Question</th>
+						      <th className="give-help-tr">Student</th>
+						      <th className="give-help-tr">Time</th>
+						      <th className="give-help-tr"></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  	{ this.state.questions.map(question => {
+						  		if(question.category === this.state.category) {
+							  		return (
+							  			<tr key={question.id} >
+							  				<td className="give-help-tr"><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
+							  				<td className="give-help-tr WHITE-TEXT">{question.author.username}</td>
+							  				<td className="give-help-tr WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
+							  				<td className="WHITE-TEXT pull-right"><button className="btn btn-success">Give Help!</button></td>
+							  			</tr>
+							  		)}
+						  	})}
+						  </tbody>
+						</table>
+						{ this.state.emptyTable ? noStudentsInNeed : null }
+					</div>
 			</div>
 		)
 	}
