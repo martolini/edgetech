@@ -219,6 +219,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 /*Give help*/
 
+
 .give-help-select {
 	width: 150px;
 }
@@ -233,6 +234,11 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 	margin-left: 8px;
 }
 
+.give-help-sidenav-top {
+	background-color: #eee;
+	padding: 16px;
+}
+
 .give-help-sidebar {
 	margin-top: 36px;
 }
@@ -241,8 +247,9 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 	background-color: #333;
 	color: #EEE;
 	margin: 0px;
-	border-style: none;
-	border-width: 1px;
+	border-top-style: none;
+	border-bottom-width: 1px;
+	border-color: grey;
 	padding: 25px;
 }
 

@@ -187,8 +187,9 @@ class GiveHelpComponent extends Component {
 					<div className="col-xs-3">
 						
 						<div className="list-group give-help-sidebar">
+							<span className="list-group-item give-help-sidenav-top"><strong>Languages</strong></span>
 							{ CATEGORIES.map(category => {
-								return (
+								return ( 
 									<h6 key={category.id} id={category.id} className="list-group-item give-help-sidenav GREEN-TEXT" onClick={this.changeCourse.bind(this, category.id)} value={category.id}>
 										{ this.state.categoryCount[category.id] > 0 && this.state.category !== category.id ? <span className="badge">{this.state.categoryCount[category.id]}</span> : null }
 										{ category.id }
