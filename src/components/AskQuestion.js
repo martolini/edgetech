@@ -4,6 +4,7 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES, LEVELS } from '../config'
 import { askQuestion } from '../actions'
 import { TopTutors } from './TopTutors'
+import { Search } from './Search'
 
 class AskQuestionComponent extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class AskQuestionComponent extends Component {
 
 
   render() {
-    let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
+    let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i> 
 
     return (
       <div>
@@ -114,8 +115,23 @@ class AskQuestionComponent extends Component {
             </form>
             <br/>
             <br/>
-            <hr/>
-            <TopTutors/>
+            
+            <ul className="nav nav-tabs">
+              <li className="active ask-nav-tabs"><a href="#home" data-toggle="tab" aria-expanded="false">Top score list</a></li>
+              <li className="ask-nav-tabs"><a href="#profile" data-toggle="tab" aria-expanded="true">Search</a></li>
+            </ul>
+            <div id="myTabContent" className="tab-content">
+              <div className="tab-pane fade active in" id="home">
+                <br/>
+                <TopTutors/>
+              </div>
+              <div className="tab-pane fade" id="profile">
+                <br/>
+                <Search/>
+              </div>
+            </div>
+
+            
           </div>
         </div>
 

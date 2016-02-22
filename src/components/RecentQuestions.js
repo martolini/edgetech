@@ -12,7 +12,7 @@ export class RecentQuestionsComponent extends Component {
       questions: []
     };
 
-    this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/id').equalTo(this.props.userId).limitToLast(5)
+    this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/id').equalTo(this.props.userId)
     this.openQuestion = this.openQuestion.bind(this)
   }
 
@@ -50,7 +50,8 @@ export class RecentQuestionsComponent extends Component {
     
     return (
       <div>
-        <h5 className="">Your 5 most recent questions:</h5>
+        <h5 className="">Your most recent questions:</h5>
+        <div className="recent-question-scrollframe">
         <table className="table table-striped table-bordered table-hover">
           <thead>
             <tr>
@@ -82,6 +83,7 @@ export class RecentQuestionsComponent extends Component {
             })}
           </tbody>
         </table>
+        </div>
       </div>
     )
   }
