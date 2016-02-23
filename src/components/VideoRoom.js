@@ -4,21 +4,39 @@ export class VideoRoom extends Component {
 
 	constructor(props){
 		super(props)
-		this.state = {
-			isOpenWindow: true
-		}
 		this.changeWindow = this.changeWindow.bind(this)
 	}
 
 	changeWindow(){
-		this.setState({
-			isOpenWindow: !this.state.isOpenWindow
+
+		if ($(window).height() < 775 && !this.props.parent.state.isOpenWindow) {
+			this.props.parent.setState({
+				minScreen: true
+			})
+		} else if (this.props.parent.state.isOpenWindow) {
+			this.props.parent.setState({
+				minScreen: false
+			})
+
+			setTimeout(() => {
+			  if (this.props.parent.state.isOpenWindow && document.getElementById("chat-room")) {
+			    document.getElementById("chat-room").className = "chat-room"
+			    document.getElementById("chat-box").className = "chat-message-box"
+			  } else if (document.getElementById("chat-room")){
+			    document.getElementById("chat-room").className = "chat-room-min"
+			    document.getElementById("chat-box").className = "chat-message-box-min"
+			  }
+			}, 500)
+		}
+
+		this.props.parent.setState({
+			isOpenWindow: !this.props.parent.state.isOpenWindow
 		})
 
-		if (!this.state.isOpenWindow) {
+		if (!this.props.parent.state.isOpenWindow && document.getElementById("chat-room")) {
 			document.getElementById("chat-room").className = "chat-room"
 			document.getElementById("chat-box").className = "chat-message-box"
-		} else {
+		} else if (document.getElementById("chat-room")){
 			document.getElementById("chat-room").className = "chat-room-min"
 			document.getElementById("chat-box").className = "chat-message-box-min"
 		}
@@ -36,7 +54,7 @@ export class VideoRoom extends Component {
           width="100%" height="430px"></iframe></div> )
       return (
       	<div>
-      	{ this.state.isOpenWindow ? max : min }
+      	{ this.props.parent.state.isOpenWindow ? max : min }
       	</div>
       )
     }

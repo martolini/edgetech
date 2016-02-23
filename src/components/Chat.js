@@ -12,11 +12,11 @@ import { firebaseRef, CATEGORIES } from '../config'
     this.chatRef = firebaseRef.child(`chat/${this.props.chatId}`)
     this.messageListener = this.chatRef.child('messages')
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.changeWindow = this.changeWindow.bind(this)
     this.messages = []
   }
 
   componentDidMount() {
-
     // Listen to new messages
     this.messageListener.on('child_added', snapshot => { 
 
@@ -49,10 +49,50 @@ import { firebaseRef, CATEGORIES } from '../config'
       document.getElementById("chat-room").className = "chat-room-min"
       document.getElementById("chat-box").className = "chat-message-box-min"
     }
+
+    $( window ).resize(() => {
+      if ($(window).height() < 775 && !this.props.parent.state.minScreen) {
+        if (this.props.parent.state.isOpenWindow) {
+
+          this.props.parent.setState({
+            minScreen: true
+          })
+        }
+      } else if ($(window).height() > 775 && this.props.parent.state.minScreen){
+        this.props.parent.setState({
+          minScreen: false
+        })
+
+      }
+    });
+
   }
+
 
   componentWillUnmount() {
     this.messageListener.off()
+  }
+
+  changeWindow(){
+    
+    this.props.parent.setState({
+      isOpenWindow: !this.props.parent.state.isOpenWindow
+    })
+
+    this.props.parent.setState({
+      minScreen: false
+    })
+
+    setTimeout(() => {
+      if (this.props.parent.state.isOpenWindow && document.getElementById("chat-room")) {
+        document.getElementById("chat-room").className = "chat-room"
+        document.getElementById("chat-box").className = "chat-message-box"
+      } else if (document.getElementById("chat-room")){
+        document.getElementById("chat-room").className = "chat-room-min"
+        document.getElementById("chat-box").className = "chat-message-box-min"
+      }
+    }, 500)
+
   }
 
   handleSubmit(e){
@@ -90,8 +130,18 @@ import { firebaseRef, CATEGORIES } from '../config'
   }
 
   render() {
- 
-    return (
+
+    let min = ( 
+      <div>
+        <br/>
+        <div className="minimized " onClick={this.changeWindow}>
+          <h5 className="WHITE-TEXT">Click to use chat in stead of video
+              <i className="fa fa-expand fa-fw WHITE-TEXT pull-right"></i>
+          </h5>
+        </div>
+      </div> )
+
+    let chat = (
       <div id="chat-room" className="chat-room">
         <div id="chat-box" className="chat-message-box">
           <ul className="list-clean">
@@ -133,7 +183,9 @@ import { firebaseRef, CATEGORIES } from '../config'
           </button>
         </form>
       </div>
-    )
+    )    
+
+    return (<div>{this.props.parent.state.minScreen ? min : chat}</div>)
   }
 }
 
