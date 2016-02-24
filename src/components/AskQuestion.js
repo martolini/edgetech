@@ -95,7 +95,7 @@ class AskQuestionComponent extends Component {
               <div className="form-group">
                 <label className="WHITE-TEXT" htmlFor="select">Course:</label>
                 <select className="form-control WHITE-TEXT" id="select" ref={ref => this.category = ref}>
-                  { CATEGORIES.map(category => <option key={category.id} value={category.id}>{ category.name }</option> )}
+                  { CATEGORIES.map(category => <option key={category.id} className="DARK-TEXT" value={category.id}>{ category.name }</option> )}
                 </select>
               </div>
 
