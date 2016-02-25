@@ -21,7 +21,7 @@ class AskQuestionComponent extends Component {
 
     if (this.props.user.hasLeveledUp) {
       $('#newLevelModal').modal()
-      let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`) 
+      let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
 
@@ -55,17 +55,17 @@ class AskQuestionComponent extends Component {
     if (this.text.value.length > 0) {
       dispatch(askQuestion(question))
     } else {
-      document.getElementById('form-error').innerHTML = 
+      document.getElementById('form-error').innerHTML =
         '<br/>' +
         '<div class="alert alert-dismissible alert-warning">' +
           '<strong>You need to specify what you need help with!</strong>' +
-        '</div>' 
+        '</div>'
     }
   }
 
 
   render() {
-    let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i> 
+    let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
 
     return (
       <div>
@@ -102,7 +102,7 @@ class AskQuestionComponent extends Component {
               <div id="text-input" className="form-group" >
                 <label className="WHITE-TEXT" htmlFor="text">Problem:</label>
                 <input type="text" className="form-control WHITE-TEXT" id="text"
-                  
+
                   ref={ref => this.text = ref}/>
                 <div id="form-error"></div>
               </div>
@@ -115,7 +115,7 @@ class AskQuestionComponent extends Component {
             </form>
             <br/>
             <br/>
-            
+
             <ul className="nav nav-tabs">
               <li className="active ask-nav-tabs"><a href="#home" data-toggle="tab" aria-expanded="false">Top score list</a></li>
               <li className="ask-nav-tabs"><a href="#profile" data-toggle="tab" aria-expanded="true">Search</a></li>
@@ -131,7 +131,7 @@ class AskQuestionComponent extends Component {
               </div>
             </div>
 
-            
+
           </div>
         </div>
 

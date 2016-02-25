@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
-var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/sound.mp3');
+var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/sound.mp3');
 
 class GiveHelpComponent extends Component {
 
@@ -16,7 +16,7 @@ class GiveHelpComponent extends Component {
 			emptyTable: true,
 			categoryCount: {}
 		}
-		
+
 		this.changeCourse = this.changeCourse.bind(this)
 		this.onValueChange = this.onValueChange.bind(this)
 		this.updateTitle = this.updateTitle.bind(this)
@@ -28,7 +28,7 @@ class GiveHelpComponent extends Component {
 		this.previousLength = -1
 		this.prevId = 0
 	}
-	
+
 	componentWillUnmount() {
 		clearInterval(this.interval);
 		this.firebaseRef.off('value', this.onValueChange)
@@ -41,7 +41,7 @@ class GiveHelpComponent extends Component {
 
 	onValueChange(snapshot) {
 		if (snapshot.exists()) {
-			
+
 			let questions = []
 			snapshot.forEach(snap => {
 				let question = snap.val()
@@ -80,7 +80,7 @@ class GiveHelpComponent extends Component {
 
 		if (this.props.user.hasLeveledUp) {
 		  $('#newLevelModal').modal()
-		  let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`) 
+		  let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`)
 		  hasLeveledUpRef.set(false)
 		}
 	}
@@ -91,7 +91,7 @@ class GiveHelpComponent extends Component {
 		})
 		this.previousLength = -1
 		this.updateTitle(id)
-		
+
 		// Toggle active class state
 		if (id !== this.prevId) {
 			document.getElementById(id).className = "list-group-item give-help-sidenav-active"
@@ -127,7 +127,7 @@ class GiveHelpComponent extends Component {
 			if (categoryCount[category] > this.previousLength && this.previousLength !== -1) {
 				audio.play()
 			}
-			
+
 			this.previousLength = categoryCount[category]
 
 			if (categoryCount[category] > 0) {
@@ -185,31 +185,31 @@ class GiveHelpComponent extends Component {
 					  </div>
 					</div>
 					<div className="col-xs-3">
-						
+
 						<div className="list-group give-help-sidebar">
 							<span className="list-group-item give-help-sidenav-top"><strong>Languages</strong></span>
 							{ CATEGORIES.map(category => {
-								return ( 
+								return (
 									<h6 key={category.id} id={category.id} className="list-group-item give-help-sidenav GREEN-TEXT" onClick={this.changeCourse.bind(this, category.id)} value={category.id}>
 										{ this.state.categoryCount[category.id] > 0 && this.state.category !== category.id ? <span className="badge">{this.state.categoryCount[category.id]}</span> : null }
 										{ category.id }
-									</h6> 
+									</h6>
 									)
 							})}
-						</div>	
+						</div>
 					</div>
 					<div className="col-xs-9">
 							<ul className="list-inline">
-			
+
 								<li className="pull-right">
 									<label className="radio-inline"><input id="onRadioBtn" type="radio" name="optradio" onClick={this.enableNotification}/>On</label>
-									<label className="radio-inline"><input id="offRadioBtn" type="radio" onClick={this.enableNotification} name="optradio"/>Off</label>  
-								</li>					
+									<label className="radio-inline"><input id="offRadioBtn" type="radio" onClick={this.enableNotification} name="optradio"/>Off</label>
+								</li>
 								<li className="pull-right">
 									<p><strong>Email notifications: </strong></p>
 								</li>
 							</ul>
-						
+
 						<table className="table table-bordered table-striped table-hover">
 						  <thead>
 						    <tr>

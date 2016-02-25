@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { firebaseRef, CATEGORIES } from '../config'
 
+var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/tick.mp3')
 
  export class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: []
-    } 
+      messages: [],
+      isOpen: false
+    }
     this.chatRef = firebaseRef.child(`chat/${this.props.chatId}`)
     this.messageListener = this.chatRef.child('messages')
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,7 +20,7 @@ import { firebaseRef, CATEGORIES } from '../config'
 
   componentDidMount() {
     // Listen to new messages
-    this.messageListener.on('child_added', snapshot => { 
+    this.messageListener.on('child_added', snapshot => {
 
       if (snapshot.exists() && snapshot.val().author !== this.props.userName) {
 
@@ -30,15 +32,17 @@ import { firebaseRef, CATEGORIES } from '../config'
 
         let msg = snapshot.val()
         this.messages.push(msg)
-                
+
         this.setState({
           messages: this.messages
         })
 
+        chatPing.play()
+
       } else if (!this.props.isActive) {
         let msg = snapshot.val()
         this.messages.push(msg)
-                
+
         this.setState({
           messages: this.messages
         })
@@ -52,12 +56,10 @@ import { firebaseRef, CATEGORIES } from '../config'
 
     $( window ).resize(() => {
       if ($(window).height() < 775 && !this.props.parent.state.minScreen) {
-        if (this.props.parent.state.isOpenWindow) {
+        this.props.parent.setState({
+          minScreen: true
+        })
 
-          this.props.parent.setState({
-            minScreen: true
-          })
-        }
       } else if ($(window).height() > 775 && this.props.parent.state.minScreen){
         this.props.parent.setState({
           minScreen: false
@@ -74,25 +76,10 @@ import { firebaseRef, CATEGORIES } from '../config'
   }
 
   changeWindow(){
-    
-    this.props.parent.setState({
-      isOpenWindow: !this.props.parent.state.isOpenWindow
+
+    this.setState({
+      isOpen: !this.state.isOpen
     })
-
-    this.props.parent.setState({
-      minScreen: false
-    })
-
-    setTimeout(() => {
-      if (this.props.parent.state.isOpenWindow && document.getElementById("chat-room")) {
-        document.getElementById("chat-room").className = "chat-room"
-        document.getElementById("chat-box").className = "chat-message-box"
-      } else if (document.getElementById("chat-room")){
-        document.getElementById("chat-room").className = "chat-room-min"
-        document.getElementById("chat-box").className = "chat-message-box-min"
-      }
-    }, 500)
-
   }
 
   handleSubmit(e){
@@ -131,19 +118,22 @@ import { firebaseRef, CATEGORIES } from '../config'
 
   render() {
 
-    let min = ( 
-      <div>
-        <br/>
-        <div className="minimized " onClick={this.changeWindow}>
-          <h5 className="WHITE-TEXT">Click to use chat in stead of video
+    let closed = (
+        <div className="chat-min-closed minimized" onClick={this.changeWindow}>
+          <h5 className="WHITE-TEXT">Open chat
               <i className="fa fa-expand fa-fw WHITE-TEXT pull-right"></i>
           </h5>
         </div>
-      </div> )
+      )
 
-    let chat = (
-      <div id="chat-room" className="chat-room">
-        <div id="chat-box" className="chat-message-box">
+    let open = (
+      <div id="chat-room" className="chat-room-min">
+        <div className="minimized" onClick={this.changeWindow}>
+          <h5 className="WHITE-TEXT">Hide chat
+          <i className="fa fa-compress fa-fw WHITE-TEXT pull-right"></i>
+          </h5>
+        </div>
+        <div id="chat-box" className="chat-message-box-min">
           <ul className="list-clean">
             {this.state.messages.map(message => {
               if (this.props.userName === message.author) {
@@ -153,7 +143,7 @@ import { firebaseRef, CATEGORIES } from '../config'
                         {message.author}
                       </li>
                       <li>
-                        <div className="chat-span">
+                        <div className="chat-span msg-left">
                           <span className="WHITE-TEXT">{message.text}</span>
                         </div>
                       </li>
@@ -163,7 +153,7 @@ import { firebaseRef, CATEGORIES } from '../config'
                 return (<li className="message-align-right" key={message.id}>
                     <ul className="list-inline">
                       <li>
-                        <div className="chat-span">
+                        <div className="chat-span msg-right">
                           <span className="WHITE-TEXT">{message.text}</span>
                         </div>
                       </li>
@@ -183,9 +173,54 @@ import { firebaseRef, CATEGORIES } from '../config'
           </button>
         </form>
       </div>
-    )    
+    )
 
-    return (<div>{this.props.parent.state.minScreen ? min : chat}</div>)
+    let minChat = (<div>{this.state.isOpen ? open : closed}</div>)
+
+    let chat = (
+      <div id="chat-room" className="chat-room">
+        <div id="chat-box" className="chat-message-box">
+          <ul className="list-clean">
+            {this.state.messages.map(message => {
+              if (this.props.userName === message.author) {
+                return (<li className="message-align-left" key={message.id}>
+                    <ul className="list-inline">
+                      <li className="chat-label">
+                        {message.author}
+                      </li>
+                      <li>
+                        <div className="chat-span msg-left">
+                          <span className="WHITE-TEXT">{message.text}</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>)
+              } else {
+                return (<li className="message-align-right" key={message.id}>
+                    <ul className="list-inline">
+                      <li>
+                        <div className="chat-span msg-right">
+                          <span className="WHITE-TEXT">{message.text}</span>
+                        </div>
+                      </li>
+                      <li className="chat-label">
+                        {message.author}
+                      </li>
+                    </ul>
+                  </li>)
+              }
+            })}
+          </ul>
+        </div>
+        <form onSubmit={this.handleSubmit} className="chat-form">
+          <input type="text" className="chat-input" placeholder="Chat away!" ref={ref => this.textMessage = ref}/>
+          <button type="submit" className="btn btn-primary chat-submit-button">
+            <i className="fa fa-paper-plane fa-fw"></i>
+          </button>
+        </form>
+      </div>
+    )
+
+    return (<div>{this.props.parent.state.minScreen ? minChat : chat}</div>)
   }
 }
-

@@ -10,7 +10,7 @@ import { pushPath } from 'redux-simple-router'
 import { Link } from 'react-router'
 require('../css/Learningroom.css')
 
-var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/sound.mp3')
+var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/sound.mp3')
 
 class LearningRoomComponent extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class LearningRoomComponent extends Component {
       error: null,
       question: null,
       startingLevel: this.props.user.level.id,
-      isOpenWindow: true,
       minScreen: ($(window).height() < 775)
     }
 
@@ -32,9 +31,9 @@ class LearningRoomComponent extends Component {
   }
 
   componentWillUnmount() {
-    
+
     this.questionRef.child('tutor/connected').set(false)
-    
+
     // If you are the last person to leave, the question will be closed.
     if (this.props.user.id === this.state.question.author.id) {
       this.questionRef.child('author/connected').set(false)
@@ -44,7 +43,7 @@ class LearningRoomComponent extends Component {
     } else {
       this.questionRef.child('isActive').set(false)
     }
-    this.questionRef.off()  
+    this.questionRef.off()
   }
 
   componentDidMount() {
@@ -101,8 +100,8 @@ class LearningRoomComponent extends Component {
           loading: false,
           error: null
         })
-        
-      } 
+
+      }
     })
   }
 
@@ -150,7 +149,9 @@ class LearningRoomComponent extends Component {
     } else if (this.state.question.author.connected === false) {
       return (
         <div className="container">
-          <h3 className="logo-font-dark closed-question">This question is closed by the author. <Link to="/help">Return</Link> to help someone else</h3>
+          <h3 className="logo-font-dark closed-question">
+          This question is closed by the author.
+          <Link to="/help">Return</Link> to help someone else</h3>
         </div>
       )
     }
@@ -168,7 +169,8 @@ class LearningRoomComponent extends Component {
         <nav className="navbar navbar-inverse learningroom-nav" style={{marginBottom: 0}}>
           <div className="container-fluid">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+              <button type="button" className="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
                 <span className="sr-only">Toggle navigation</span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
@@ -182,18 +184,25 @@ class LearningRoomComponent extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } ( {this.props.user.karma} )</Link>
+                  <Link to={`/user/${this.props.user.username}`}>
+                    { this.props.user.username } ( {this.props.user.karma} )
+                  </Link>
                 </li>
                 <li>
                   <a href="#" >Connected with: { connectedWith }</a>
                 </li>
                 <li>
                   <a className="counter">
-                    { this.state.question.isActive ? <Counter clientIsHappy={this.state.isHappy} question={this.state.question} isTutor={ this.state.question.tutor.id === this.props.user.id } thisUser={this.props.user}/> : null }
+                    { this.state.question.isActive ?
+                    <Counter clientIsHappy={this.state.isHappy} question={this.state.question}
+                    isTutor={ this.state.question.tutor.id === this.props.user.id }
+                    thisUser={this.props.user}/> : null }
                   </a>
                 </li>
                 <li>
-                  <button data-toggle="modal" onClick={this.leaveRoom} className="btn btn-success btn-lg leave-room-btn">I'm Done!</button>
+                  <button data-toggle="modal" onClick={this.leaveRoom}
+                  className="btn btn-success btn-lg leave-room-btn">Im Done!
+                  </button>
                 </li>
               </ul>
             </div>
@@ -209,8 +218,10 @@ class LearningRoomComponent extends Component {
                 <h5 className="WHITE-TEXT">Are you happy with the help you got?</h5>
               </div>
               <div className="modal-footer learningroom-modal-footer">
-                <button type="button" onClick={this.goToAsk} data-dismiss="modal" className="btn btn-success btn-lg">Yes</button>
-                <button type="button" className="btn btn-success btn-lg" onClick={this.revertKarma} data-dismiss="modal">No</button>
+                <button type="button" onClick={this.goToAsk} data-dismiss="modal"
+                className="btn btn-success btn-lg">Yes</button>
+                <button type="button" className="btn btn-success btn-lg"
+                onClick={this.revertKarma} data-dismiss="modal">No</button>
               </div>
             </div>
           </div>
@@ -233,9 +244,12 @@ class LearningRoomComponent extends Component {
             />
           </div>
           <div className="video-position col-xs-4">
-            { this.state.question.tutor.connected ? <VideoRoom questionId={ this.props.params.id } parent={this}/> : <WaitForVideo isActive={ this.state.question.isActive }/> }
-            { (this.state.question.tutor.connected || !this.state.question.isActive) ? <Chat userName={this.props.user.username} isActive={ this.state.question.isActive } parent={this} chatId={this.state.question.chatId}/> : null }
-            
+            { this.state.question.tutor.connected ?
+              <VideoRoom questionId={ this.props.params.id } parent={this}/> :
+              <WaitForVideo isActive={ this.state.question.isActive }/> }
+            { (this.state.question.tutor.connected || !this.state.question.isActive) ?
+              <Chat userName={this.props.user.username} isActive={ this.state.question.isActive }
+              parent={this} chatId={this.state.question.chatId}/> : null }
           </div>
         </div>
       </div>

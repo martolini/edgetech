@@ -107,21 +107,11 @@
 	width: 100%;
 	cursor: pointer;
 	padding: 1px;
-	padding-left: 20px; 
-	padding-right: 20px; 
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .minimized:hover {
-	text-decoration: underline;
-}
-
-.hide-room-button {
-	position: absolute;
-	right: 220px;
-	font-size: 24px;
-}
-
-.hide-room-button:hover {
 	text-decoration: underline;
 }
 
@@ -155,7 +145,7 @@
 	overflow-x: hidden;
 	border-bottom-style: solid;
 	border-bottom-color: grey;
-	border-bottom-width: 1px;	
+	border-bottom-width: 1px;
 	border-top-style: solid;
 	border-top-color: grey;
 	border-top-width: 1px;
@@ -163,20 +153,41 @@
 }
 
 .chat-room-min {
-	width: 100%;
-	height: calc(100vh - 140px);
-	margin-top: 20px;
-	background-color: #272822;
-	padding: 17px;
+  width: 395px;
+  position: fixed;
+  bottom: 0;
+  height: 500px;
+  background-color: #333;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0px 17px 0px 17px;
+  z-index: 999;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 5px -5px 25px #141412;
+}
+
+.chat-min-closed {
+  width: 395px;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  background-color: #333;
+  border-style: solid;
+  border-width: 1px;
+  z-index: 999;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 5px -5px 25px #141412;
 }
 
 .chat-message-box-min {
-	height: calc(100vh - 240px);
+	height: 375px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	border-bottom-style: solid;
 	border-bottom-color: grey;
-	border-bottom-width: 1px;	
+	border-bottom-width: 1px;
 	border-top-style: solid;
 	border-top-color: grey;
 	border-top-width: 1px;
@@ -193,7 +204,7 @@
 .chat-form {
 	position: absolute;
 	bottom: 0;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 
 .chat-input {
@@ -218,17 +229,22 @@
 
 .chat-span {
 	font-size: 16px;
-	border-color: #666;
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 5px;
 	padding: 0px 10px 0px 10px;
-	max-width: 200px;
+	max-width: 250px;
 	word-wrap: break-word;
+}
+
+.msg-left {
+  border-color: #4CAF50;
+}
+.msg-right {
+  border-color: #666;
 }
 
 .chat-label {
 	vertical-align: top;
 	color: #666;
 }
-
