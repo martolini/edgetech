@@ -40,7 +40,7 @@ class LoginComponent extends Component {
             <br/>
             <div className="panel panel-default">
               <div className="panel-heading DARK">
-                <h3 className="logo-font">Sign up</h3>
+                <h3 className="logo-font">Log in</h3>
               </div>
               <div className="panel-body">
                 { this.props.auth.error && alert }

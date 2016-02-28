@@ -19,7 +19,8 @@ class LearningRoomComponent extends Component {
       loading: true,
       error: null,
       question: null,
-      startingLevel: this.props.user.level.id
+      startingLevel: this.props.user.level.id,
+      minScreen: ($(window).height() < 775)
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
@@ -98,6 +99,20 @@ class LearningRoomComponent extends Component {
           question: Object.assign({}, question, {}),
           loading: false,
           error: null
+        })
+
+      }
+    })
+
+    $( window ).resize(() => {
+      if ($(window).height() < 775 && !this.state.minScreen) {
+        this.setState({
+          minScreen: true
+        })
+
+      } else if ($(window).height() > 775 && this.state.minScreen){
+        this.setState({
+          minScreen: false
         })
 
       }
@@ -248,7 +263,7 @@ class LearningRoomComponent extends Component {
               <VideoRoom questionId={ this.props.params.id }/> :
               <WaitForVideo isActive={ this.state.question.isActive }/> }
             { (this.state.question.tutor.connected || !this.state.question.isActive) ?
-              <Chat userName={this.props.user.username} isActive={ this.state.question.isActive }
+              <Chat userName={this.props.user.username} parent={this} isActive={ this.state.question.isActive }
               chatId={this.state.question.chatId}/> : null }
           </div>
         </div>
