@@ -24,7 +24,6 @@ class AskQuestionComponent extends Component {
       let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
-
   }
 
   componentWillUnmount(){
@@ -66,7 +65,6 @@ class AskQuestionComponent extends Component {
 
   render() {
     let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
-
     return (
       <div>
         <div className="container">
@@ -78,24 +76,33 @@ class AskQuestionComponent extends Component {
                 <div className="modal-content learningroom-modal">
                   <div className="modal-header">
                     <h3 className="modal-title WHITE-TEXT">Congratulations!</h3>
-                    <h1><span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span></h1>
+                    <h1>
+                      <span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span>
+                    </h1>
                   </div>
                   <div className="modal-body">
-                    <h5 className="WHITE-TEXT">You've just been promoted to the rank of {this.props.user.level.rank}!</h5>
+                    <h5 className="WHITE-TEXT">
+                      You've just been promoted to the rank of {this.props.user.level.rank}!
+                    </h5>
                   </div>
                   <div className="modal-footer learningroom-modal-footer">
-                    <button type="button" data-dismiss="modal" className="btn btn-success btn-lg">Awesome!</button>
+                    <button type="button" data-dismiss="modal" className="btn btn-success btn-lg">
+                      Awesome!
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <img className="seriously scaling" src="https://dl.dropboxusercontent.com/u/2188934/edgetech/seriously.png" />
+            <img className="seriously scaling"
+              src="https://dl.dropboxusercontent.com/u/2188934/edgetech/seriously.png" />
             <form className="ask-questions-form" onSubmit={this.handleSubmit}>
               <h3 className="logo-font-white">What do you need help with?</h3>
               <div className="form-group">
                 <label className="WHITE-TEXT" htmlFor="select">Course:</label>
-                <select className="form-control WHITE-TEXT" id="select" ref={ref => this.category = ref}>
-                  { CATEGORIES.map(category => <option key={category.id} className="DARK-TEXT" value={category.id}>{ category.name }</option> )}
+                <select className="form-control WHITE-TEXT" id="select"
+                  ref={ref => this.category = ref}>
+                  { CATEGORIES.map(category => <option key={category.id}
+                    className="DARK-TEXT" value={category.id}>{ category.name }</option> )}
                 </select>
               </div>
 
@@ -103,7 +110,7 @@ class AskQuestionComponent extends Component {
                 <label className="WHITE-TEXT" htmlFor="text">Problem:</label>
                 <input type="text" className="form-control WHITE-TEXT" id="text"
 
-                  ref={ref => this.text = ref}/>
+                  ref={ref => this.text = ref} maxLength="180"/>
                 <div id="form-error"></div>
               </div>
               <br/>
@@ -117,8 +124,12 @@ class AskQuestionComponent extends Component {
             <br/>
 
             <ul className="nav nav-tabs">
-              <li className="active ask-nav-tabs"><a href="#home" data-toggle="tab" aria-expanded="false">Top score list</a></li>
-              <li className="ask-nav-tabs"><a href="#profile" data-toggle="tab" aria-expanded="true">Search</a></li>
+              <li className="active ask-nav-tabs">
+              <a href="#home" data-toggle="tab" aria-expanded="false">Top score list</a>
+              </li>
+              <li className="ask-nav-tabs">
+                <a href="#profile" data-toggle="tab" aria-expanded="true">Search</a>
+              </li>
             </ul>
             <div id="myTabContent" className="tab-content">
               <div className="tab-pane fade active in" id="home">

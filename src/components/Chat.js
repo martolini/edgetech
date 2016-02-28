@@ -9,7 +9,8 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
     super(props)
     this.state = {
       messages: [],
-      isOpen: false
+      isOpen: false,
+      minScreen: ($(window).height() < 775)
     }
     this.chatRef = firebaseRef.child(`chat/${this.props.chatId}`)
     this.messageListener = this.chatRef.child('messages')
@@ -55,13 +56,13 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
     }
 
     $( window ).resize(() => {
-      if ($(window).height() < 775 && !this.props.parent.state.minScreen) {
-        this.props.parent.setState({
+      if ($(window).height() < 775 && !this.state.minScreen) {
+        this.setState({
           minScreen: true
         })
 
-      } else if ($(window).height() > 775 && this.props.parent.state.minScreen){
-        this.props.parent.setState({
+      } else if ($(window).height() > 775 && this.state.minScreen){
+        this.setState({
           minScreen: false
         })
 
@@ -221,6 +222,6 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
       </div>
     )
 
-    return (<div>{this.props.parent.state.minScreen ? minChat : chat}</div>)
+    return (<div>{this.state.minScreen ? minChat : chat}</div>)
   }
 }

@@ -19,8 +19,7 @@ class LearningRoomComponent extends Component {
       loading: true,
       error: null,
       question: null,
-      startingLevel: this.props.user.level.id,
-      minScreen: ($(window).height() < 775)
+      startingLevel: this.props.user.level.id
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
@@ -103,6 +102,7 @@ class LearningRoomComponent extends Component {
 
       }
     })
+
   }
 
   leaveRoom() {
@@ -228,12 +228,12 @@ class LearningRoomComponent extends Component {
         </div>
         <div className="container-fluid learningroom-container">
           <div className="col-xs-8">
-            <ul className="list-inline">
-              <li>
+            <ul className="list-clean questionBox">
+              <li className="WHITE-TEXT">
                 Question:
               </li>
               <li>
-                <h5 className="WHITE-TEXT">{ this.state.question.text }</h5>
+                <div className=""><h5 className="WHITE-TEXT">{ this.state.question.text }</h5></div>
               </li>
             </ul>
 
@@ -245,11 +245,11 @@ class LearningRoomComponent extends Component {
           </div>
           <div className="video-position col-xs-4">
             { this.state.question.tutor.connected ?
-              <VideoRoom questionId={ this.props.params.id } parent={this}/> :
+              <VideoRoom questionId={ this.props.params.id }/> :
               <WaitForVideo isActive={ this.state.question.isActive }/> }
             { (this.state.question.tutor.connected || !this.state.question.isActive) ?
               <Chat userName={this.props.user.username} isActive={ this.state.question.isActive }
-              parent={this} chatId={this.state.question.chatId}/> : null }
+              chatId={this.state.question.chatId}/> : null }
           </div>
         </div>
       </div>

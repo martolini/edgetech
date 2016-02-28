@@ -4,6 +4,8 @@
   }
 }
 
+
+
 .learningroom-container {
 	background-color: #272822;
 	height: calc(100vh - 65px);
@@ -78,6 +80,11 @@
 	color: #4CAF50;
 }
 
+.questionBox {
+  height: 90px;
+  width: 100%;
+}
+
 /*Counter*/
 
 .counter {
@@ -88,7 +95,7 @@
 /*Code Editor*/
 
 #firepad-container {
-	height: calc(100vh - 140px);
+	height: calc(100vh - 165px);
 	width: 100%;
 	border-top-style: solid;
 	border-top-width: 1px;
