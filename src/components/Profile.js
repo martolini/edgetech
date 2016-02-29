@@ -17,6 +17,7 @@ class ProfileComponent extends Component {
     this.connectWith = this.connectWith.bind(this)
     this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(this.props.params.username)
     this.updateLanguages = this.updateLanguages.bind(this)
+    this.updateCheckboxes = this.updateCheckboxes.bind(this)
     this.stars = " "
     this.rank = " "
   }
@@ -27,20 +28,7 @@ class ProfileComponent extends Component {
       document.getElementById("profile-link").className = "active"
     }
 
-    if (this.props.user.username === this.props.params.username && this.props.user.courses) {
-      if (this.props.user.courses.Java) {
-        document.getElementById('Java').checked = true
-      }
-      if (this.props.user.courses.Javascript) {
-        document.getElementById('Javascript').checked = true
-      }
-      if (this.props.user.courses['C++']) {
-        document.getElementById('C++').checked = true
-      }      
-      if (this.props.user.courses.Python) {
-        document.getElementById('Python').checked = true
-      }
-    } 
+    this.updateCheckboxes()
 
     this.firebaseRef.once('value', snapshot => {
 
@@ -57,6 +45,23 @@ class ProfileComponent extends Component {
     })
   }
 
+  updateCheckboxes() {
+    if (this.props.user.username === this.props.params.username && this.props.user.courses) {
+      if (this.props.user.courses.Java) {
+        document.getElementById('Java').checked = true
+      }
+      if (this.props.user.courses.Javascript) {
+        document.getElementById('Javascript').checked = true
+      }
+      if (this.props.user.courses['C++']) {
+        document.getElementById('C++').checked = true
+      }
+      if (this.props.user.courses.Python) {
+        document.getElementById('Python').checked = true
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(nextProps.params.username)
     this.firebaseRef.once('value', snapshot => {
@@ -68,6 +73,7 @@ class ProfileComponent extends Component {
           this.setState({
             profile: user
           })
+          this.updateCheckboxes()
         })
       }
     })
@@ -88,17 +94,17 @@ class ProfileComponent extends Component {
       if (category.id == 'Test') {
         // Do nothing
       } else {
-        courses[category.id] = document.getElementById(category.id).checked            
+        courses[category.id] = document.getElementById(category.id).checked
       }
     })
-    
+
     coursesRef.set(courses)
 
   }
 
   connectWith(e) {
     e.preventDefault()
-    
+
     const { dispatch } = this.props
     let question = {
       text: 'Waiting to connect with ' + this.state.profile.username,
@@ -138,11 +144,11 @@ class ProfileComponent extends Component {
       )
     let recentQuestions = (
       <div>
-        <RecentQuestions userId={this.props.user.id}/> 
+        <RecentQuestions userId={this.props.user.id}/>
       </div>
-      )   
+      )
 
-    let langCheck = ( 
+    let langCheck = (
       <div className="input-group input-group-lg">
         <br/>
         <p className="tutorLabel">Check a language to get notified when someone needs help:</p>
@@ -150,7 +156,7 @@ class ProfileComponent extends Component {
           if (category.id == 'Test') {
             return null
           } else {
-            return ( 
+            return (
               <div className="checkbox" key={category.id}>
                 <label>
                   <input type="checkbox" onClick={this.updateLanguages} id={category.id}/>
@@ -163,21 +169,24 @@ class ProfileComponent extends Component {
         }
       </div> )
 
-    let langList = ( 
+    let langList = (
       <div className="input-group input-group-lg">
         <br/>
         <p className="tutorLabel">Languages {this.state.profile.username} knows:</p>
         <ul className="list-clean">
           { CATEGORIES.map(category => {
-            if (category.id == 'Test') {
-              return null
-            } else {
-              return ( 
-                <li key={category.id}>
-                  {category.id}
-                </li>
-                )
+              if (typeof this.state.profile.courses !== 'undefined') {
+                if (category.id === 'Test' || !this.state.profile.courses[category.id]) {
+                  // do nothing
+                } else {
+                  return (
+                    <li key={category.id}>
+                      {category.id}
+                    </li>
+                    )
+                }
               }
+
             })
           }
         </ul>
@@ -190,10 +199,14 @@ class ProfileComponent extends Component {
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
               <h2>{this.state.profile.username} {this.stars}</h2>
-              <hr/> 
-              <h5>Teaching karma: <span className="label label-success">{this.state.profile.karma} points</span></h5>
+              <hr/>
+              <h5>Teaching karma:
+                <span className="label label-success">
+                  {this.state.profile.karma} points
+                </span>
+              </h5>
               <h5>Rank: <span className="label label-success">{this.rank}</span></h5>
-              {this.props.user.username === this.props.params.username ? langCheck : langList}                
+              {this.props.user.username === this.props.params.username ? langCheck : langList}
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
             </div>

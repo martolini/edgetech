@@ -106,7 +106,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 .learningroom-nav {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
-	border-color: grey;	
+	border-color: grey;
 	border-radius: 0px;
 }
 
@@ -155,7 +155,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 .BEIGE-TEXT {
   color: #E0E0E0;
-} 
+}
 
 .WHITE-TEXT {
 	color: #EEE;
@@ -219,6 +219,10 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 .tutorLabel {
 	margin-right: 20px;
 	vertical-align: text-top;
+}
+
+.inputMargin {
+  width: calc(100% - 55px);
 }
 
 /*Give help*/
@@ -320,17 +324,17 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
     -moz-animation-iteration-count:infinite;
     -moz-animation-timing-function:ease-in-out;
 }
-    
+
 @-webkit-keyframes scalex{
     from {-webkit-transform: scale(0.95);}
     65% {-webkit-transform: scale(1.0);}
-    to {-webkit-transform: scale(0.95);}    
+    to {-webkit-transform: scale(0.95);}
 }
-        
+
 @-moz-keyframes scale{
     from {-moz-transform: scale(0.95);}
     65% {-moz-transform: scale(1.0);}
-    to {-moz-transform: scale(0.95);}    
+    to {-moz-transform: scale(0.95);}
 }
 
 /*Recent Questions*/
@@ -338,6 +342,10 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 .recent-question-scrollframe {
 	max-height: 400px;
 	overflow: scroll;
-	overflow-x: hidden;
+	overflow-x: auto;
 	overflow-y: auto;
+}
+
+.recent-question-text p{
+  width: 250px;
 }

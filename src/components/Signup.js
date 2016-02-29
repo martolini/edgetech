@@ -49,14 +49,14 @@ class SignupComponent extends Component {
       const email = this.emailInput.value
       const password = this.passwordInput.value
       const { dispatch } = this.props;
-      
+
       let courses = {}
       if (tutor) {
         CATEGORIES.map(category => {
           if (category.id == 'Test') {
             // Do nothing
           } else {
-            courses[category.id] = document.getElementById(category.id).checked            
+            courses[category.id] = document.getElementById(category.id).checked
           }
         })
       }
@@ -68,7 +68,7 @@ class SignupComponent extends Component {
         tutor: tutor,
         courses: courses
       }))
-    } 
+    }
 
   }
 
@@ -138,7 +138,7 @@ class SignupComponent extends Component {
       </button>
       )
 
-    let languages = ( 
+    let languages = (
       <div className="input-group input-group-lg">
         <span className="input-group-addon">
           <i className="fa fa-fw"></i>
@@ -148,7 +148,7 @@ class SignupComponent extends Component {
           if (category.id == 'Test') {
             return null
           } else {
-            return ( 
+            return (
               <div className="checkbox">
                 <label>
                   <input type="checkbox" id={category.id}/>
@@ -164,7 +164,7 @@ class SignupComponent extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-xs-6 col-xs-offset-3">
+          <div className="col-md-6 col-md-offset-3">
             <br/>
             <br/>
             <div className="panel panel-default">
@@ -191,7 +191,7 @@ class SignupComponent extends Component {
                       <span className="input-group-addon">
                         <i className="fa fa-envelope-o fa-fw"></i>
                       </span>
-                      <input className="form-control" type="email" placeholder="email"
+                      <input className="form-control inputMargin" type="email" placeholder="email"
                           ref={(ref) => this.emailInput = ref}/>
                     </div>
                   </div>
@@ -200,7 +200,7 @@ class SignupComponent extends Component {
                       <span className="input-group-addon">
                         <i className="fa fa-lock fa-fw"></i>
                       </span>
-                      <input className="form-control" type="password" placeholder="******"
+                      <input className="form-control inputMargin" type="password" placeholder="******"
                           ref={(ref) => this.passwordInput = ref}/>
                     </div>
                   </div>

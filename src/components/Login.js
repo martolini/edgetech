@@ -35,7 +35,7 @@ class LoginComponent extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-xs-4 col-xs-offset-4">
+          <div className="col-md-4 col-md-offset-4">
             <br/>
             <br/>
             <div className="panel panel-default">
@@ -50,7 +50,7 @@ class LoginComponent extends Component {
                       <span className="input-group-addon">
                         <i className="fa fa-envelope-o fa-fw"></i>
                       </span>
-                      <input className="form-control" type="email" placeholder="email"
+                      <input className="form-control inputMargin" type="email" placeholder="email"
                           ref={ref => this.emailInput = ref}/>
                     </div>
                   </div>
@@ -59,7 +59,7 @@ class LoginComponent extends Component {
                       <span className="input-group-addon">
                         <i className="fa fa-lock fa-fw"></i>
                       </span>
-                      <input className="form-control" type="password" placeholder="******"
+                      <input className="form-control inputMargin" type="password" placeholder="******"
                           ref={ref => this.passwordInput = ref}/>
                     </div>
                   </div>

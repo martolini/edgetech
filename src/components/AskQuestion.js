@@ -101,8 +101,15 @@ class AskQuestionComponent extends Component {
                 <label className="WHITE-TEXT" htmlFor="select">Course:</label>
                 <select className="form-control WHITE-TEXT" id="select"
                   ref={ref => this.category = ref}>
-                  { CATEGORIES.map(category => <option key={category.id}
-                    className="DARK-TEXT" value={category.id}>{ category.name }</option> )}
+                  { CATEGORIES.map(category => {
+                    // Only enable Test option in dev mode
+                    if ((window.location.href).indexOf('localhost') !== -1 && category.id !== 'Test') {
+                      // Do nothing.
+                    } else {
+                      return <option key={category.id} className="DARK-TEXT" value={category.id}>{ category.name }</option>
+                    }
+                    })
+                  }
                 </select>
               </div>
 
