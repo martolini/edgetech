@@ -7,7 +7,7 @@ import { Link } from 'react-router'
 class AdminComponent extends Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       userCount: 0,
       tutorCount: {},
@@ -17,10 +17,10 @@ class AdminComponent extends Component {
       userSearch: {},
       users: []
     }
-    
+
     this.userRef = firebaseRef.child('users/')
-    this.questionRef = firebaseRef.child('questions/') 
-    //this.sessionsRef = firebaseRef.child('sessioncounters/') 
+    this.questionRef = firebaseRef.child('questions/')
+    //this.sessionsRef = firebaseRef.child('sessioncounters/')
     this.userSearch = this.userSearch.bind(this)
 
   }
@@ -45,14 +45,17 @@ class AdminComponent extends Component {
           users.push(user.val())
           if (user.val().courses !== undefined) {
 
+            if (user.val().courses['C++'] || user.val().courses.Java || user.val().courses.Javascript || user.val().courses.Python) {
+              console.log(user.val().email)
+            }
             if (user.val().courses['C++']) {
               tutorCount.cpp++
             }
 
             if (user.val().courses.Java) {
               tutorCount.java++
-            } 
-            
+            }
+
             if (user.val().courses.Javascript) {
               tutorCount.js++
             }
@@ -84,15 +87,15 @@ class AdminComponent extends Component {
 
         let questionAnswered = 0
         let totalCounter = 0
-        
+
         let today = new Date()
         let week = Date.now()
-        
+
         today.setHours(0,0,0,0)
         week = week - 604800000
 
         let launch = 1455697046200
-        
+
         snapshot.forEach(question => {
           if (question.val().createdAt > launch) {
             if (question.val().category !== 'Test') {
@@ -110,7 +113,7 @@ class AdminComponent extends Component {
                 questionCount.week++
                 if (question.val().createdAt > today.getTime()) {
                   questionCount.today++
-                }              
+                }
               }
             }
           }
@@ -125,7 +128,7 @@ class AdminComponent extends Component {
             averageHelpingTime: Math.round(averageHelpingTime/60)
           })
         }, 500)
-        
+
 
       }
 

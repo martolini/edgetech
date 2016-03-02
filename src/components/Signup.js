@@ -149,7 +149,7 @@ class SignupComponent extends Component {
             return null
           } else {
             return (
-              <div className="checkbox">
+              <div className="checkbox" key={category.id}>
                 <label>
                   <input type="checkbox" id={category.id}/>
                   {category.id}

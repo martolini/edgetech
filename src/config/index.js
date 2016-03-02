@@ -18,9 +18,13 @@ export const CATEGORIES = [
     name: 'Python'
   },
   {
+    id: 'PHP',
+    name: 'PHP'
+  },
+  {
     id: 'Test',
     name: 'Test'
-  } 
+  }
 ]
 
 export const CODEMODES = {
@@ -28,7 +32,8 @@ export const CODEMODES = {
   'C++': 'c_cpp',
   'Javascript': 'javascript',
   'Test': 'javascript',
-  'Python': 'python'
+  'Python': 'python',
+  'PHP': 'php'
 }
 
 export const SNIPPETS = {
@@ -36,7 +41,8 @@ export const SNIPPETS = {
   'C++': '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Waiting for a hero to help you out..." << endl;\n    return 0;\n}',
   'Javascript': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
   'Test': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
-  'Python': 'import antigravity\nprint "hello world!"'
+  'Python': 'import antigravity\nprint "hello world!"',
+  'PHP': '<?php\n    echo "Hello World!";\n?>'
 }
 
 export const LEVELS = [
@@ -45,7 +51,7 @@ export const LEVELS = [
     nextLevel: 5,
     stars: '',
     rank: 'Student'
-  },  
+  },
   {
     id: 1,
     nextLevel: 20,
@@ -227,4 +233,3 @@ export const RANKINGS = [
 ]
 
 export const firebaseRef = new Firebase('https://edgetech.firebaseio.com/')
-

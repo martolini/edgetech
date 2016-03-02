@@ -222,7 +222,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .inputMargin {
-  width: calc(100% - 55px);
+  width: calc(100% - 55px) !important;
 }
 
 /*Give help*/
