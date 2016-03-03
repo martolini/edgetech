@@ -349,3 +349,16 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 .recent-question-text p{
   width: 250px;
 }
+
+/*About*/
+
+.green-heart {
+  color: #4CAF50;
+}
+
+.fists {
+  width: 100px;
+  position: absolute;
+  margin-left: 219px;
+  margin-top: 138px;
+}

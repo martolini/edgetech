@@ -10,7 +10,6 @@ class AskQuestionComponent extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
-    const { dispatch } = this.props
   }
 
   componentDidMount(){

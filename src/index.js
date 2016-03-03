@@ -12,6 +12,7 @@ import { GiveHelp } from './components/GiveHelp'
 import { WantToHelp } from './components/WantToHelp'
 import { Profile } from './components/Profile'
 import { Admin } from './components/Admin'
+import { About } from './components/About'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import store from './store'
 import createHistory from 'history/lib/createBrowserHistory'
@@ -48,6 +49,7 @@ render((
           <Route path="/question/:id" component={LearningRoom} />
           <Route path="/user/:username" component={Profile} />
           <Route path="/admin" component={Admin} />
+          <Route path="/about" component={About} />
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>
