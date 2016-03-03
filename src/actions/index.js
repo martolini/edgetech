@@ -154,7 +154,6 @@ export function askQuestion(question) {
     question = Object.assign({}, question, {
       id: questionRef.key(),
       counter: 0,
-      isActive: true,
       tutor: {
         id: question.tutor.id,
         username: question.tutor.username,

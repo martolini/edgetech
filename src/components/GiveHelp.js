@@ -37,6 +37,8 @@ class GiveHelpComponent extends Component {
 		if (document.getElementById("give-help-link") !== null) {
 			document.getElementById("give-help-link").className = ""
 		}
+
+		document.title = 'Thxbro!'
 	}
 
 	onValueChange(snapshot) {
@@ -144,9 +146,12 @@ class GiveHelpComponent extends Component {
 		} else {
 			document.title = 'Thxbro!';
 			this.previousLength = 0
+
 			this.setState({
-				emptyTable: true
+				emptyTable: true,
+				categoryCount: {}
 			})
+
 		}
 
 	}

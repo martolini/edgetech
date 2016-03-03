@@ -20,7 +20,7 @@ class LearningRoomComponent extends Component {
       error: null,
       question: null,
       startingLevel: this.props.user.level.id,
-      minScreen: ($(window).height() < 775)
+      minScreen: ($(window).height() < 900)
     }
 
     this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
@@ -32,18 +32,17 @@ class LearningRoomComponent extends Component {
 
   componentWillUnmount() {
 
-    this.questionRef.child('tutor/connected').set(false)
 
     // If you are the last person to leave, the question will be closed.
     if (this.props.user.id === this.state.question.author.id) {
       this.questionRef.child('author/connected').set(false)
-      if (this.state.question.tutor.connected) {
-        this.questionRef.child('isActive').set(false)
-      }
     } else {
-      this.questionRef.child('isActive').set(false)
+      this.questionRef.child('tutor/connected').set(false)
     }
     this.questionRef.off()
+
+    // Removing resizing even listner
+    $(window).off("resize")
   }
 
   componentDidMount() {
@@ -62,6 +61,7 @@ class LearningRoomComponent extends Component {
         audio.play()
         onePing = false
       }
+
     })
     this.questionRef.once('value', snapshot => {
       if (!snapshot.exists()) {
@@ -76,7 +76,7 @@ class LearningRoomComponent extends Component {
             if (question.tutor.id !== this.props.user.id) {
               return this.setState({
                 loading: false,
-                error: 'Someone else is tutoring this...'
+                error: 'Sorry, but someone else is helping out yo!'
               })
             }
           } else {
@@ -87,13 +87,14 @@ class LearningRoomComponent extends Component {
               oldKarma: this.props.user.karma // We need this so we can reset karma if nessecary
             }), 100)
             this.questionRef.child('tutor/connected').onDisconnect().set(false)
-            this.questionRef.child('isActive').onDisconnect().set(false)
           }
         } else {
+          setTimeout(() => this.questionRef.child('author').set({
+            id: this.props.user.id,
+            username: this.props.user.username,
+            connected: true
+          }), 100)
           this.questionRef.child('author/connected').onDisconnect().set(false)
-          if (this.state.question.tutor.connected) {
-            this.questionRef.child('isActive').onDisconnect().set(false)
-          }
         }
         this.setState({
           question: Object.assign({}, question, {}),
@@ -105,19 +106,17 @@ class LearningRoomComponent extends Component {
     })
 
     $( window ).resize(() => {
-      if ($(window).height() < 775 && !this.state.minScreen) {
+      if ($(window).height() < 900 && !this.state.minScreen) {
         this.setState({
           minScreen: true
         })
 
-      } else if ($(window).height() > 775 && this.state.minScreen){
+      } else if ($(window).height() > 900 && this.state.minScreen){
         this.setState({
           minScreen: false
         })
-
       }
     })
-
   }
 
   leaveRoom() {
@@ -149,7 +148,13 @@ class LearningRoomComponent extends Component {
   }
 
   renderError() {
-    return <h2>{ this.state.error }</h2>
+    return (
+      <div className="container">
+        <h3 className="logo-font-dark closed-question">
+        { this.state.error }  <Link to="/help">Return</Link> to help someone else
+        </h3>
+    </div>
+    )
   }
 
   renderLoading() {
@@ -161,15 +166,8 @@ class LearningRoomComponent extends Component {
       return this.renderLoading()
     } else if (!!this.state.error) {
       return this.renderError()
-    } else if (this.state.question.author.connected === false) {
-      return (
-        <div className="container">
-          <h3 className="logo-font-dark closed-question">
-          This question is closed by the author.
-          <Link to="/help">Return</Link> to help someone else</h3>
-        </div>
-      )
     }
+
     let connectedWith = this.state.question.author.username
     if (this.state.question.author.id === this.props.user.id) {
       if (this.state.question.tutor.connected === false) {
@@ -208,7 +206,7 @@ class LearningRoomComponent extends Component {
                 </li>
                 <li>
                   <a className="counter">
-                    { this.state.question.isActive ?
+                    { this.state.question.tutor.connected && this.state.question.author.connected ?
                     <Counter clientIsHappy={this.state.isHappy} question={this.state.question}
                     isTutor={ this.state.question.tutor.id === this.props.user.id }
                     thisUser={this.props.user}/> : null }
@@ -259,12 +257,13 @@ class LearningRoomComponent extends Component {
             />
           </div>
           <div className="video-position col-xs-4">
-            { this.state.question.tutor.connected ?
+            { this.state.question.tutor.connected && this.state.question.author.connected ?
               <VideoRoom questionId={ this.props.params.id }/> :
-              <WaitForVideo isActive={ this.state.question.isActive }/> }
-            { (this.state.question.tutor.connected || !this.state.question.isActive) ?
-              <Chat userName={this.props.user.username} parent={this} isActive={ this.state.question.isActive }
-              chatId={this.state.question.chatId}/> : null }
+              <WaitForVideo parent={this
+
+              } isActive={ this.state.question.author.connected && !this.state.question.tutor.id }/> }
+            <Chat userName={this.props.user.username} parent={this} isActive={ this.state.question.tutor.connected && this.state.question.author.connected }
+              chatId={this.state.question.chatId}/>
           </div>
         </div>
       </div>

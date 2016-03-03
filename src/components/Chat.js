@@ -56,10 +56,10 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
       }
 
     })
-    if (!this.props.isActive) {
-      document.getElementById("chat-room").className = "chat-room-min"
-      document.getElementById("chat-box").className = "chat-message-box-min"
-    }
+    // if (!this.props.isActive) {
+    //   document.getElementById("chat-room").className = "chat-room-min"
+    //   document.getElementById("chat-box").className = "chat-message-box-min"
+    // }
 
   }
 

@@ -4,8 +4,6 @@
   }
 }
 
-
-
 .learningroom-container {
 	background-color: #272822;
 	height: calc(100vh - 65px);
@@ -124,16 +122,27 @@
 
 /*WaitForVideo*/
 
-.waiting-room {
+.waiting-box {
 	background-color: #333;
+  padding: 20px;
+  height: 430px;
+  text-align: center;
 }
 
-.waiting-room h3{
+.waiting-box h3 {
 	color: #EEE;
 }
 
-.waiting-room i{
+.waiting-box i {
 	color: #EEE;
+}
+
+.waiting-box .panel-body {
+	margin-top: 50px;
+}
+
+.waiting-box-container {
+  margin-top: 130px;
 }
 
 /*Chat Room*/
