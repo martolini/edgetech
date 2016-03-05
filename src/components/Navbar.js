@@ -37,12 +37,15 @@ class NavbarComponent extends Component {
               </li>
               <li id="give-help-link">
                 <Link to="/help">Give Help</Link>
-              </li>               
+              </li>
               { this.props.user.admin ? admin : null }
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">
                 <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } <span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}} /></Link>
+              </li>
+              <li id="about-link">
+                <Link to="/about">About us</Link>
               </li>
               <li>
                 <a href="#" onClick={this.handleLogout.bind(this)}>Logout</a>
