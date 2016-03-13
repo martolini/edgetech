@@ -31,7 +31,8 @@ class AdminComponent extends Component {
       java: 0,
       cpp: 0,
       js: 0,
-      python: 0
+      python: 0,
+      powershell: 0
     }
 
     this.userRef.once("value", snapshot => {
@@ -45,9 +46,6 @@ class AdminComponent extends Component {
           users.push(user.val())
           if (user.val().courses !== undefined) {
 
-            if (user.val().courses['C++'] || user.val().courses.Java || user.val().courses.Javascript || user.val().courses.Python) {
-              console.log(user.val().email)
-            }
             if (user.val().courses['C++']) {
               tutorCount.cpp++
             }
@@ -62,6 +60,9 @@ class AdminComponent extends Component {
 
             if (user.val().courses.Python) {
               tutorCount.python++
+            }
+            if (user.val().courses.Powershell) {
+              tutorCount.powershell++
             }
 
           }

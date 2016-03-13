@@ -59,6 +59,9 @@ class ProfileComponent extends Component {
       if (this.props.user.courses.Python) {
         document.getElementById('Python').checked = true
       }
+      if (this.props.user.courses.Powershell) {
+        document.getElementById('Powershell').checked = true
+      }
     }
   }
 

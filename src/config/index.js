@@ -22,6 +22,10 @@ export const CATEGORIES = [
     name: 'PHP'
   },
   {
+    id: 'Powershell',
+    name: 'Powershell'
+  },
+  {
     id: 'Test',
     name: 'Test'
   }
@@ -33,7 +37,8 @@ export const CODEMODES = {
   'Javascript': 'javascript',
   'Test': 'javascript',
   'Python': 'python',
-  'PHP': 'php'
+  'PHP': 'php',
+  'Powershell': 'powershell'
 }
 
 export const SNIPPETS = {
@@ -42,7 +47,8 @@ export const SNIPPETS = {
   'Javascript': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
   'Test': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
   'Python': 'import antigravity\nprint "hello world!"',
-  'PHP': '<?php\n    echo "Hello World!";\n?>'
+  'PHP': '<?php\n    echo "Hello World!";\n?>',
+  'Powershell': '# This is a simple comment\nfunction Hello($name) {\n    Write-host "Hello $name"\n}'
 }
 
 export const LEVELS = [
