@@ -19,7 +19,12 @@ blockquote {
   }
 }
 
-/* Let's get this party started */
+.bottom-whitespace {
+  height: 100px;
+  width: 100%;
+}
+
+/* --- Scrollbar --- */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -39,6 +44,7 @@ blockquote {
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #C1C1C1;
 }
+/* --- Scrollbar --- */
 
 .logo-font {
 	font-family: 'Lobster', cursive;
@@ -393,4 +399,12 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
   position: absolute;
   margin-top: -61px;
   margin-left: 220px;
+}
+
+/*Profile*/
+
+.change-password-alert {
+  width: 350px;
+  margin-top: 20px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
 }

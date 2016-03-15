@@ -11,13 +11,15 @@ class ProfileComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      profile: {}
+      profile: {},
+      alert: {}
     }
     const { dispatch } = this.props
     this.connectWith = this.connectWith.bind(this)
     this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(this.props.params.username)
     this.updateLanguages = this.updateLanguages.bind(this)
     this.updateCheckboxes = this.updateCheckboxes.bind(this)
+    this.changePassword = this.changePassword.bind(this)
     this.stars = " "
     this.rank = " "
   }
@@ -61,6 +63,9 @@ class ProfileComponent extends Component {
       }
       if (this.props.user.courses.Powershell) {
         document.getElementById('Powershell').checked = true
+      }
+      if (this.props.user.courses.PHP) {
+        document.getElementById('PHP').checked = true
       }
     }
   }
@@ -125,7 +130,38 @@ class ProfileComponent extends Component {
       }
     }
     dispatch(askQuestion(question))
+  }
 
+  changePassword(e){
+    e.preventDefault()
+    let alert = {
+      warning: "",
+      success: ""
+    }
+    firebaseRef.changePassword({
+      email: this.props.user.email,
+      oldPassword: this.oldPassword.value,
+      newPassword: this.newPassword.value
+    }, (error) => {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_PASSWORD":
+            alert.warning = "The specified user account password is incorrect."
+            break;
+          case "INVALID_USER":
+            alert.warning = "The specified user account does not exist."
+            break;
+          default:
+            alert.warning = "Error changing password:"
+        }
+      } else {
+        console.log("User password changed successfully!");
+        alert.success = "User password changed successfully!"
+      }
+      this.setState({
+        alert: alert
+      })
+    })
   }
 
   render() {
@@ -195,6 +231,18 @@ class ProfileComponent extends Component {
         </ul>
       </div> )
 
+    let alertWarning = (
+      <div className="alert alert-dismissible alert-warning change-password-alert">
+          <p>{this.state.alert.warning}</p>
+      </div>
+    )
+
+    let alertSuccess = (
+      <div className="alert alert-dismissible alert-success change-password-alert">
+          <p>{this.state.alert.success}</p>
+      </div>
+    )
+
     return (
       <div>
         <br/>
@@ -212,6 +260,34 @@ class ProfileComponent extends Component {
               {this.props.user.username === this.props.params.username ? langCheck : langList}
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
+
+              <form className="form-horizontal" onSubmit={this.changePassword}>
+                <br/>
+                <h5>Reset password: </h5>
+                <div className="form-group">
+                  <div className="input-group input-group-lg">
+                    <span className="input-group-addon">
+                    <i className="fa fa-lock fa-fw"></i>
+                      <label>Old password</label>
+                    </span>
+                    <input className="form-control inputMargin" type="password" placeholder="******"
+                        ref={(ref) => this.oldPassword = ref}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="input-group input-group-lg">
+                    <span className="input-group-addon">
+                    <i className="fa fa-lock fa-fw"></i>
+                      <label>New password</label>
+                    </span>
+                    <input className="form-control inputMargin" type="password" placeholder="******"
+                        ref={(ref) => this.newPassword = ref}/>
+                  </div>
+                </div>
+                <button type="submit" className="btn btn-success">Reset</button>
+                { this.state.alert.warning || this.state.alert.success ? (this.state.alert.warning ? alertWarning : alertSuccess) : null}
+              </form>
+              <div className="bottom-whitespace"></div>
             </div>
           </div>
       </div>
