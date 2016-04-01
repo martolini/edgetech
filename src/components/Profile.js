@@ -243,6 +243,35 @@ class ProfileComponent extends Component {
       </div>
     )
 
+    let resetPass = (
+      <form className="form-horizontal" onSubmit={this.changePassword}>
+        <br/>
+        <h5>Reset password: </h5>
+        <div className="form-group">
+          <div className="input-group input-group-lg">
+            <span className="input-group-addon">
+            <i className="fa fa-lock fa-fw"></i>
+              <label>Old password</label>
+            </span>
+            <input className="form-control inputMargin" type="password" placeholder="******"
+                ref={(ref) => this.oldPassword = ref}/>
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="input-group input-group-lg">
+            <span className="input-group-addon">
+            <i className="fa fa-lock fa-fw"></i>
+              <label>New password</label>
+            </span>
+            <input className="form-control inputMargin" type="password" placeholder="******"
+                ref={(ref) => this.newPassword = ref}/>
+          </div>
+        </div>
+        <button type="submit" className="btn btn-success">Reset</button>
+        { this.state.alert.warning || this.state.alert.success ? (this.state.alert.warning ? alertWarning : alertSuccess) : null}
+      </form>
+    )
+
     return (
       <div>
         <br/>
@@ -260,33 +289,7 @@ class ProfileComponent extends Component {
               {this.props.user.username === this.props.params.username ? langCheck : langList}
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}
-
-              <form className="form-horizontal" onSubmit={this.changePassword}>
-                <br/>
-                <h5>Reset password: </h5>
-                <div className="form-group">
-                  <div className="input-group input-group-lg">
-                    <span className="input-group-addon">
-                    <i className="fa fa-lock fa-fw"></i>
-                      <label>Old password</label>
-                    </span>
-                    <input className="form-control inputMargin" type="password" placeholder="******"
-                        ref={(ref) => this.oldPassword = ref}/>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <div className="input-group input-group-lg">
-                    <span className="input-group-addon">
-                    <i className="fa fa-lock fa-fw"></i>
-                      <label>New password</label>
-                    </span>
-                    <input className="form-control inputMargin" type="password" placeholder="******"
-                        ref={(ref) => this.newPassword = ref}/>
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-success">Reset</button>
-                { this.state.alert.warning || this.state.alert.success ? (this.state.alert.warning ? alertWarning : alertSuccess) : null}
-              </form>
+              {this.props.user.username === this.props.params.username ? resetPass : null}
               <div className="bottom-whitespace"></div>
             </div>
           </div>

@@ -28,7 +28,7 @@ class AboutComponent extends Component {
         <br/>
         <br/>
         <div className="col-md-6 col-md-offset-3">
-          <blockquote class="blockquote-reverse">
+          <blockquote className="blockquote-reverse">
             <p className="lead">"Your mind is a bit like soup, it has to be stirred up all the time
             and then interesting vegetables float to the surface and so on."</p>
             <small>Prof. Martyn Poliakoff</small>

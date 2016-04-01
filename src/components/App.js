@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Navbar } from './Navbar'
 import { connect } from 'react-redux'
 import { firebaseRef } from '../config'
-import { loginSuccess, loggedOut, questionsUpdated, userUpdated, logout } from '../actions'
+import { loggedOut, questionsUpdated, userUpdated, logout } from '../actions'
 import { pushPath } from 'redux-simple-router'
 require('../css/App.css')
 

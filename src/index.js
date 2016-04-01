@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { App } from './components/App'
-import { Dashboard } from './components/Dashboard'
 import { Login } from './components/Login'
 import { LoginContainer } from './containers/LoginContainer'
 import { Signup } from './components/Signup'
@@ -42,7 +41,6 @@ render((
           <Route path="/signup" component={Signup} />
         </Route>
         <Route path="/app" component={App}>
-          <IndexRoute component={Dashboard} />
           <Route path="/ask" component={AskQuestion} />
           <Route path="/help" component={GiveHelp}/>
           <Route path="/denied" component={WantToHelp}/>

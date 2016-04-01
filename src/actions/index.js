@@ -2,21 +2,10 @@ import { firebaseRef, LEVELS } from '../config'
 import { pushPath } from 'redux-simple-router'
 import Firebase from 'firebase'
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGGED_OUT = 'LOGGED_OUT'
 export const USER_UPDATED = 'USER_UPDATED'
-
-export function loginSuccess(user) {
-  return {
-    type: LOGIN_SUCCESS,
-    user: {
-      id: user.uid,
-      email: user.password.email
-    }
-  }
-}
 
 export function loggedOut() {
   return {

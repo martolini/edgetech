@@ -22,7 +22,7 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
     // Listen to new messages
     this.messageListener.on('child_added', snapshot => {
 
-      if (snapshot.exists() && snapshot.val().author !== this.props.userName) {
+      if (snapshot.exists()) {
 
         let msg = snapshot.val()
         this.messages.push(msg)
@@ -46,23 +46,9 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
           }, 100)
         }
 
-      } else if (!this.props.isActive) {
-        let msg = snapshot.val()
-        this.messages.push(msg)
-
-        this.setState({
-          messages: this.messages
-        })
       }
-
     })
-    // if (!this.props.isActive) {
-    //   document.getElementById("chat-room").className = "chat-room-min"
-    //   document.getElementById("chat-box").className = "chat-message-box-min"
-    // }
-
   }
-
 
   componentWillUnmount() {
     this.messageListener.off()
@@ -78,34 +64,31 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
   handleSubmit(e){
     e.preventDefault()
 
-    // Add new message
-    this.messageRef = this.messageListener.push()
+    if (this.textMessage.value.trim().length !== 0) {
+      // Add new message
+      this.messageRef = this.messageListener.push()
 
-    let message = {
-      author: this.props.userName,
-      text: this.textMessage.value,
-      id: this.messageRef.key()
-    }
-
-    // Set new message with data
-    this.messageRef.set(message, error => {
-      if (!!error) {
-        console.log(error.message)
+      let message = {
+        author: this.props.userName,
+        text: this.textMessage.value,
+        id: this.messageRef.key()
       }
-    })
 
-    this.messages.push(message)
-    this.setState({
-      messages: this.messages
-    })
+      // Set new message with data
+      this.messageRef.set(message, error => {
+        if (!!error) {
+          console.log(error.message)
+        }
+      })
 
-    this.textMessage.value = " "
+      this.textMessage.value = " "
 
-    // Automatically scroll down when you write a new message
-    setTimeout(() => {
-      let elem = document.getElementById('chat-box');
-      elem.scrollTop = elem.scrollHeight;
-    }, 100)
+      // Automatically scroll down when you write a new message
+      setTimeout(() => {
+        let elem = document.getElementById('chat-box');
+        elem.scrollTop = elem.scrollHeight;
+      }, 100)
+    }
 
   }
 

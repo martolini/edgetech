@@ -12,29 +12,60 @@ export class RecentQuestionsComponent extends Component {
       questions: []
     };
 
-    this.firebaseRef = firebaseRef.child(`questions/`).orderByChild('author/id').equalTo(this.props.userId)
+    this.authorRef = firebaseRef.child(`questions/`).orderByChild('author/id').equalTo(this.props.userId)
+    this.tutorRef = firebaseRef.child(`questions/`).orderByChild('tutor/id').equalTo(this.props.userId)
     this.openQuestion = this.openQuestion.bind(this)
+    this.sortQuestions = this.sortQuestions.bind(this)
   }
 
   componentDidMount() {
-    this.firebaseRef.on('value', snapshot => {
+    this.authorRef.once('value', snapshot => {
       if (snapshot.exists()) {
-        let questions = []
+        let authorQuestions = []
         snapshot.forEach( snap => {
-          let question = snap.val()
-          questions.push(question)
+          let authorQuestion = snap.val()
+          authorQuestions.push(authorQuestion)
         })
-        if (questions.length > 0) {
-          this.setState({
-            questions: questions.reverse()
-          })
-        }
+        this.tutorRef.once('value', snapshot => {
+          if (snapshot.exists()) {
+            let tutorQuestions = []
+            snapshot.forEach( snap => {
+              let tutorQuestion = snap.val()
+              tutorQuestions.push(tutorQuestion)
+            })
+
+            if (tutorQuestions.length > 0 || authorQuestions.length > 0) {
+              let questions = this.sortQuestions(tutorQuestions, authorQuestions)
+              this.setState({
+                questions: questions.reverse()
+              })
+            }
+          }
+        })
+
       };
     })
   }
 
+  sortQuestions(tutor, author){
+    let questions = []
+    while (true) {
+      if (tutor[0].createdAt < author[0].createdAt) {
+        questions.push(tutor.shift())
+        if (tutor === undefined || tutor.length == 0) {
+          return questions.concat(author)
+        }
+      } else {
+        questions.push(author.shift())
+        if (author === undefined || author.length == 0) {
+          return questions.concat(tutor)
+        }
+      }
+    }
+  }
+
   componentWillUnmount() {
-    this.firebaseRef.off()
+    this.authorRef.off()
   }
 
   openQuestion(question){
