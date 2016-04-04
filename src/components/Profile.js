@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
-import { firebaseRef, CATEGORIES } from '../config'
+import { firebaseRef, CATEGORIES, LEVELS } from '../config'
 import { askQuestion } from '../actions'
 import { RecentQuestions } from './RecentQuestions'
 import { Link } from 'react-router'
@@ -20,8 +20,8 @@ class ProfileComponent extends Component {
     this.updateLanguages = this.updateLanguages.bind(this)
     this.updateCheckboxes = this.updateCheckboxes.bind(this)
     this.changePassword = this.changePassword.bind(this)
-    this.stars = " "
-    this.rank = " "
+    this.level = " "
+    this.nextLevel = 0
   }
 
   componentDidMount() {
@@ -37,8 +37,8 @@ class ProfileComponent extends Component {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
           let user = snap.val()
-          this.stars = ( <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span> )
-          this.rank = user.level.rank
+          this.nextLevel = user.level.id + 1
+          this.level = user.level
           this.setState({
             profile: user
           })
@@ -76,8 +76,8 @@ class ProfileComponent extends Component {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
           let user = snap.val()
-          this.stars = ( <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span> )
-          this.rank = user.level.rank
+          this.level = user.level
+          this.nextLevel = user.level.id + 1
           this.setState({
             profile: user
           })
@@ -211,8 +211,8 @@ class ProfileComponent extends Component {
     let langList = (
       <div className="input-group input-group-lg">
         <br/>
-        <p className="tutorLabel">Languages {this.state.profile.username} knows:</p>
-        <ul className="list-clean">
+        <h5 className="tutorLabel">Languages {this.state.profile.username} knows:</h5>
+        <ul className="list-inline">
           { CATEGORIES.map(category => {
               if (typeof this.state.profile.courses !== 'undefined') {
                 if (category.id === 'Test' || !this.state.profile.courses[category.id]) {
@@ -220,7 +220,7 @@ class ProfileComponent extends Component {
                 } else {
                   return (
                     <li key={category.id}>
-                      {category.id}
+                      {category.id},
                     </li>
                     )
                 }
@@ -278,14 +278,32 @@ class ProfileComponent extends Component {
         <br/>
           <div className="container">
             <div className="col-md-6 col-md-offset-3">
-              <h2>{this.state.profile.username} {this.stars}</h2>
+              <h2 className="logo-font-dark CENTER-TEXT">
+                {this.state.profile.username}
+              </h2>
+              <br/>
               <hr/>
-              <h5>Teaching karma:
-                <span className="label label-success">
-                  {this.state.profile.karma} points
-                </span>
-              </h5>
-              <h5>Rank: <span className="label label-success">{this.rank}</span></h5>
+              <img src="https://dl.dropboxusercontent.com/u/2188934/edgetech/badge.svg" className="bro-badge"/>
+              <ul className="list-inline">
+                <li>
+                  <img src={this.level.badge}></img>
+                </li>
+                <li className="profile-username-list">
+                  <h5>Rank: <p className="lead">{this.level.rank}</p>
+                  </h5>
+                  <h5>Points:&nbsp;
+                    <span className="label label-success">
+                     {this.state.profile.karma}
+                    </span>
+                  </h5>
+                  <h6>
+                    (Needs {(this.level.nextLevel - this.state.profile.karma)} more points to go to become {LEVELS[this.nextLevel].rank})
+                  </h6>
+
+                </li>
+              </ul>
+              <hr/>
+              <img src="https://dl.dropboxusercontent.com/u/2188934/edgetech/badge.svg" className="bro-badge"/>
               {this.props.user.username === this.props.params.username ? langCheck : langList}
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}

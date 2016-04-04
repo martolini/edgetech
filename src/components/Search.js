@@ -7,13 +7,13 @@ import { Link } from 'react-router'
 export class Search extends Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
 
       userSearch: {},
       users: []
     }
-    
+
     this.userRef = firebaseRef.child('users/')
     this.userSearch = this.userSearch.bind(this)
 
@@ -30,7 +30,6 @@ export class Search extends Component {
           users.push(user.val())
 
         })
-
         this.setState({
           users: users
         })

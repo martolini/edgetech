@@ -8,7 +8,7 @@ export class TopTutors extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      topTutors: [] 
+      topTutors: []
     }
 
     this.tutorsRef = firebaseRef.child(`users/`).orderByChild('karma').limitToLast(10)
@@ -30,7 +30,7 @@ export class TopTutors extends Component {
   }
 
   render() {
-    
+
     return (
       <div>
         <h4 className="logo-font CENTER-TEXT">Who is helping out the most?</h4>
@@ -44,11 +44,11 @@ export class TopTutors extends Component {
           </thead>
           <tbody className="">
             { this.state.topTutors.map((user, index) => {
-              
+
               return (
                 <tr key={user.id}>
                   <td className="WHITE-TEXT">{index + 1}</td>
-                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username} <span dangerouslySetInnerHTML={{__html: user.level.stars}}></span></Link></td>
+                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
                   <td className="WHITE-TEXT">{user.karma}p</td>
                 </tr>
               )
@@ -59,5 +59,3 @@ export class TopTutors extends Component {
     )
   }
 }
-
-

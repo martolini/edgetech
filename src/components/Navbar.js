@@ -42,7 +42,7 @@ class NavbarComponent extends Component {
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">
-                <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } <span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}} /></Link>
+                <Link to={`/user/${this.props.user.username}`}>{ this.props.user.username } <span className="label label-success">{this.props.user.karma}</span></Link>
               </li>
               <li id="about-link">
                 <Link to="/about">About us</Link>

@@ -38,7 +38,7 @@ export class Counter extends Component {
       this.firebaseRef.transaction(counter => counter + 1)
 
       // Check if we should give new karmapoints
-      if (this.state.counter === this.state.karmaUpdate && this.props.question.isActive) {
+      if (this.state.counter === this.state.karmaUpdate && (this.props.question.author.connected && this.props.question.tutor.connected)) {
 
         // Fetch karma reference
         let karmaRef = firebaseRef.child(`users/${this.props.question.tutor.id}/karma`)
@@ -46,12 +46,12 @@ export class Counter extends Component {
 
           // Check if tutor should be given a new rank
           if (this.props.thisUser.karma >= this.props.thisUser.level.nextLevel - 5) {
-            
+
             // Fetch level reference
             let levelRef = firebaseRef.child(`users/${this.props.question.tutor.id}/level`)
 
             let hasLeveledUpRef = firebaseRef.child(`users/${this.props.question.tutor.id}/hasLeveledUp`)
-            
+
             // Increment level by one
             levelRef.set(LEVELS[this.props.thisUser.level.id + 1])
 
@@ -62,7 +62,7 @@ export class Counter extends Component {
         })
         this.setState({
           karmaUpdate: this.state.karmaUpdate + 300 // Adding 5p karma every 5 minute
-        }) 
+        })
       }
     }
   }

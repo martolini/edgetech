@@ -198,7 +198,7 @@ class LearningRoomComponent extends Component {
               <ul className="nav navbar-nav navbar-right">
                 <li>
                   <Link to={`/user/${this.props.user.username}`}>
-                    { this.props.user.username } ( {this.props.user.karma} )
+                    { this.props.user.username } <span className="label label-success">{this.props.user.karma}</span>
                   </Link>
                 </li>
                 <li>
@@ -209,7 +209,7 @@ class LearningRoomComponent extends Component {
                     { this.state.question.tutor.connected && this.state.question.author.connected ?
                     <Counter clientIsHappy={this.state.isHappy} question={this.state.question}
                     isTutor={ this.state.question.tutor.id === this.props.user.id }
-                    thisUser={this.props.user}/> : null }
+                    thisUser={this.props.user} /> : null }
                   </a>
                 </li>
                 <li>

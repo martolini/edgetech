@@ -55,61 +55,61 @@ export const LEVELS = [
   {
     id: 0,
     nextLevel: 5,
-    stars: '',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/student.png',
     rank: 'Student'
   },
   {
     id: 1,
     nextLevel: 20,
-    stars: '<i class="fa fa-star-o GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/bachelor.png',
     rank: 'Bachelor'
   },
   {
     id: 2,
     nextLevel: 50,
-    stars: '<i class="fa fa-star-half-o GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/tutor.png',
     rank: 'Tutor'
   },
   {
     id: 3,
     nextLevel: 100,
-    stars: '<i class="fa fa-star GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/mentor.png',
     rank: 'Mentor'
   },
   {
     id: 4,
     nextLevel: 150,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star-o GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/master.png',
     rank: 'Master'
   },
   {
     id: 5,
     nextLevel: 250,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star-half-o GOLD"></i>',
-    rank: 'Scientist'
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/doctor.png',
+    rank: 'Doctor'
   },
   {
     id: 6,
     nextLevel: 500,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i>',
-    rank: 'Doctor'
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/scientist.png',
+    rank: 'Scientist'
   },
   {
     id: 7,
     nextLevel: 750,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star-o GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/professor.png',
     rank: 'Professor'
   },
   {
     id: 8,
     nextLevel: 1000,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star-half-o GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/headmaster.png',
     rank: 'Headmaster'
   },
   {
     id: 9,
     nextLevel: 10000,
-    stars: '<i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i><i class="fa fa-star GOLD"></i>',
+    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/super-saiyan.png',
     rank: 'Super Saiyan'
   }
 ]

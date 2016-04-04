@@ -13,6 +13,7 @@ class AskQuestionComponent extends Component {
   }
 
   componentDidMount(){
+
     // Set navbar link to active
     if (document.getElementById("get-help-link") !== null) {
       document.getElementById("get-help-link").className = "active"
@@ -23,6 +24,7 @@ class AskQuestionComponent extends Component {
       let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
+
   }
 
   componentWillUnmount(){
@@ -76,7 +78,7 @@ class AskQuestionComponent extends Component {
                   <div className="modal-header">
                     <h3 className="modal-title WHITE-TEXT">Congratulations!</h3>
                     <h1>
-                      <span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span>
+                      <img src={this.props.user.level.badge} />
                     </h1>
                   </div>
                   <div className="modal-body">

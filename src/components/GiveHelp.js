@@ -178,7 +178,7 @@ class GiveHelpComponent extends Component {
 					    <div className="modal-content learningroom-modal">
 					      <div className="modal-header">
 					        <h3 className="modal-title WHITE-TEXT">Congratulations!</h3>
-					        <h1><span dangerouslySetInnerHTML={{__html: this.props.user.level.stars}}></span></h1>
+					        <img src={this.props.user.level.badge} />
 					      </div>
 					      <div className="modal-body">
 					        <h5 className="WHITE-TEXT">You've just been promoted to the rank of {this.props.user.level.rank}!</h5>
@@ -230,7 +230,7 @@ class GiveHelpComponent extends Component {
 							  		return (
 							  			<tr key={question.id} >
 							  				<td className="give-help-tr"><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
-							  				<td className="give-help-tr WHITE-TEXT">{question.author.username}</td>
+							  				<td className="give-help-tr WHITE-TEXT">{question.author.username} <span className="label label-success">{this.props.user.karma}</span></td>
 							  				<td className="give-help-tr WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
 							  				<td className="WHITE-TEXT pull-right"><button className="btn btn-success" onClick={this.goToQuestion.bind(this, question)}>Give Help!</button></td>
 							  			</tr>

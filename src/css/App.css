@@ -408,3 +408,9 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
   margin-top: 20px;
   box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
 }
+
+.profile-username-list {
+  width: 50%;
+  vertical-align: middle;
+  margin-left: 15px;
+}
