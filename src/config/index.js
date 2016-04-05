@@ -3,11 +3,11 @@ import Firebase from 'firebase'
 export const CATEGORIES = [
   {
     id: 'Java',
-    name: 'Object-Oriented Programming (Java)',
+    name: 'Java',
   },
   {
     id: 'C++',
-    name: 'Object-Oriented Programming (C++)'
+    name: 'C++'
   },
   {
     id: 'Javascript',

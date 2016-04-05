@@ -107,7 +107,7 @@ export class RecentQuestionsComponent extends Component {
               return (
                 <tr key={question.id}>
                   <td className="recent-question-text"><p className="button-link" onClick={this.openQuestion.bind(this, question)}>{question.text}</p></td>
-                  <td><Link to={`/user/${connectedWith.username}`} className="GREEN-TEXT" key={connectedWith.id}>{connectedWith.karma}</Link></td>
+                  <td><Link to={`/user/${connectedWith.username}`} className="GREEN-TEXT" key={connectedWith.id}>{connectedWith.username}</Link></td>
                   <td className="WHITE-TEXT">{Math.floor(((new Date() - new Date(question.createdAt)) / 60000)/1440 )} days ago</td>
                 </tr>
               )
