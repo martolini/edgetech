@@ -99,7 +99,7 @@ class AskQuestionComponent extends Component {
             <form className="ask-questions-form" onSubmit={this.handleSubmit}>
               <h3 className="logo-font-white">What do you need help with?</h3>
               <div className="form-group">
-                <label className="WHITE-TEXT" htmlFor="select">Course:</label>
+                <label className="WHITE-TEXT" htmlFor="select">Languages:</label>
                 <select className="form-control WHITE-TEXT" id="select"
                   ref={ref => this.category = ref}>
                   { CATEGORIES.map(category => {
