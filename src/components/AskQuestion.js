@@ -21,7 +21,7 @@ class AskQuestionComponent extends Component {
 
     if (this.props.user.hasLeveledUp) {
       $('#newLevelModal').modal()
-      let hasLeveledUpRef = firebaseRef.child(`users/${this.props.user.id}/hasLeveledUp`)
+      let hasLeveledUpRef = firebaseRef.database().ref(`users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
 

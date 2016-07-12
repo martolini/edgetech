@@ -15,7 +15,8 @@ export function loggedOut() {
 
 export function logout() {
   return dispatch => {
-    firebaseRef.unauth()
+    let auth = firebaseRef.auth()
+    auth.signOut()
     dispatch(loggedOut())
   }
 }
@@ -36,11 +37,17 @@ function loginRequest() {
 export function login(data) {
   return dispatch => {
     dispatch(loginRequest())
-    firebaseRef.authWithPassword(data, (error, data) => {
-      if (error) {
-        dispatch(loginError(error.message))
-      } else {
-      }
+    let auth = firebaseRef.auth()
+    //var provider = new firebaseRef.auth.EmailAuthProvider(data.email, data.password)
+    auth.signInWithEmailAndPassword(data.email, data.password).then(function(result){
+      // signed in!
+      console.log('it worked');
+      dispatch(pushPath('/ask'))
+    }).catch(function(error) {
+      // something bad happend!
+      console.log('it did not work?');
+      console.log(error);
+      dispatch(loginError(error.message))
     })
   }
 }
@@ -67,6 +74,7 @@ export function loginWithFacebook(data) {
 export const SIGNUP = 'SIGNUP'
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_ERROR = 'SIGNUP_ERROR'
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
 
 function signupRequest() {
   return {
@@ -81,33 +89,36 @@ function signupError(error) {
   }
 }
 
+function signupSuccess() {
+  return {
+    type: SIGNUP_SUCCESS
+  }
+}
+
 export function signup(data) {
   const { username, email, password, tutor, courses } = data
   return dispatch => {
     dispatch(signupRequest())
-    firebaseRef.createUser(data, (error, user) => {
-      if (!!error) {
-        dispatch(signupError(error.message))
-      } else {
-        firebaseRef.authWithPassword(data, (error, data) => {
-          if (!!error) {
-            dispatch(signupError(error.message))
-          } else {
-            firebaseRef.child('users').child(data.uid).set({
-              email: email,
-              username: username,
-              karma: 0,
-              id: data.uid,
-              enabledNotification: tutor,
-              courses: courses,
-              level: LEVELS[0]
+    let authRef = firebaseRef.auth()
+    authRef.createUserWithEmailAndPassword(email, password).then((user) => {
 
-            })
-          }
-        })
-      }
+      firebaseRef.database().ref('users').child(user.uid).set({
+        email: email,
+        username: username,
+        karma: 0,
+        id: user.uid,
+        enabledNotification: tutor,
+        courses: courses,
+        level: LEVELS[0]
+
+      })
+      dispatch(pushPath('/ask'))
+
+    }, (error) => {
+      console.log(error)
+      dispatch(signupError(error.message))
     })
-  }
+    }
 }
 
 export const ASK_QUESTION_REQUEST = 'ASK_QUESTION_REQUEST'
@@ -138,10 +149,10 @@ function askQuestionError(error) {
 export function askQuestion(question) {
   return dispatch => {
     dispatch(askQuestionRequest())
-    let questionRef = firebaseRef.child('questions').push()
-    let chatRef = firebaseRef.child('chat').push()
+    let questionRef = firebaseRef.database().ref('questions').push()
+    let chatRef = firebaseRef.database().ref('chat').push()
     question = Object.assign({}, question, {
-      id: questionRef.key(),
+      id: questionRef.key,
       counter: 0,
       tutor: {
         id: question.tutor.id,
@@ -149,7 +160,7 @@ export function askQuestion(question) {
         email: question.tutor.email,
         connected: question.tutor.connected
       },
-      chatId: chatRef.key(),
+      chatId: chatRef.key,
       createdAt: Firebase.ServerValue.TIMESTAMP
     })
     questionRef.set(question, error => {

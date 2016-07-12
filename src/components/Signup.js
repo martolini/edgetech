@@ -16,8 +16,8 @@ class SignupComponent extends Component {
       showLanguages: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.firebaseRef = new Firebase('https://edgetech.firebaseio.com/users').orderByChild('username')
-    this.tutorRef = new Firebase('https://edgetech.firebaseio.com/tutors')
+    this.firebaseRef = firebaseRef.database().ref('users').orderByChild('username')
+    this.tutorRef = firebaseRef.database().ref('tutors')
     this.updateUsername = this.updateUsername.bind(this)
     this.validChars = this.validChars.bind(this)
     this.showLanguages = this.showLanguages.bind(this)

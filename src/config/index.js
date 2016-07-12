@@ -238,4 +238,14 @@ export const RANKINGS = [
   }
 ]
 
-export const firebaseRef = new Firebase('https://edgetech.firebaseio.com/')
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDglIcFfh4Cf1RmbbNPn0KYz7rKhb1IPY0",
+  authDomain: "edgetech.firebaseapp.com",
+  databaseURL: "https://edgetech.firebaseio.com",
+  storageBucket: "project-1024656250083069122.appspot.com",
+};
+
+firebase.initializeApp(config);
+
+export const firebaseRef = firebase

@@ -4,7 +4,6 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef } from '../config'
 import { loginWithFacebook } from '../actions'
 
-
 class LoginContainerComponent extends Component {
   constructor(props) {
     super(props)
@@ -12,11 +11,13 @@ class LoginContainerComponent extends Component {
   }
 
   componentDidMount() {
-    firebaseRef.onAuth(this.onAuth)
+//    firebaseRef.onAuth(this.onAuth)
+    console.log('get in');
+
   }
 
   componentWillUnmount() {
-    firebaseRef.offAuth(this.onAuth)
+    //firebaseRef.offAuth(this.onAuth)
   }
 
   onAuth(data) {

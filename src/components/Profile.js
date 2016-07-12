@@ -16,7 +16,7 @@ class ProfileComponent extends Component {
     }
     const { dispatch } = this.props
     this.connectWith = this.connectWith.bind(this)
-    this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(this.props.params.username)
+    this.firebaseRef = firebaseRef.database().ref('users/').orderByChild('username').equalTo(this.props.params.username)
     this.updateLanguages = this.updateLanguages.bind(this)
     this.updateCheckboxes = this.updateCheckboxes.bind(this)
     this.changePassword = this.changePassword.bind(this)
@@ -37,7 +37,11 @@ class ProfileComponent extends Component {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
           let user = snap.val()
-          this.nextLevel = user.level.id + 1
+          if (user.level.id < 9) {
+            this.nextLevel = user.level.id + 1
+          } else {
+            this.nextLevel = user.level.id
+          }
           this.level = user.level
           this.setState({
             profile: user
@@ -71,7 +75,7 @@ class ProfileComponent extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.firebaseRef = firebaseRef.child('users/').orderByChild('username').equalTo(nextProps.params.username)
+    this.firebaseRef = firebaseRef.database().ref('users/').orderByChild('username').equalTo(nextProps.params.username)
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
@@ -96,7 +100,7 @@ class ProfileComponent extends Component {
   }
 
   updateLanguages() {
-    let coursesRef = firebaseRef.child(`users/${this.props.user.id}/courses`)
+    let coursesRef = firebaseRef.database().ref(`users/${this.props.user.id}/courses`)
     let courses = []
     CATEGORIES.map(category => {
       if (category.id == 'Test') {
@@ -272,6 +276,17 @@ class ProfileComponent extends Component {
       </form>
     )
 
+    let nextLevel = (
+      <h6>
+        (Needs {(this.level.nextLevel - this.state.profile.karma)} more points to go to become {LEVELS[this.nextLevel].rank})
+      </h6>
+    )
+    let topLevel = (
+      <h6>
+        (You have achieved the highest level!)
+      </h6>
+    )
+
     return (
       <div>
         <br/>
@@ -296,10 +311,7 @@ class ProfileComponent extends Component {
                      {this.state.profile.karma}
                     </span>
                   </h5>
-                  <h6>
-                    (Needs {(this.level.nextLevel - this.state.profile.karma)} more points to go to become {LEVELS[this.nextLevel].rank})
-                  </h6>
-
+                  {this.nextLevel === 10 ? nextLevel : topLevel}
                 </li>
               </ul>
               <hr/>

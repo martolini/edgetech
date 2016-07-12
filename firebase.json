@@ -1,15 +1,16 @@
 {
-  "firebase": "edgetech",
-  "public": "public",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ],
-  "rewrites": [
-    {
-      "source": "/**",
-      "destination": "/app.html"
-    }
-  ]
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/**",
+        "destination": "/app.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
 }

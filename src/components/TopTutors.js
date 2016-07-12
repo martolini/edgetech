@@ -11,7 +11,7 @@ export class TopTutors extends Component {
       topTutors: []
     }
 
-    this.tutorsRef = firebaseRef.child(`users/`).orderByChild('karma').limitToLast(10)
+    this.tutorsRef = firebaseRef.database().ref(`users/`).orderByChild('karma').limitToLast(10)
   }
 
   componentDidMount() {

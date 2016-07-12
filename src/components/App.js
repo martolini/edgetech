@@ -14,11 +14,12 @@ export class AppComponent extends Component {
   }
 
   componentDidMount() {
-    firebaseRef.onAuth(this.onAuth)
+    firebaseRef.auth().onAuthStateChanged(this.onAuth)
   }
 
   componentWillUnmount() {
     firebaseRef.offAuth(this.onAuth)
+
   }
 
   onAuth(data) {
@@ -26,17 +27,15 @@ export class AppComponent extends Component {
     if (data) {
       if (!this.props.auth.user) {
 
-        firebaseRef
-          .child('users')
-          .child(data.uid)
-          .on('value', snapshot => {
-            if (snapshot.exists()) {
-              dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key() })))
-            } else {
-              dispatch(logout())
-              dispatch(pushPath('/'))
-            }
-          })
+        let ref = firebaseRef.database().ref(`users/${data.uid}`)
+        ref.on('value', snapshot => {
+          if (snapshot.exists()) {
+            dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key })))
+          } else {
+            dispatch(logout())
+            dispatch(pushPath('/'))
+          }
+        })
       }
     } else {
       document.location = '/'

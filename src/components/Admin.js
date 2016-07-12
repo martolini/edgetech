@@ -13,14 +13,15 @@ class AdminComponent extends Component {
       tutorCount: {},
       questionCount: {},
       questionAnswered: 0,
+      privateAsked: 0,
+      privateAnswered: 0,
       averageHelpingTime: 0,
       userSearch: {},
       users: []
     }
 
-    this.userRef = firebaseRef.child('users/')
-    this.questionRef = firebaseRef.child('questions/')
-    //this.sessionsRef = firebaseRef.child('sessioncounters/')
+    this.userRef = firebaseRef.database().ref('users/')
+    this.questionRef = firebaseRef.database().ref('questions/')
     this.userSearch = this.userSearch.bind(this)
 
   }
@@ -97,12 +98,21 @@ class AdminComponent extends Component {
 
         let launch = 1455697046200
 
+        let privateQs = 0
+        let privateQAs = 0
+
         snapshot.forEach(question => {
           if (question.val().createdAt > launch) {
             if (question.val().category !== 'Test') {
-              let sessionRef = firebaseRef.child('sessioncounters/').orderByKey().equalTo(question.key())
+              let sessionRef = firebaseRef.database().ref('sessioncounters/').orderByKey().equalTo(question.key)
+              if (question.val().text.indexOf('Waiting to connect') > -1) {
+                privateQs++
+              }
               sessionRef.once('value', snap => {
                 if (snap.exists()) {
+                  if (question.val().text.indexOf('Waiting to connect') > -1) {
+                    privateQAs++
+                  }
                   questionAnswered++
                   snap.forEach(obj => {
                     totalCounter += obj.val().counter
@@ -126,6 +136,8 @@ class AdminComponent extends Component {
           this.setState({
             questionCount: questionCount,
             questionAnswered: questionAnswered,
+            privateAsked: privateQs,
+            privateAnswered: privateQAs,
             averageHelpingTime: Math.round(averageHelpingTime/60)
           })
         }, 500)
@@ -171,10 +183,11 @@ class AdminComponent extends Component {
               </li>
             </ul>
             <h5>Question asked total: <span className="label label-success">{this.state.questionCount.total}</span></h5>
+            <h5>Private question asked: <span className="label label-success">{this.state.privateAsked}</span></h5>
             <h5>Question asked this week: <span className="label label-success">{this.state.questionCount.week}</span></h5>
             <h5>Question asked today: <span className="label label-success">{this.state.questionCount.today}</span></h5>
             <br/>
-            <h5>Question answered: <span className="label label-success">{this.state.questionAnswered}</span></h5>
+            <h5>Question answered: <span className="label label-success">{this.state.questionAnswered + this.state.privateAnswered}</span></h5>
             <h5>Average helping time: <span className="label label-success">{this.state.averageHelpingTime} min</span></h5>
             <br/>
             <br/>

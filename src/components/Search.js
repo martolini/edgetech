@@ -14,7 +14,7 @@ export class Search extends Component {
       users: []
     }
 
-    this.userRef = firebaseRef.child('users/')
+    this.userRef = firebaseRef.database().ref('users/')
     this.userSearch = this.userSearch.bind(this)
 
   }

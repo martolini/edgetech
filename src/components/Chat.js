@@ -11,7 +11,7 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
       messages: [],
       isOpen: false
     }
-    this.chatRef = firebaseRef.child(`chat/${this.props.chatId}`)
+    this.chatRef = firebaseRef.database().ref(`chat/${this.props.chatId}`)
     this.messageListener = this.chatRef.child('messages')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.changeWindow = this.changeWindow.bind(this)
@@ -71,7 +71,7 @@ var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/t
       let message = {
         author: this.props.userName,
         text: this.textMessage.value,
-        id: this.messageRef.key()
+        id: this.messageRef.key
       }
 
       // Set new message with data

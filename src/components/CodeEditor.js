@@ -17,12 +17,12 @@ export class CodeEditor extends Component {
     session.setUseWrapMode(true)
     session.setUseWorker(false)
     session.setMode(`ace/mode/${CODEMODES[this.props.category]}`)
-    this.firepad = Firepad.fromACE(firebaseRef.child(`coding/${this.props.questionId}`), editor, {
+    this.firepad = Firepad.fromACE(firebaseRef.database().ref(`coding/${this.props.questionId}`), editor, {
       defaultText: SNIPPETS[this.props.category],
       userId: this.props.userId,
       userColor: '#234C25'
     })
-    
+
   }
 
   render() {

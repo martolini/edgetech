@@ -23,7 +23,7 @@ class LearningRoomComponent extends Component {
       minScreen: ($(window).height() < 900)
     }
 
-    this.questionRef = firebaseRef.child(`questions/${this.props.params.id}`)
+    this.questionRef = firebaseRef.database().ref(`questions/${this.props.params.id}`)
     this.leaveRoom = this.leaveRoom.bind(this)
     this.revertKarma = this.revertKarma.bind(this)
     this.goToAsk = this.goToAsk.bind(this)
@@ -50,12 +50,12 @@ class LearningRoomComponent extends Component {
     let onePing = true
     this.questionRef.on('child_added', snapshot => {
       this.setState({
-        question: Object.assign({}, this.state.question, { [snapshot.key()] : snapshot.val()})
+        question: Object.assign({}, this.state.question, { [snapshot.key] : snapshot.val()})
       })
     })
     this.questionRef.on('child_changed', snapshot => {
       this.setState({
-        question: Object.assign({}, this.state.question, { [snapshot.key()]: snapshot.val()})
+        question: Object.assign({}, this.state.question, { [snapshot.key]: snapshot.val()})
       })
       if (this.state.question.tutor.connected && onePing) {
         audio.play()
@@ -133,7 +133,7 @@ class LearningRoomComponent extends Component {
 
   revertKarma(){
     const { dispatch } = this.props
-    let karmaRef = firebaseRef.child(`users/${this.state.question.tutor.id}/karma`)
+    let karmaRef = firebaseRef.database().ref(`users/${this.state.question.tutor.id}/karma`)
 
     // Resetting karma
     karmaRef.transaction(karma => this.state.question.tutor.oldKarma)
