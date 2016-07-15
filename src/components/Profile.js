@@ -311,7 +311,7 @@ class ProfileComponent extends Component {
                      {this.state.profile.karma}
                     </span>
                   </h5>
-                  {this.nextLevel === 10 ? nextLevel : topLevel}
+                  {this.nextLevel === 9 ? topLevel : nextLevel}
                 </li>
               </ul>
               <hr/>

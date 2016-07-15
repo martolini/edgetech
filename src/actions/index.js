@@ -161,7 +161,7 @@ export function askQuestion(question) {
         connected: question.tutor.connected
       },
       chatId: chatRef.key,
-      createdAt: Firebase.ServerValue.TIMESTAMP
+      createdAt: firebaseRef.database.ServerValue.TIMESTAMP
     })
     questionRef.set(question, error => {
       if (!!error) {

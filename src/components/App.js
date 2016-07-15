@@ -18,7 +18,7 @@ export class AppComponent extends Component {
   }
 
   componentWillUnmount() {
-    firebaseRef.offAuth(this.onAuth)
+    firebaseRef.auth().onAuthStateChanged(this.onAuth)
 
   }
 

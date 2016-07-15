@@ -19,33 +19,45 @@ export class RecentQuestionsComponent extends Component {
   }
 
   componentDidMount() {
+    let authorQuestions = []
+    let tutorQuestions = []
+
     this.authorRef.once('value', snapshot => {
       if (snapshot.exists()) {
-        let authorQuestions = []
         snapshot.forEach( snap => {
           let authorQuestion = snap.val()
           authorQuestions.push(authorQuestion)
         })
-        this.tutorRef.once('value', snapshot => {
-          if (snapshot.exists()) {
-            let tutorQuestions = []
-            snapshot.forEach( snap => {
-              let tutorQuestion = snap.val()
-              tutorQuestions.push(tutorQuestion)
-            })
-
-            if (tutorQuestions.length > 0 || authorQuestions.length > 0) {
-              let questions = this.sortQuestions(tutorQuestions, authorQuestions)
-              this.setState({
-                questions: questions.reverse()
-              })
-            }
-          }
-        })
-
-      };
+      }
+    }).then( () => {
+      this.tutorRef.once('value', snapshot => {
+        if (snapshot.exists()) {
+          snapshot.forEach( snap => {
+            let tutorQuestion = snap.val()
+            tutorQuestions.push(tutorQuestion)
+          })
+        }
+      }).then( () => {
+        if (tutorQuestions.length > 0 && authorQuestions.length > 0) {
+          console.log('in here?')
+          let questions = this.sortQuestions(tutorQuestions, authorQuestions)
+          this.setState({
+            questions: questions.reverse()
+          })
+        } else if (tutorQuestions.length > 0){
+          this.setState({
+            questions: tutorQuestions.reverse()
+          })
+        } else if (authorQuestions.length > 0){
+          this.setState({
+            questions: authorQuestions.reverse()
+          })
+        }
+      })
     })
   }
+
+
 
   sortQuestions(tutor, author){
     let questions = []
