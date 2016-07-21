@@ -10,7 +10,7 @@ import { pushPath } from 'redux-simple-router'
 import { Link } from 'react-router'
 require('../css/Learningroom.css')
 
-var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/sound.mp3')
+var audio = new Audio('https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/sound.mp3?alt=media&token=d8e42ce5-d515-47af-8ba3-0939009fdf5d')
 
 class LearningRoomComponent extends Component {
   constructor(props) {

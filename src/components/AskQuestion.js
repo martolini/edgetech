@@ -94,8 +94,7 @@ class AskQuestionComponent extends Component {
                 </div>
               </div>
             </div>
-            <img className="seriously scaling"
-              src="https://dl.dropboxusercontent.com/u/2188934/edgetech/seriously.png" />
+            <img className="seriously scaling" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/seriously.png?alt=media&token=9a3f5167-9118-4792-93e4-9507d063cfc5" />
             <form className="ask-questions-form" onSubmit={this.handleSubmit}>
               <h3 className="logo-font-white">What do you need help with?</h3>
               <div className="form-group">

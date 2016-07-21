@@ -55,186 +55,62 @@ export const LEVELS = [
   {
     id: 0,
     nextLevel: 5,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/student.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fstudent.png?alt=media&token=5881e225-0252-4592-9106-92f646bd7ed6',
     rank: 'Student'
   },
   {
     id: 1,
     nextLevel: 20,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/bachelor.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fbachelor.png?alt=media&token=47dca36d-e261-4e2e-b75f-3c4fa80d1d70',
     rank: 'Bachelor'
   },
   {
     id: 2,
     nextLevel: 50,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/tutor.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Ftutor.png?alt=media&token=66988598-383e-4dc7-a109-2d8a5c26757e',
     rank: 'Tutor'
   },
   {
     id: 3,
     nextLevel: 100,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/mentor.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fmentor.png?alt=media&token=fd8d17ec-a4bb-4787-ac88-0b3b330e0753',
     rank: 'Mentor'
   },
   {
     id: 4,
     nextLevel: 150,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/master.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fmaster.png?alt=media&token=4725f7b5-8e0f-4063-8dc3-45e95d654dfc',
     rank: 'Master'
   },
   {
     id: 5,
     nextLevel: 250,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/doctor.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fdoctor.png?alt=media&token=8e94db1e-b1e4-40fb-9bfe-acf1d9fd62e0',
     rank: 'Doctor'
   },
   {
     id: 6,
     nextLevel: 500,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/scientist.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fscientist.png?alt=media&token=960e8323-c4a8-47dd-9f09-e0e7373d334a',
     rank: 'Scientist'
   },
   {
     id: 7,
     nextLevel: 750,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/professor.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fprofessor.png?alt=media&token=22d80b22-fa2b-4945-80d7-9e88da3dc770',
     rank: 'Professor'
   },
   {
     id: 8,
     nextLevel: 1000,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/headmaster.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fheadmaster.png?alt=media&token=d2815d5b-b23a-4e7e-ae2e-5a2322d4fa86',
     rank: 'Headmaster'
   },
   {
     id: 9,
     nextLevel: 10000,
-    badge: 'https://dl.dropboxusercontent.com/u/2188934/edgetech/badges/super-saiyan.png',
+    badge: 'https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badges%2Fsuper-saiyan.png?alt=media&token=12a30eaa-b09b-4a95-8728-83a3bc5e74e3',
     rank: 'Super Saiyan'
-  }
-]
-
-export const RANKINGS = [
-  {
-    id: 1,
-    title: 'Student',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: 'You are just a mere student and knows nothing. This is lowest ranking and no one even wants to talk to you. Try helping someone out to advance in rankings!',
-    badge: ''
-  },
-  {
-    id: 2,
-    title: 'Bachelor',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/bachelor.jpg',
-    text: "You're a little older now but still a complete retard. You're koking all your øvings"
-  },
-  {
-    id: 3,
-    title: 'Tutor',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 4,
-    title: 'Elder',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 5,
-    title: 'Sensei',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 6,
-    title: 'Maven',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 7,
-    title: 'Guru',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 8,
-    title: 'Master',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 9,
-    title: 'Maharishi',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 10,
-    title: 'Scientist',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 11,
-    title: 'Marabout',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 12,
-    title: 'Saiyan',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 13,
-    title: 'Arcanist',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-    {
-    id: 14,
-    title: 'Doctor',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 15,
-    title: 'Professor',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 16,
-    title: 'Headmaster',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 17,
-    title: 'Arch Scientist',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 18,
-    title: 'Super Saiyan',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 19,
-    title: 'Maiar',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
-  },
-  {
-    id: 20,
-    title: 'Valar',
-    image: 'https://dl.dropboxusercontent.com/u/2188934/thxbro-rankings/student.jpg',
-    text: ''
   }
 ]
 

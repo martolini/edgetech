@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 
-var audio = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/sound.mp3');
+var audio = new Audio('https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/sound.mp3?alt=media&token=d8e42ce5-d515-47af-8ba3-0939009fdf5d');
 
 class GiveHelpComponent extends Component {
 

@@ -41,7 +41,6 @@ export function login(data) {
     //var provider = new firebaseRef.auth.EmailAuthProvider(data.email, data.password)
     auth.signInWithEmailAndPassword(data.email, data.password).then(function(result){
       // signed in!
-      console.log('it worked');
       dispatch(pushPath('/ask'))
     }).catch(function(error) {
       // something bad happend!

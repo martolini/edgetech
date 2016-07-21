@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { firebaseRef, CATEGORIES } from '../config'
 
-var chatPing = new Audio('https://dl.dropboxusercontent.com/u/2188934/edgetech/tick.mp3')
+var chatPing = new Audio('https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/tick.mp3?alt=media&token=b5099bb3-612b-451b-97a2-45e9ea4cf68d')
 
  export class Chat extends Component {
   constructor(props) {
