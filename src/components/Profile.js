@@ -31,7 +31,6 @@ class ProfileComponent extends Component {
     }
 
     this.updateCheckboxes()
-
     this.firebaseRef.once('value', snapshot => {
 
       if (snapshot.exists()) {

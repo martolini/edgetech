@@ -38,13 +38,20 @@ export function login(data) {
   return dispatch => {
     dispatch(loginRequest())
     let auth = firebaseRef.auth()
-    //var provider = new firebaseRef.auth.EmailAuthProvider(data.email, data.password)
     auth.signInWithEmailAndPassword(data.email, data.password).then(function(result){
       // signed in!
-      dispatch(pushPath('/ask'))
+      let ref = firebaseRef.database().ref(`users/${result.uid}`)
+      ref.on('value', snapshot => {
+        if (snapshot.exists()) {
+          dispatch(pushPath(`/${snapshot.val().organization.page}/ask`))
+        } else {
+          dispatch(logout())
+          dispatch(pushPath('/'))
+        }
+      })
+
     }).catch(function(error) {
       // something bad happend!
-      console.log('it did not work?');
       console.log(error);
       dispatch(loginError(error.message))
     })
@@ -95,23 +102,24 @@ function signupSuccess() {
 }
 
 export function signup(data) {
-  const { username, email, password, tutor, courses } = data
+  const { username, email, password, tutor, courses, org } = data
   return dispatch => {
     dispatch(signupRequest())
     let authRef = firebaseRef.auth()
     authRef.createUserWithEmailAndPassword(email, password).then((user) => {
 
-      firebaseRef.database().ref('users').child(user.uid).set({
+      firebaseRef.database().ref(`organizations/${org.id}/users`).child(user.uid).set({
         email: email,
         username: username,
         karma: 0,
         id: user.uid,
         enabledNotification: tutor,
         courses: courses,
-        level: LEVELS[0]
-
+        level: LEVELS[0],
+        organization: {id: org.id, name: org.name, page: org.page}
       })
-      dispatch(pushPath('/ask'))
+
+      dispatch(pushPath(`/${org.page}/ask`))
 
     }, (error) => {
       console.log(error)
@@ -167,7 +175,7 @@ export function askQuestion(question) {
         dispatch(askQuestionError(error.message))
       } else {
         dispatch(askQuestionSuccess(question))
-        dispatch(pushPath(`/question/${question.id}`))
+        dispatch(pushPath(`/${question.orgpage}/question/${question.id}`))
       }
     })
   }
@@ -179,5 +187,54 @@ export function questionsUpdated(questions) {
   return {
     type: QUESTIONS_UPDATED,
     questions
+  }
+}
+
+export const CREATE_ORGANIZATION_REQUEST = 'CREATE_ORGANIZATION_REQUEST'
+export const CREATE_ORGANIZATION_SUCCESS = 'CREATE_ORGANIZATION_SUCCESS'
+export const CREATE_ORGANIZATION_ERROR = 'CREATE_ORGANIZATION_ERROR'
+
+
+function createOrganizationRequest() {
+  return {
+    type: CREATE_ORGANIZATION_REQUEST
+  }
+}
+
+function createOrganizationSuccess(org) {
+  return {
+    type: CREATE_ORGANIZATION_SUCCESS,
+    org
+  }
+}
+
+function createOrganizationError(error) {
+  return {
+    type: CREATE_ORGANIZATION_ERROR,
+    error
+  }
+}
+
+export function createOrganization(org) {
+  return dispatch => {
+    dispatch(createOrganizationRequest())
+    let orgRef = firebaseRef.database().ref('organizations').push()
+    let organization = Object.assign({}, organization, {
+      id: orgRef.key,
+      name: org.name,
+      domain: org.domain,
+      logo: org.logourl,
+      createdAt: firebaseRef.database.ServerValue.TIMESTAMP
+    })
+
+    orgRef.set(organization, error => {
+      if (!!error) {
+        console.log(error)
+        dispatch(createOrganizationError())
+      } else {
+        console.log('success')
+        dispatch(createOrganizationSuccess())
+      }
+    })
   }
 }

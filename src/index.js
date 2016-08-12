@@ -41,17 +41,17 @@ render((
           <Route path="/signup" component={Signup} />
         </Route>
         <Route path="/app" component={App}>
-          <Route path="/ask" component={AskQuestion} />
-          <Route path="/help" component={GiveHelp}/>
-          <Route path="/denied" component={WantToHelp}/>
-          <Route path="/question/:id" component={LearningRoom} />
-          <Route path="/user/:username" component={Profile} />
+          <Route path="/:org/ask" component={AskQuestion} />
+          <Route path="/:org/help" component={GiveHelp}/>
+          <Route path="/:org/denied" component={WantToHelp}/>
+          <Route path="/:org/question/:id" component={LearningRoom} />
+          <Route path="/:org/user/:username" component={Profile} />
           <Route path="/admin" component={Admin} />
           <Route path="/about" component={About} />
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>
-      {/*{ debugPanel }*/}
+      {/*{ debugPanel}*/}
     </div>
   </Provider>
 ), document.getElementById('root'))

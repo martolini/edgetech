@@ -67,7 +67,7 @@ class GiveHelpComponent extends Component {
 	componentDidMount() {
 
 		this.changeCourse(this.state.category)
-
+		
 		this.firebaseRef.on('value', this.onValueChange)
 		if (this.props.user.enabledNotification) {
 			document.getElementById('onRadioBtn').checked = true

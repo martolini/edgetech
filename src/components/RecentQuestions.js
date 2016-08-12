@@ -39,7 +39,6 @@ export class RecentQuestionsComponent extends Component {
         }
       }).then( () => {
         if (tutorQuestions.length > 0 && authorQuestions.length > 0) {
-          console.log('in here?')
           let questions = this.sortQuestions(tutorQuestions, authorQuestions)
           this.setState({
             questions: questions.reverse()
@@ -86,7 +85,7 @@ export class RecentQuestionsComponent extends Component {
     let openRef = firebaseRef.database().ref(`questions/${question.id}/author/connected`)
     openRef.set(true)
 
-    dispatch(pushPath(`/question/${question.id}`))
+    dispatch(pushPath(`/${this.props.user.organization.page}/question/${question.id}`))
   }
 
   render() {

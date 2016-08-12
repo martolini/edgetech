@@ -13,8 +13,11 @@ class SignupComponent extends Component {
     this.state = {
       usernames: [],
       username: "",
-      showLanguages: false
+      showLanguages: false,
+      orgs: []
     }
+
+    this.orgRef = firebaseRef.database().ref('organizations')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.firebaseRef = firebaseRef.database().ref('users').orderByChild('username')
     this.tutorRef = firebaseRef.database().ref('tutors')
@@ -39,6 +42,18 @@ class SignupComponent extends Component {
         })
       }
     })
+    this.orgRef.once("value", snapshot => {
+      if (snapshot.exists()) {
+        let orgs = []
+        snapshot.forEach(snap => {
+          let org = snap.val()
+          orgs.push(org)
+        })
+        this.setState({
+          orgs: orgs
+        })
+      }
+    })
   }
 
   handleSubmit(e) {
@@ -48,6 +63,14 @@ class SignupComponent extends Component {
       const username = this.usernameInput.value
       const email = this.emailInput.value
       const password = this.passwordInput.value
+      let organization = null
+
+      this.state.orgs.map(org => {
+        if (this.org.value == org.id) {
+          organization = org
+        }
+      })
+
       const { dispatch } = this.props;
 
       let courses = {}
@@ -60,13 +83,13 @@ class SignupComponent extends Component {
           }
         })
       }
-
       dispatch(signup({
         username: username,
         email: email,
         password: password,
         tutor: tutor,
-        courses: courses
+        courses: courses,
+        org: organization
       }))
     }
 
@@ -161,6 +184,18 @@ class SignupComponent extends Component {
         }
       </div>
     )
+
+    let organizations = (
+      <select className="form-control" ref={ref => this.org = ref}>
+        { this.state.orgs.map(org => {
+          return (
+            <option key={org.id} className="DARK-TEXT" value={org.id}>{ org.name }</option>
+            )
+          })
+        }
+      </select>
+    )
+
     return (
       <div className="container">
         <div className="row">
@@ -175,6 +210,14 @@ class SignupComponent extends Component {
                 { this.props.auth.error && alert }
 
                 <form className="form-horizontal">
+                  <div className="form-group">
+                    <div className="input-group input-group-lg">
+                      <span className="input-group-addon">
+                        <i className="fa fa-building-o fa-fw"></i>
+                      </span>
+                      {organizations}
+                    </div>
+                  </div>
                   <div className="form-group">
                     <div className="input-group input-group-lg">
                       <span className="input-group-addon">

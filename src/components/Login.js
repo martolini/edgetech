@@ -15,6 +15,7 @@ class LoginComponent extends Component {
 
   componentDidMount() {
     this.emailInput.focus()
+
   }
 
   handleSubmit(e) {

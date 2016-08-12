@@ -13,18 +13,15 @@ class AskQuestionComponent extends Component {
   }
 
   componentDidMount(){
-
     // Set navbar link to active
     if (document.getElementById("get-help-link") !== null) {
       document.getElementById("get-help-link").className = "active"
     }
-
     if (this.props.user.hasLeveledUp) {
       $('#newLevelModal').modal()
-      let hasLeveledUpRef = firebaseRef.database().ref(`users/${this.props.user.id}/hasLeveledUp`)
+      let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.orgId}/users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
-
   }
 
   componentWillUnmount(){
@@ -43,7 +40,8 @@ class AskQuestionComponent extends Component {
       author: {
         id: this.props.user.id,
         username: this.props.user.username,
-        connected: true
+        connected: true,
+        orgpage: this.props.user.organization.page
       },
       tutor: {
         id: null,

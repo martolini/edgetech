@@ -127,7 +127,7 @@ class LearningRoomComponent extends Component {
       $('#leaveModal').modal()
     } else {
       // leave room
-      dispatch(pushPath('/ask'))
+      dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
     }
   }
 
@@ -138,13 +138,13 @@ class LearningRoomComponent extends Component {
     // Resetting karma
     karmaRef.transaction(karma => this.state.question.tutor.oldKarma)
 
-    dispatch(pushPath('/ask'))
+    dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
   }
 
   // Suddenly couldn't use Link with data-dismiss="modal" so had to redirect with a function instead.
   goToAsk(){
     const { dispatch } = this.props
-    dispatch(pushPath('/ask'))
+    dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
   }
 
   renderError() {

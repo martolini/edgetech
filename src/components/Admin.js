@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
+import { createOrganization } from '../actions'
 import { Link } from 'react-router'
 
 class AdminComponent extends Component {
@@ -22,7 +23,9 @@ class AdminComponent extends Component {
 
     this.userRef = firebaseRef.database().ref('users/')
     this.questionRef = firebaseRef.database().ref('questions/')
+    this.orgRef = firebaseRef.database().ref('organizations/').push()
     this.userSearch = this.userSearch.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
   }
 
@@ -158,6 +161,20 @@ class AdminComponent extends Component {
 
   }
 
+  handleSubmit(e) {
+    e.preventDefault()
+    const orgname = this.orgNameInput.value
+    const subdomain = this.domainInput.value
+    const logourl = this.logoUrlInput.value
+    const { dispatch } = this.props
+
+    dispatch(createOrganization({
+      name: orgname,
+      logourl: logourl,
+      domain: subdomain
+    }))
+  }
+
   render() {
 
     return (
@@ -191,6 +208,14 @@ class AdminComponent extends Component {
             <h5>Average helping time: <span className="label label-success">{this.state.averageHelpingTime} min</span></h5>
             <br/>
             <br/>
+            <h3>Create new organization:</h3>
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" className="form-control" placeholder="Org name" ref={ref => this.orgNameInput = ref}/>
+              <input type="text" className="form-control" placeholder="Logo url" ref={ref => this.logoUrlInput = ref}/>
+              <input type="text" className="form-control" placeholder="Subdomain" ref={ref => this.domainInput = ref}/>
+              <button type="submit" className="btn btn-success">Submit</button>
+            </form>
+
             <input type="text" className="chat-input" onKeyUp={this.userSearch} placeholder="Search for a username" ref={ref => this.searchText = ref}/>
 
             <table className="table table-bordered table-striped table-hover">
