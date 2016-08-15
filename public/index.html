@@ -18,18 +18,38 @@
         overflow-x: hidden
       }
 
+      hr {
+        border-top-color: #CCCCCC;
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+
+      #grad {
+        background: red; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+      }
+
       .container-fluid {
         padding: 0px;
       }
       .top-section {
         width: 100%;
+        height: 400px;
         padding: 10px;
-        padding-bottom: 50px;
+        padding-bottom: 0px;
+        background-image: radial-gradient(#464646 0%, #191919 100%);
+
       }
       .landing-section {
         width: 100%;
         padding-top: 30px;
         padding-bottom: 50px;
+        border-top-style: solid;
+        border-top-color: #F67D1D;
+        border-top-width: 20px;
       }
       .landing-screenshot {
         width: 60%;
@@ -37,16 +57,13 @@
 
       }
       .first-step-screenshot {
-        width: 350px;
-        position: relative;
-        top: -10px;
+        width: 250px;
       }
       .second-step-screenshot {
-        width: 300px;
-
+        width: 250px;
       }
       .third-step-screenshot {
-        width: 300px;
+        width: 250px;
       }
       .center-text {
         text-align: center;
@@ -58,16 +75,16 @@
         background-color: #EEE;
       }
       .GREEN {
-        background-color: #4CAF50;
+        background-color: #F67D1D;
       }
       .WHITE-TEXT {
-        color: white;
+        color: #EEE;
       }
       .DARK-TEXT {
         color: #333;
       }
       .GREEN-TEXT{
-        color: #4CAF50;
+        color: #F67D1D;
       }
       .LIGHT-FONT {
         font-weight: lighter;
@@ -77,7 +94,7 @@
         padding-right: 20px;
       }
       .navlinks ul li a{
-        color: #4CAF50;
+        color: #F67D1D;
         width: 100%;
       }
       .circle {
@@ -95,30 +112,55 @@
         position: relative;
       }
       .logo {
-        font-size: 8em;
-        padding-bottom: 30px;
-        font-family: 'Lobster', cursive;
-        color: #4caf50 !important;
-      }
-      .logo-bump {
+        margin: 50px;
+        margin-top: 80px;
         width: 500px;
-        position: relative;
-        top: -30px;
+      }
+      .symbol {
+        padding-bottom: 30px;
+        width: 50px;
       }
       .green-section-button {
-        border-style: solid;
-        border-width: 1px;
         box-shadow: none;
         margin-bottom: 10px;
         white-space: normal;
         padding: 20px;
         width: 150px;
+        background-color: #333;
+      }
+      .default-section-button {
+        box-shadow: none;
+        margin-bottom: 10px;
+        white-space: normal;
+        padding: 20px;
+        width: 150px;
+        background-color: #EEE;
+      }
+      .code-badge {
+        width: 70px;
+        background-color: #eee;
+        padding: 10px;
+        position: absolute;
+        margin-top: -60px;
+        margin-left: -27px;
+      }
+      .top-img {
+        position: absolute;
+        top: 200px;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        -webkit-mask-image:-webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+      }
+      .shadow {
+        margin: auto;
+        margin-top: -26px;
+        width: 500px;
+        height: 50px;
+        background-image: radial-gradient(#000000 0%, rgba(255, 255, 255, 0.0) 75%);
       }
 
       @media only screen and (max-width : 768px) {
-        .logo-bump {
-          width: 300px;
-        }
       }
     </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -129,72 +171,62 @@
     <div class="navlinks pull-right">
       <ul class="list-inline pull-right">
         <li>
-          <a href="/login" ><h5>Log in</h5></a>
+          <a href="/login"><h5 class="WHITE-TEXT">Log in</h5></a>
         </li>
         <li>
-          <a href="/signup"><h5>Sign up</h5></a>
+          <a href="/signup"><h5 class="WHITE-TEXT">Sign up</h5></a>
         </li>
       </ul>
     </div>
-    <div class="top-section LIGHT center-text">
-      <h1 class="logo center-text">Thx bro!</h1>
-      <img class="logo-bump" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/fistbump.svg?alt=media&token=aff654e3-6e88-40a5-bb52-7cc1031b5112">
-      <h3 class="LIGHT-FONT">Give and get instant programming help. </h3>
+    <div class="top-section center-text">
+      <img class="top-img" src="http://cdn.wonderfulengineering.com/wp-content/uploads/2014/04/code-wallpaper-10.jpg" >
+
+      <img class="logo center-text" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/logo-main.svg?alt=media&token=e01c0cf0-4918-4384-9f0a-fc81a318c760" >
+      <div class="shadow">
+
+      </div>
       <br/>
+      </div>
+      <section class="landing-section center-text LIGHT">
         <div class="row">
           <div class="col-md-4 center-text">
-              <h5 class="">1. Sign up</h5>
-            <div class="circle">
-              <img class="first-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/screenshot3.png?alt=media&token=75396402-6d06-4525-a3e1-5911a7214fc8">
-              <a href="/signup" class="btn btn-success btn-lg">Sign Up!</a>
-            </div>
+              <h5 >1. Choose your organization</h5>
+              <img class="first-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/step-one.png?alt=media&token=9d9eb5b2-17d1-4966-8734-adf7a52494c0">
           </div>
           <div class="col-md-4 center-text">
-              <h5 class="">2. Ask something</h5>
-            <div class="circle">
-              <img class="second-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/landing-screen.png?alt=media&token=5d0c10b4-d985-4db5-985f-eb739ac36689">
-            </div>
+              <h5 >2. Ask a question</h5>
+              <img class="second-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/step-two.png?alt=media&token=4738d953-b418-4d41-897f-6fe06230329e">
           </div>
           <div class="col-md-4 center-text">
-              <h5 class="">3. Get live help!</h5>
-            <div class="circle">
-              <img class="third-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/screen3.png?alt=media&token=b0f5230b-fb91-4371-a344-db14c3cdb7ba">
-            </div>
+              <h5 >3. Get live help!</h5>
+              <img class="third-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/step-three.png?alt=media&token=303b99a4-d372-4e6d-9958-ea2614122bbb">
           </div>
         </div>
-      </div>
-      <section class="landing-section center-text GREEN">
-        <h4 class="WHITE-TEXT LIGHT-FONT">What do you need help with?</h4>
+        <br/>
+        <br/>
+        <hr/>
+        <img class="code-badge" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/symbol-white.png?alt=media&token=897068c0-a50b-4a66-9d8f-2721b6983502" >
+        <h4 class="WHITE-TEXT LIGHT-FONT">Sign in to your organization page</h4>
         <br/>
         <ul class="list-inline">
           <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              Java
+            <a href="/signup" class="btn btn-default btn-lg WHITE-TEXT green-section-button">
+              NTNU
             </a>
           </li>
           <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              C++
+            <a href="/signup" class="btn btn-default btn-lg WHITE-TEXT green-section-button">
+              University of Oslo
             </a>
           </li>
           <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              PHP
+            <a href="/signup" class="btn btn-default btn-lg WHITE-TEXT green-section-button">
+              University of Bergen
             </a>
           </li>
           <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              Javascript
-            </a>
-          </li>
-          <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              Python
-            </a>
-          </li>
-          <li>
-            <a href="/signup" class="btn btn-success btn-lg WHITE-TEXT green-section-button">
-              Powershell
+            <a href="/signup" class="btn btn-default btn-lg default-section-button">
+              + Add Your Organization
             </a>
           </li>
         </ul>
@@ -202,16 +234,13 @@
         </div>
       </section>
       <section class="landing-section center-text DARK">
-        <h4 class="WHITE-TEXT LIGHT-FONT"><i>“Become a ninjacoder in no time with on-demand programming help from Thxbro!”</i></h4>
+        <h4 class="WHITE-TEXT LIGHT-FONT"><i>“Get and give help to your peers with codenudge”</i></h4>
         <br/>
         <img class="landing-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/screenshot.png?alt=media&token=117ebbd4-5f11-4f16-b379-aeef67bdf157">
       </section>
       <section class="landing-section GREEN center-text">
-        <br/>
-        <img class="third-step-screenshot" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/codenudge.png?alt=media&token=b55147cd-6238-46ec-944d-72c965720b9c">
-        <br/>
-        <br/>
-        <h4 class="WHITE-TEXT center-text">Codenudge is Thx bro for your business! Go ahead and <a href="mailto:oyvind@codenudge.com" class="btn btn-success btn-lg WHITE-TEXT">contact</a> us for more information</h4>
+        <h4 class="WHITE-TEXT LIGHT-FONT"><i>“Quotes about codenudge being awesome!”</i></h4>
+
       </section>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

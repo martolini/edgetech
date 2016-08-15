@@ -33,15 +33,16 @@ class AskQuestionComponent extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
+
     const { dispatch } = this.props
     let question = {
       text: this.text.value.trim(),
       category: this.category.value,
+      orgpage: this.props.user.organization.page,
       author: {
         id: this.props.user.id,
         username: this.props.user.username,
         connected: true,
-        orgpage: this.props.user.organization.page
       },
       tutor: {
         id: null,

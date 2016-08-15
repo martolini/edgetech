@@ -27,7 +27,7 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link to='/ask' className="navbar-brand logo-font">Thx bro!</Link>
+            <Link to={`/${this.props.user.organization.page}/ask`} className="navbar-brand logo-font">Thx bro!</Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">

@@ -29,7 +29,8 @@ export class AppComponent extends Component {
 
         let ref = firebaseRef.database().ref(`users/${data.uid}`)
         ref.on('value', snapshot => {
-          if (snapshot.exists()) {
+          // checks if the user is registered on the current organization path
+          if (snapshot.exists() && (snapshot.val().organization.page == location.pathname.split('/')[1])) {
             dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key })))
           } else {
             dispatch(logout())
