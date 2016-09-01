@@ -10,13 +10,28 @@ hr {
 }
 
 blockquote {
-    border-left: 5px solid #4CAF50;
+    border-left: 5px solid #F67D1D;
 }
 
 @media only screen and (max-width : 1090px) {
   .seriously {
   	visibility: hidden;
   }
+}
+
+.btn-success {
+  background-color: #F67D1D;
+}
+.label-success {
+  background-color: #F67D1D;
+}
+
+.btn-success:hover {
+  background-color: #F67D1D;
+}
+
+.btn-success.disabled:hover {
+  background-color: #F67D1D;
 }
 
 .bottom-whitespace {
@@ -48,7 +63,7 @@ blockquote {
 
 .logo-font {
 	font-family: 'Lobster', cursive;
-	color: #4caf50 !important;
+	color: #F67D1D !important;
 }
 
 .logo-font-dark {
@@ -68,24 +83,24 @@ blockquote {
 }
 
 input[type="radio"]:checked:after, .radio input[type="radio"]:checked:after, .radio-inline input[type="radio"]:checked:after {
-    border-color: #4CAF50;
+    border-color: #F67D1D;
 }
 
 input[type="radio"]:before, .radio input[type="radio"]:before, .radio-inline input[type="radio"]:before {
-    background-color: #4CAF50;
+    background-color: #F67D1D;
 }
 
 input[type="checkbox"]:checked:after, .checkbox input[type="checkbox"]:checked:after, .checkbox-inline input[type="checkbox"]:checked:after {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
+    background-color: #F67D1D;
+    border-color: #F67D1D;
 }
 
 input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after, .checkbox-inline input[type="checkbox"]:focus:after {
-    border-color: #4CAF50;
+    border-color: #F67D1D;
 }
 
 .button-link {
-	color: #4CAF50;
+	color: #F67D1D;
 }
 
 .button-link:hover {
@@ -147,7 +162,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
-    background-color: #4CAF50;
+    background-color: #F67D1D;
 }
 
 .seriously {
@@ -160,7 +175,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 /*Enums*/
 
 .GREEN {
-  background-color: #4CAF50;
+  background-color: #F67D1D;
 }
 
 .DARK {
@@ -173,7 +188,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 
 .GREEN-TEXT {
-	color: #4CAF50;
+	color: #F67D1D;
 }
 
 .DARK-TEXT {
@@ -181,7 +196,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .GREEN-TEXT:hover {
-	color: #4CAF50;
+	color: #F67D1D;
 }
 
 .BEIGE-TEXT {
@@ -204,7 +219,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .SUCCESS {
-	color: #4CAF50;
+	color: #F67D1D;
 }
 
 .GOLD {
@@ -229,7 +244,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .ask-questions-form {
-	background-color: #4CAF50;
+	background-color: #F67D1D;
 	padding: 30px;
 	border-radius: 25px;
 	border-width: 3px;
@@ -266,7 +281,7 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 .no-students-in-need {
 	text-align: center;
 	margin-top: 100px;
-	color: #4CAF50;
+	color: #F67D1D;
 }
 
 .topics-li {
@@ -293,11 +308,11 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 }
 
 .badge {
-	background-color: #4CAF50;
+	background-color: #F67D1D;
 }
 
 .give-help-sidenav-active {
-	background-color: #4CAF50;
+	background-color: #F67D1D;
 	color: #EEE;
 	margin: 0px;
 	border-style: none;
@@ -334,14 +349,14 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 
 
 .nav-tabs>li>a:hover, .nav-tabs>li>a:focus:hover, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    -webkit-box-shadow: inset 0 -2px 0 #4CAF50;
-    box-shadow: inset 0 -2px 0 #4CAF50;
-    color: #4CAF50;
+    -webkit-box-shadow: inset 0 -2px 0 #F67D1D;
+    box-shadow: inset 0 -2px 0 #F67D1D;
+    color: #F67D1D;
 }
 
 textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus {
-    -webkit-box-shadow: inset 0 -2px 0 #4CAF50;
-    box-shadow: inset 0 -2px 0 #4CAF50;
+    -webkit-box-shadow: inset 0 -2px 0 #F67D1D;
+    box-shadow: inset 0 -2px 0 #F67D1D;
 }
 
 .scaling{
@@ -384,7 +399,7 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 /*About*/
 
 .green-heart {
-  color: #4CAF50;
+  color: #F67D1D;
 }
 
 .fists {

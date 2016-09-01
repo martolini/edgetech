@@ -8,22 +8,58 @@ class LoginComponent extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      org: location.pathname.split('/')[1],
+      orgs: []
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.forgottenPassword = this.forgottenPassword.bind(this)
     this.resetPassword = this.resetPassword.bind(this)
+    this.orgRef = firebaseRef.database().ref('organizations')
   }
 
   componentDidMount() {
     this.emailInput.focus()
+
+    this.orgRef.once("value", snapshot => {
+      if (snapshot.exists()) {
+        let orgs = []
+        snapshot.forEach(snap => {
+          let org = snap.val()
+          if (org.path == this.state.org) {
+              this.setState({
+                org: org
+              })
+          }
+          orgs.push(org)
+        })
+        this.setState({
+          orgs: orgs
+        })
+      }
+    })
 
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { dispatch } = this.props;
+    let organization = null
+
+    if (!this.state.org.path) {
+      this.state.orgs.map(org => {
+        if (this.org.value == org.id) {
+          organization = org
+        }
+      })
+    } else {
+      organization = this.state.org
+    }
+
     dispatch(login({
       email: this.emailInput.value,
-      password: this.passwordInput.value
+      password: this.passwordInput.value,
+      organization: organization
     }))
   }
 
@@ -57,6 +93,24 @@ class LoginComponent extends Component {
       </div>
     );
     let spinner = <i className="fa fa-fw fa-spin fa-spinner"></i>
+
+    let organizations = (
+      <div className="form-group">
+        <div className="input-group input-group-lg">
+          <span className="input-group-addon">
+            <i className="fa fa-building-o fa-fw"></i>
+          </span>
+          <select className="form-control" ref={ref => this.org = ref}>
+            { this.state.orgs.map(org => {
+              return (
+                <option key={org.id} className="DARK-TEXT" value={org.id}>{ org.name }</option>
+                )
+              })
+            }
+          </select>
+        </div>
+      </div>
+    )
 
     return (
       <div className="container">
@@ -94,6 +148,7 @@ class LoginComponent extends Component {
               <div className="panel-body">
                 { this.props.auth.error && alert }
                 <form className="form-horizontal">
+                  {this.state.org !== "login" ? null : organizations}
                   <div className="form-group">
                     <div className="input-group input-group-lg">
                       <span className="input-group-addon">

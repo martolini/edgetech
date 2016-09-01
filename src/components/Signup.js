@@ -14,7 +14,8 @@ class SignupComponent extends Component {
       usernames: [],
       username: "",
       showLanguages: false,
-      orgs: []
+      orgs: [],
+      org: ""
     }
 
     this.orgRef = firebaseRef.database().ref('organizations')
@@ -30,6 +31,10 @@ class SignupComponent extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      org: location.pathname.split('/')[1]
+    })
+
     this.firebaseRef.once("value", snapshot => {
       if (snapshot.exists()) {
         let usernames = []
@@ -47,6 +52,11 @@ class SignupComponent extends Component {
         let orgs = []
         snapshot.forEach(snap => {
           let org = snap.val()
+          if (org.path == this.state.org) {
+              this.setState({
+                org: org
+              })
+          }
           orgs.push(org)
         })
         this.setState({
@@ -65,11 +75,18 @@ class SignupComponent extends Component {
       const password = this.passwordInput.value
       let organization = null
 
-      this.state.orgs.map(org => {
-        if (this.org.value == org.id) {
-          organization = org
-        }
-      })
+      if (!this.state.org.path) {
+        this.state.orgs.map(org => {
+          if (this.org.value == org.id) {
+            organization = org
+          }
+        })
+      } else {
+        organization = this.state.org
+      }
+
+
+
 
       const { dispatch } = this.props;
 
@@ -186,14 +203,21 @@ class SignupComponent extends Component {
     )
 
     let organizations = (
-      <select className="form-control" ref={ref => this.org = ref}>
-        { this.state.orgs.map(org => {
-          return (
-            <option key={org.id} className="DARK-TEXT" value={org.id}>{ org.name }</option>
-            )
-          })
-        }
-      </select>
+      <div className="form-group">
+        <div className="input-group input-group-lg">
+          <span className="input-group-addon">
+            <i className="fa fa-building-o fa-fw"></i>
+          </span>
+          <select className="form-control" ref={ref => this.org = ref}>
+            { this.state.orgs.map(org => {
+              return (
+                <option key={org.id} className="DARK-TEXT" value={org.id}>{ org.name }</option>
+                )
+              })
+            }
+          </select>
+        </div>
+      </div>
     )
 
     return (
@@ -210,14 +234,7 @@ class SignupComponent extends Component {
                 { this.props.auth.error && alert }
 
                 <form className="form-horizontal">
-                  <div className="form-group">
-                    <div className="input-group input-group-lg">
-                      <span className="input-group-addon">
-                        <i className="fa fa-building-o fa-fw"></i>
-                      </span>
-                      {organizations}
-                    </div>
-                  </div>
+                  {this.state.org !== "signup" ? null : organizations}
                   <div className="form-group">
                     <div className="input-group input-group-lg">
                       <span className="input-group-addon">

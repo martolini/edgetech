@@ -37,8 +37,8 @@ render((
     <div>
       <Router history={history}>
         <Route path="/user" component={LoginContainer} >
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <Route path="/(:org/)login" component={Login} />
+          <Route path="/(:org/)signup" component={Signup} />
         </Route>
         <Route path="/app" component={App}>
           <Route path="/:org/ask" component={AskQuestion} />

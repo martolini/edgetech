@@ -16,7 +16,7 @@ class ProfileComponent extends Component {
     }
     const { dispatch } = this.props
     this.connectWith = this.connectWith.bind(this)
-    this.firebaseRef = firebaseRef.database().ref('users/').orderByChild('username').equalTo(this.props.params.username)
+    this.firebaseRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users`).orderByChild('username').equalTo(this.props.params.username)
     this.updateLanguages = this.updateLanguages.bind(this)
     this.updateCheckboxes = this.updateCheckboxes.bind(this)
     this.changePassword = this.changePassword.bind(this)

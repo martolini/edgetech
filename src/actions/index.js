@@ -40,11 +40,15 @@ export function login(data) {
     let auth = firebaseRef.auth()
     auth.signInWithEmailAndPassword(data.email, data.password).then(function(result){
       // signed in!
-      let ref = firebaseRef.database().ref(`users/${result.uid}`)
+      console.log(result.uid)
+      console.log(data.organization.id)
+      let ref = firebaseRef.database().ref(`organizations/${data.organization.id}/users/${result.uid}`)
       ref.on('value', snapshot => {
         if (snapshot.exists()) {
-          dispatch(pushPath(`/${snapshot.val().organization.page}/ask`))
+          console.log("get in:" + snapshot.val().organization.path)
+          dispatch(pushPath(`/${snapshot.val().organization.path}/ask`))
         } else {
+          console.log("get not in")
           dispatch(logout())
           dispatch(pushPath('/'))
         }
@@ -116,10 +120,10 @@ export function signup(data) {
         enabledNotification: tutor,
         courses: courses,
         level: LEVELS[0],
-        organization: {id: org.id, name: org.name, page: org.page}
+        organization: {id: org.id, name: org.name, path: org.path}
       })
 
-      dispatch(pushPath(`/${org.page}/ask`))
+      dispatch(pushPath(`/${org.path}/ask`))
 
     }, (error) => {
       console.log(error)
@@ -222,7 +226,7 @@ export function createOrganization(org) {
     let organization = Object.assign({}, organization, {
       id: orgRef.key,
       name: org.name,
-      domain: org.domain,
+      path: org.domain,
       logo: org.logourl,
       createdAt: firebaseRef.database.ServerValue.TIMESTAMP
     })
