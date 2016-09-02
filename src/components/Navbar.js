@@ -27,9 +27,10 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link to={`/${this.props.user.organization.path}/ask`} className="navbar-brand logo-font">Thx bro!</Link>
+            <Link to={`/${this.props.user.organization.path}/ask`} >
+              <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/logo-main.svg?alt=media&token=e01c0cf0-4918-4384-9f0a-fc81a318c760" className="navbar-brand"/>
+            </Link>
           </div>
-
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul className="nav navbar-nav navbar-left">
               <li id="get-help-link">
@@ -40,6 +41,9 @@ class NavbarComponent extends Component {
               </li>
               { this.props.user.admin ? admin : null }
             </ul>
+            <p className="navbar-orgname">
+              <img className="navbar-orgimg" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/orgs%2Fntnu-logo.png?alt=media&token=7d95ab6d-0160-4683-85d1-b6eff6f4666c" />
+            </p>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">
                 <Link to={`/${this.props.user.organization.path}/user/${this.props.user.username}`}>{ this.props.user.username } <span className="label label-success">{this.props.user.karma}</span></Link>

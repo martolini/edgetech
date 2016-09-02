@@ -35,11 +35,14 @@ class AboutComponent extends Component {
           </blockquote>
           <br/>
           <hr/>
-          <img src="https://dl.dropboxusercontent.com/u/2188934/edgetech/badge.svg" className="bro-badge"/>
+          <img className="code-badge" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/symbol-white.png?alt=media&token=897068c0-a50b-4a66-9d8f-2721b6983502" />
+
           <br/>
-          <p className="CENTER-TEXT lead"><span className="logo-font">Thx bro!</span>
-          &nbsp; is brought to you with <i className="fa fa-heart green-heart"></i> from
-          these handsome bros:</p>
+          <p className="CENTER-TEXT lead">
+            <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/logo-main.svg?alt=media&token=e01c0cf0-4918-4384-9f0a-fc81a318c760" className="paragraphLogo"/>
+
+            &nbsp; is brought to you with <i className="fa fa-heart green-heart"></i> from
+            these handsome bros:</p>
           <br/>
           <div className="row">
             <div className="col-md-6 CENTER-TEXT">
@@ -71,7 +74,7 @@ class AboutComponent extends Component {
           </div>
           <br/>
           <hr/>
-          <img src="https://dl.dropboxusercontent.com/u/2188934/edgetech/badge.svg" className="bro-badge"/>
+          <img className="code-badge" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/symbol-white.png?alt=media&token=897068c0-a50b-4a66-9d8f-2721b6983502" />
           <br/>
           <h4 className="CENTER-TEXT logo-font-dark">Our vision</h4>
           <p className="lead">At <s>IKEA</s> Thx Bro, our vision is to create a better everyday life for the many people.

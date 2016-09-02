@@ -297,7 +297,7 @@ class ProfileComponent extends Component {
               </h2>
               <br/>
               <hr/>
-              <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badge.svg?alt=media&token=50d62fc7-6653-4b4f-966b-dbc4b954de23" className="bro-badge"/>
+              <img className="code-badge" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/symbol-white.png?alt=media&token=897068c0-a50b-4a66-9d8f-2721b6983502" />
               <ul className="list-inline">
                 <li>
                   <img src={this.level.badge}></img>
@@ -314,7 +314,7 @@ class ProfileComponent extends Component {
                 </li>
               </ul>
               <hr/>
-              <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/badge.svg?alt=media&token=50d62fc7-6653-4b4f-966b-dbc4b954de23" className="bro-badge"/>
+              <img className="code-badge" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/symbol-white.png?alt=media&token=897068c0-a50b-4a66-9d8f-2721b6983502" />
               {this.props.user.username === this.props.params.username ? langCheck : langList}
               <hr/>
               {this.props.user.username === this.props.params.username ? recentQuestions : connectWithProfile}

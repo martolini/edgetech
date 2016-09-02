@@ -132,9 +132,27 @@ input[type="checkbox"]:focus:after, .checkbox input[type="checkbox"]:focus:after
 	background-color: #333333;
 }
 
-.navbar-inverse .navbar-brand {
+.navbar-inverse {
 	color: white;
 }
+
+.navbar-brand:hover {
+	cursor: pointer;
+}
+
+.navbar-orgname {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  margin:0 auto;
+}
+
+.navbar-orgimg {
+  width: 100px;
+  margin-top: 20px;
+}
+
 
 .navbar-inverse .navbar-nav > li > a {
 	color: white;
@@ -409,11 +427,17 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
   margin-top: 138px;
 }
 
-.bro-badge {
-  width: 100px;
+.code-badge {
+  width: 60px;
+  background-color: #eee;
+  padding: 10px;
   position: absolute;
-  margin-top: -61px;
-  margin-left: 220px;
+  margin-top: -72px;
+  margin-left: 235px;
+}
+
+.paragraphLogo {
+  width: 120px;
 }
 
 /*Profile*/
