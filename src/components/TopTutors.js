@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { firebaseRef } from '../config'
 import { Link } from 'react-router'
 
 
 
-export class TopTutors extends Component {
+export class TopTutorsComponent extends Component {
   constructor(props) {
     super(props)
     this.state = {
       topTutors: []
     }
-
-    this.tutorsRef = firebaseRef.database().ref(`users/`).orderByChild('karma').limitToLast(10)
+    this.tutorsRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/`).orderByChild('karma').limitToLast(10)
   }
 
   componentDidMount() {
@@ -59,3 +59,5 @@ export class TopTutors extends Component {
     )
   }
 }
+
+export const TopTutors = connect(state => state)(TopTutorsComponent)

@@ -17,9 +17,9 @@ export class CodeEditor extends Component {
     session.setUseWrapMode(true)
     session.setUseWorker(false)
     session.setMode(`ace/mode/${CODEMODES[this.props.category]}`)
-    this.firepad = Firepad.fromACE(firebaseRef.database().ref(`coding/${this.props.questionId}`), editor, {
+    this.firepad = Firepad.fromACE(firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/coding/${this.props.questionId}`), editor, {
       defaultText: SNIPPETS[this.props.category],
-      userId: this.props.userId,
+      userId: this.props.user.id,
       userColor: '#234C25'
     })
 

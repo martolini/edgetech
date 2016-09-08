@@ -10,7 +10,7 @@ export class Counter extends Component {
       karmaUpdate: 10
     }
 
-    this.firebaseRef = firebaseRef.database().ref(`sessioncounters/${this.props.question.id}/counter`)
+    this.firebaseRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/sessioncounters/${this.props.question.id}/counter`)
     this.pauseCounter = this.pauseCounter.bind(this)
     this.updateCallback = snapshot => this.setState({counter: snapshot.val()})
     this.interval = setInterval(() => this.tick(), 1000)
@@ -41,16 +41,16 @@ export class Counter extends Component {
       if (this.state.counter === this.state.karmaUpdate && (this.props.question.author.connected && this.props.question.tutor.connected)) {
 
         // Fetch karma reference
-        let karmaRef = firebaseRef.database().ref(`users/${this.props.question.tutor.id}/karma`)
+        let karmaRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.question.tutor.id}/karma`)
         karmaRef.transaction(karma => {
 
           // Check if tutor should be given a new rank
           if (this.props.thisUser.karma >= this.props.thisUser.level.nextLevel - 5) {
 
             // Fetch level reference
-            let levelRef = firebaseRef.database().ref(`users/${this.props.question.tutor.id}/level`)
+            let levelRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.question.tutor.id}/level`)
 
-            let hasLeveledUpRef = firebaseRef.database().ref(`users/${this.props.question.tutor.id}/hasLeveledUp`)
+            let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.question.tutor.id}/hasLeveledUp`)
 
             // Increment level by one
             levelRef.set(LEVELS[this.props.thisUser.level.id + 1])

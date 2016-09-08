@@ -20,7 +20,7 @@ class GiveHelpComponent extends Component {
 		this.changeCourse = this.changeCourse.bind(this)
 		this.onValueChange = this.onValueChange.bind(this)
 		this.updateTitle = this.updateTitle.bind(this)
-		this.firebaseRef = firebaseRef.database().ref(`questions/`).orderByChild('author/connected').equalTo(true)
+		this.firebaseRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/`).orderByChild('author/connected').equalTo(true)
 		this.interval = setInterval(() => this.tick(), 60000)
 		this.enableNotification = this.enableNotification.bind(this)
 		this.goToQuestion = this.goToQuestion.bind(this)
@@ -67,7 +67,7 @@ class GiveHelpComponent extends Component {
 	componentDidMount() {
 
 		this.changeCourse(this.state.category)
-		
+
 		this.firebaseRef.on('value', this.onValueChange)
 		if (this.props.user.enabledNotification) {
 			document.getElementById('onRadioBtn').checked = true
@@ -82,7 +82,7 @@ class GiveHelpComponent extends Component {
 
 		if (this.props.user.hasLeveledUp) {
 		  $('#newLevelModal').modal()
-		  let hasLeveledUpRef = firebaseRef.database().ref(`users/${this.props.user.id}/hasLeveledUp`)
+		  let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.user.id}/hasLeveledUp`)
 		  hasLeveledUpRef.set(false)
 		}
 	}

@@ -11,9 +11,8 @@ export class RecentQuestionsComponent extends Component {
     this.state = {
       questions: []
     };
-
-    this.authorRef = firebaseRef.database().ref(`questions/`).orderByChild('author/id').equalTo(this.props.userId)
-    this.tutorRef = firebaseRef.database().ref(`questions/`).orderByChild('tutor/id').equalTo(this.props.userId)
+    this.authorRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/`).orderByChild('author/id').equalTo(this.props.user.id)
+    this.tutorRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/`).orderByChild('tutor/id').equalTo(this.props.user.id)
     this.openQuestion = this.openQuestion.bind(this)
     this.sortQuestions = this.sortQuestions.bind(this)
   }
@@ -82,10 +81,10 @@ export class RecentQuestionsComponent extends Component {
   openQuestion(question){
     const { dispatch } = this.props
 
-    let openRef = firebaseRef.database().ref(`questions/${question.id}/author/connected`)
+    let openRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/${question.id}/author/connected`)
     openRef.set(true)
 
-    dispatch(pushPath(`/${this.props.user.organization.page}/question/${question.id}`))
+    dispatch(pushPath(`/${this.props.user.organization.path}/question/${question.id}`))
   }
 
   render() {

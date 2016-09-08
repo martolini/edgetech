@@ -45,10 +45,8 @@ export function login(data) {
       let ref = firebaseRef.database().ref(`organizations/${data.organization.id}/users/${result.uid}`)
       ref.on('value', snapshot => {
         if (snapshot.exists()) {
-          console.log("get in:" + snapshot.val().organization.path)
           dispatch(pushPath(`/${snapshot.val().organization.path}/ask`))
         } else {
-          console.log("get not in")
           dispatch(logout())
           dispatch(pushPath('/'))
         }
@@ -160,8 +158,8 @@ function askQuestionError(error) {
 export function askQuestion(question) {
   return dispatch => {
     dispatch(askQuestionRequest())
-    let questionRef = firebaseRef.database().ref('questions').push()
-    let chatRef = firebaseRef.database().ref('chat').push()
+    let questionRef = firebaseRef.database().ref(`organizations/${question.org.id}/questions`).push()
+    let chatRef = firebaseRef.database().ref(`organizations/${question.org.id}/chat`).push()
     question = Object.assign({}, question, {
       id: questionRef.key,
       counter: 0,
@@ -179,7 +177,7 @@ export function askQuestion(question) {
         dispatch(askQuestionError(error.message))
       } else {
         dispatch(askQuestionSuccess(question))
-        dispatch(pushPath(`/${question.orgpage}/question/${question.id}`))
+        dispatch(pushPath(`/${question.org.path}/question/${question.id}`))
       }
     })
   }

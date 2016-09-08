@@ -74,7 +74,7 @@ class ProfileComponent extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.firebaseRef = firebaseRef.database().ref('users/').orderByChild('username').equalTo(nextProps.params.username)
+    this.firebaseRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/`).orderByChild('username').equalTo(nextProps.params.username)
     this.firebaseRef.once('value', snapshot => {
       if (snapshot.exists()) {
         snapshot.forEach(snap => {
@@ -99,7 +99,7 @@ class ProfileComponent extends Component {
   }
 
   updateLanguages() {
-    let coursesRef = firebaseRef.database().ref(`users/${this.props.user.id}/courses`)
+    let coursesRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.user.id}/courses`)
     let courses = []
     CATEGORIES.map(category => {
       if (category.id == 'Test') {
@@ -186,7 +186,7 @@ class ProfileComponent extends Component {
       )
     let recentQuestions = (
       <div>
-        <RecentQuestions userId={this.props.user.id}/>
+        <RecentQuestions user={this.props.user}/>
       </div>
       )
 

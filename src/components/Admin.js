@@ -39,10 +39,11 @@ class AdminComponent extends Component {
       powershell: 0
     }
 
+
+
     this.userRef.once("value", snapshot => {
 
       if (snapshot.exists()) {
-
         let userCount = snapshot.numChildren()
 
         let users = []

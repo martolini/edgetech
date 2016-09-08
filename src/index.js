@@ -51,7 +51,7 @@ render((
         </Route>
         <Route path="*" component={NoMatch} />
       </Router>
-      {/*{ debugPanel}*/}
+      {debugPanel}
     </div>
   </Provider>
 ), document.getElementById('root'))

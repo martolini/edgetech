@@ -33,12 +33,11 @@ class AskQuestionComponent extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-
     const { dispatch } = this.props
     let question = {
       text: this.text.value.trim(),
       category: this.category.value,
-      orgpage: this.props.user.organization.page,
+      org: this.props.user.organization,
       author: {
         id: this.props.user.id,
         username: this.props.user.username,
@@ -140,11 +139,11 @@ class AskQuestionComponent extends Component {
             <div id="myTabContent" className="tab-content">
               <div className="tab-pane fade active in" id="home">
                 <br/>
-                <TopTutors/>
+                <TopTutors user={this.props.user}/>
               </div>
               <div className="tab-pane fade" id="profile">
                 <br/>
-                <Search/>
+                <Search user={this.props.user}/>
               </div>
             </div>
 

@@ -23,7 +23,7 @@ class LearningRoomComponent extends Component {
       minScreen: ($(window).height() < 900)
     }
 
-    this.questionRef = firebaseRef.database().ref(`questions/${this.props.params.id}`)
+    this.questionRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/${this.props.params.id}`)
     this.leaveRoom = this.leaveRoom.bind(this)
     this.revertKarma = this.revertKarma.bind(this)
     this.goToAsk = this.goToAsk.bind(this)
@@ -133,18 +133,18 @@ class LearningRoomComponent extends Component {
 
   revertKarma(){
     const { dispatch } = this.props
-    let karmaRef = firebaseRef.database().ref(`users/${this.state.question.tutor.id}/karma`)
+    let karmaRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.state.question.tutor.id}/karma`)
 
     // Resetting karma
     karmaRef.transaction(karma => this.state.question.tutor.oldKarma)
 
-    dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
+    dispatch(pushPath(`/${this.props.user.organization.path}/ask`))
   }
 
   // Suddenly couldn't use Link with data-dismiss="modal" so had to redirect with a function instead.
   goToAsk(){
     const { dispatch } = this.props
-    dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
+    dispatch(pushPath(`/${this.props.user.organization.path}/ask`))
   }
 
   renderError() {
@@ -253,7 +253,7 @@ class LearningRoomComponent extends Component {
             <CodeEditor
               questionId={ this.state.question.id }
               category={ this.state.question.category }
-              userId={this.props.user.id}
+              user={this.props.user}
             />
           </div>
           <div className="video-position col-xs-4">
@@ -262,7 +262,7 @@ class LearningRoomComponent extends Component {
               <WaitForVideo parent={this
 
               } isActive={ this.state.question.author.connected && !this.state.question.tutor.id }/> }
-            <Chat userName={this.props.user.username} parent={this} isActive={ this.state.question.tutor.connected && this.state.question.author.connected }
+            <Chat user={this.props.user} parent={this} isActive={ this.state.question.tutor.connected && this.state.question.author.connected }
               chatId={this.state.question.chatId}/>
           </div>
         </div>

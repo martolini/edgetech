@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { pushPath } from 'redux-simple-router'
 import { login, loginWithFacebook } from '../actions'
 import { firebaseRef } from '../config'
 
@@ -20,6 +21,7 @@ class LoginComponent extends Component {
 
   componentDidMount() {
     this.emailInput.focus()
+    const { dispatch } = this.props
 
     this.orgRef.once("value", snapshot => {
       if (snapshot.exists()) {
@@ -36,6 +38,10 @@ class LoginComponent extends Component {
         this.setState({
           orgs: orgs
         })
+      }
+    }).then( () => {
+      if (!this.state.org.path && this.state.org !== "login") {
+        dispatch(pushPath("/signup"))
       }
     })
 

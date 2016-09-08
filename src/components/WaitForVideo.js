@@ -12,7 +12,7 @@ export class WaitForVideo extends Component {
 
   requestTutor(){
     // Set tutor object to connected = false
-    let tutorRef = firebaseRef.database().ref(`questions/${this.props.parent.state.question.id}/tutor`)
+    let tutorRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/questions/${this.props.parent.state.question.id}/tutor`)
 
     tutorRef.set({
       connected: false,

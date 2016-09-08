@@ -49,7 +49,6 @@ export class AppComponent extends Component {
         ref.on('value', snapshot => {
           // checks if the user is registered on the current organization path
           if (snapshot.exists() && (snapshot.val().organization.path == this.state.org.path)) {
-            console.log('correct')
             dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key })))
           } else {
             console.log('false')

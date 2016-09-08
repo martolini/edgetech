@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { pushPath } from 'redux-simple-router'
 import { signup } from '../actions'
 import { firebaseRef, CATEGORIES } from '../config'
 
@@ -31,6 +32,8 @@ class SignupComponent extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props
+
     this.setState({
       org: location.pathname.split('/')[1]
     })
@@ -63,6 +66,10 @@ class SignupComponent extends Component {
           orgs: orgs
         })
       }
+    }).then( () => {
+      if (!this.state.org.path && this.state.org !== "signup") {
+        dispatch(pushPath("/login"))
+      }
     })
   }
 
@@ -84,9 +91,6 @@ class SignupComponent extends Component {
       } else {
         organization = this.state.org
       }
-
-
-
 
       const { dispatch } = this.props;
 

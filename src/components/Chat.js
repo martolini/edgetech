@@ -11,7 +11,7 @@ var chatPing = new Audio('https://firebasestorage.googleapis.com/v0/b/project-10
       messages: [],
       isOpen: false
     }
-    this.chatRef = firebaseRef.database().ref(`chat/${this.props.chatId}`)
+    this.chatRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/chat/${this.props.chatId}`)
     this.messageListener = this.chatRef.child('messages')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.changeWindow = this.changeWindow.bind(this)
@@ -69,7 +69,7 @@ var chatPing = new Audio('https://firebasestorage.googleapis.com/v0/b/project-10
       this.messageRef = this.messageListener.push()
 
       let message = {
-        author: this.props.userName,
+        author: this.props.user.username,
         text: this.textMessage.value,
         id: this.messageRef.key
       }
@@ -112,7 +112,7 @@ var chatPing = new Audio('https://firebasestorage.googleapis.com/v0/b/project-10
         <div id="chat-box" className="chat-message-box-min">
           <ul className="list-clean">
             {this.state.messages.map(message => {
-              if (this.props.userName === message.author) {
+              if (this.props.user.username === message.author) {
                 return (<li className="message-align-left" key={message.id}>
                     <ul className="list-inline">
                       <li className="chat-label">
@@ -158,7 +158,7 @@ var chatPing = new Audio('https://firebasestorage.googleapis.com/v0/b/project-10
         <div id="chat-box" className="chat-message-box">
           <ul className="list-clean">
             {this.state.messages.map(message => {
-              if (this.props.userName === message.author) {
+              if (this.props.user.username === message.author) {
                 return (<li className="message-align-left" key={message.id}>
                     <ul className="list-inline">
                       <li className="chat-label">

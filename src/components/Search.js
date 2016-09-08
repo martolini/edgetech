@@ -4,7 +4,7 @@ import { pushPath } from 'redux-simple-router'
 import { firebaseRef, CATEGORIES } from '../config'
 import { Link } from 'react-router'
 
-export class Search extends Component {
+export class SearchComponent extends Component {
   constructor(props) {
     super(props)
 
@@ -14,7 +14,7 @@ export class Search extends Component {
       users: []
     }
 
-    this.userRef = firebaseRef.database().ref('users/')
+    this.userRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/`)
     this.userSearch = this.userSearch.bind(this)
 
   }
@@ -86,3 +86,5 @@ export class Search extends Component {
     )
   }
 }
+
+export const Search = connect(state => state)(SearchComponent)
