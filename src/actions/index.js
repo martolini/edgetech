@@ -222,10 +222,7 @@ export function createOrganization(org) {
     dispatch(createOrganizationRequest())
     let orgRef = firebaseRef.database().ref('organizations').push()
     let organization = Object.assign({}, organization, {
-      id: orgRef.key,
-      name: org.name,
-      path: org.domain,
-      logo: org.logourl,
+      info: {id: orgRef.key, name: org.name, path: org.domain, logo: org.logourl},
       createdAt: firebaseRef.database.ServerValue.TIMESTAMP
     })
 

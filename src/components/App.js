@@ -14,21 +14,17 @@ export class AppComponent extends Component {
       org: location.pathname.split('/')[1]
     }
     this.onAuth = this.onAuth.bind(this)
-    this.orgRef = firebaseRef.database().ref('organizations')
+    this.orgRef = firebaseRef.database().ref('organizations/-KRPlzPJcfHIxQjkbJ_r/info')
   }
 
   componentDidMount() {
     this.orgRef.once("value", snapshot => {
       if (snapshot.exists()) {
-        snapshot.forEach(snap => {
-          let org = snap.val()
-          if (org.path == this.state.org) {
-              this.setState({
-                org: org
-              })
-              firebaseRef.auth().onAuthStateChanged(this.onAuth)
-          }
+        console.log("2");
+        this.setState({
+          org: snapshot.val()
         })
+        firebaseRef.auth().onAuthStateChanged(this.onAuth)
       }
     })
 
@@ -41,10 +37,10 @@ export class AppComponent extends Component {
   }
 
   onAuth(data) {
+    console.log("5");
     const { dispatch } = this.props
     if (data) {
       if (!this.props.auth.user) {
-
         let ref = firebaseRef.database().ref(`organizations/${this.state.org.id}/users/${data.uid}`)
         ref.on('value', snapshot => {
           // checks if the user is registered on the current organization path

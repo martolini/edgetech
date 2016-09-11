@@ -22,6 +22,7 @@ class AskQuestionComponent extends Component {
       let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.orgId}/users/${this.props.user.id}/hasLeveledUp`)
       hasLeveledUpRef.set(false)
     }
+
   }
 
   componentWillUnmount(){
