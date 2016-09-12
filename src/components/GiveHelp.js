@@ -157,7 +157,7 @@ class GiveHelpComponent extends Component {
 	}
 
 	enableNotification(){
-		let user = firebaseRef.database().ref(`users/${this.props.user.id}`)
+		let user = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.user.id}`)
 		user.update({
 			enabledNotification: document.getElementById('onRadioBtn').checked
 		})
@@ -165,7 +165,7 @@ class GiveHelpComponent extends Component {
 
 	goToQuestion(question){
 		const { dispatch } = this.props
-		dispatch(pushPath(`/question/${question.id}`))
+		dispatch(pushPath(`/${this.props.user.organization.path}/question/${question.id}`))
 	}
 
 	render() {
@@ -229,7 +229,7 @@ class GiveHelpComponent extends Component {
 						  		if(question.category === this.state.category) {
 							  		return (
 							  			<tr key={question.id} >
-							  				<td className="give-help-tr"><Link className="GREEN-TEXT" to={`/question/${question.id}`}>{question.text}</Link></td>
+							  				<td className="give-help-tr"><Link className="GREEN-TEXT" to={`/${this.props.user.organization.path}/question/${question.id}`}>{question.text}</Link></td>
 							  				<td className="give-help-tr WHITE-TEXT">{question.author.username}</td>
 							  				<td className="give-help-tr WHITE-TEXT">{Math.floor((new Date() - new Date(question.createdAt)) / 60000 )} minutes ago</td>
 							  				<td className="WHITE-TEXT pull-right"><button className="btn btn-success" onClick={this.goToQuestion.bind(this, question)}>Give Help!</button></td>

@@ -14,20 +14,23 @@ export class AppComponent extends Component {
       org: location.pathname.split('/')[1]
     }
     this.onAuth = this.onAuth.bind(this)
-    this.orgRef = firebaseRef.database().ref('organizations/-KRPlzPJcfHIxQjkbJ_r/info')
+    this.orginfoRef = firebaseRef.database().ref('orginfo')
   }
 
   componentDidMount() {
-    this.orgRef.once("value", snapshot => {
+
+    this.orginfoRef.once("value", snapshot => {
       if (snapshot.exists()) {
-        console.log("2");
-        this.setState({
-          org: snapshot.val()
+        snapshot.forEach(org => {
+          if (org.val().path == this.state.org) {
+            this.setState({
+              org: org.val()
+            })
+            firebaseRef.auth().onAuthStateChanged(this.onAuth)
+          }
         })
-        firebaseRef.auth().onAuthStateChanged(this.onAuth)
       }
     })
-
 
   }
 
@@ -37,7 +40,6 @@ export class AppComponent extends Component {
   }
 
   onAuth(data) {
-    console.log("5");
     const { dispatch } = this.props
     if (data) {
       if (!this.props.auth.user) {
@@ -47,7 +49,6 @@ export class AppComponent extends Component {
           if (snapshot.exists() && (snapshot.val().organization.path == this.state.org.path)) {
             dispatch(userUpdated(Object.assign({}, snapshot.val(), { id: snapshot.key })))
           } else {
-            console.log('false')
             dispatch(logout())
             dispatch(pushPath('/'))
           }

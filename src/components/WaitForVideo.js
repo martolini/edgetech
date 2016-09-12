@@ -49,7 +49,7 @@ export class WaitForVideo extends Component {
       <div className="waiting-box">
         <div className="waiting-box-container">
           <h5 className="WHITE-TEXT">Student has left this question</h5>
-          <Link to="/help" type="button" className="btn btn-success">Return to help someone else</Link>
+          <Link to={`/${this.props.user.organization.path}/help`} type="button" className="btn btn-success">Return to help someone else</Link>
         </div>
       </div>
     )

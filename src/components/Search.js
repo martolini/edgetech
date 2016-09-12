@@ -28,7 +28,6 @@ export class SearchComponent extends Component {
         let users = []
         snapshot.forEach(user => {
           users.push(user.val())
-
         })
         this.setState({
           users: users
@@ -63,7 +62,7 @@ export class SearchComponent extends Component {
               return (
                 <tr key={user.id}>
                   <td className="WHITE-TEXT">{index + 1}</td>
-                  <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
+                  <td><Link to={`/${this.props.user.organization.path}/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
                   <td className="WHITE-TEXT">{ user.level !== undefined ? user.level.rank : null }</td>
                   <td className="WHITE-TEXT">{user.karma}</td>
                 </tr>

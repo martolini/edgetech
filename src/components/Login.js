@@ -16,16 +16,28 @@ class LoginComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.forgottenPassword = this.forgottenPassword.bind(this)
     this.resetPassword = this.resetPassword.bind(this)
-    this.orgRef = firebaseRef.database().ref('organizations/-KRPlzPJcfHIxQjkbJ_r/info')
+    this.orginfoRef = firebaseRef.database().ref('orginfo')
   }
 
   componentDidMount() {
     this.emailInput.focus()
     const { dispatch } = this.props
-    this.orgRef.once("value", snapshot => {
-      this.setState({
-        org: snapshot.val()
-      })
+    this.orginfoRef.once("value", snapshot => {
+      if (snapshot.exists()) {
+        let organizations = []
+        snapshot.forEach(org => {
+          organizations.push(org.val())
+          if (org.val().path == this.state.org) {
+            this.setState({
+              org: org.val()
+            })
+            firebaseRef.auth().onAuthStateChanged(this.onAuth)
+          }
+        })
+        this.setState({
+          orgs: organizations
+        })
+      }
     })
   }
 

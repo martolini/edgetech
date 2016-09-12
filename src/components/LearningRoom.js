@@ -127,7 +127,7 @@ class LearningRoomComponent extends Component {
       $('#leaveModal').modal()
     } else {
       // leave room
-      dispatch(pushPath(`/${this.props.user.organization.page}/ask`))
+      dispatch(pushPath(`/${this.props.user.organization.path}/ask`))
     }
   }
 
@@ -151,7 +151,7 @@ class LearningRoomComponent extends Component {
     return (
       <div className="container">
         <h3 className="logo-font-dark closed-question">
-        { this.state.error }  <Link to="/help">Return</Link> to help someone else
+        { this.state.error }  <Link to={`/${this.props.user.organization.path}/help`}>Return</Link> to help someone else
         </h3>
     </div>
     )
@@ -189,7 +189,7 @@ class LearningRoomComponent extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link to="/ask" className="navbar-brand logo-font">
+              <Link to={`/${this.props.user.organization.path}/ask`} className="navbar-brand logo-font">
                 Thx bro!
               </Link>
             </div>
@@ -197,7 +197,7 @@ class LearningRoomComponent extends Component {
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
               <ul className="nav navbar-nav navbar-right">
                 <li>
-                  <Link to={`/user/${this.props.user.username}`}>
+                  <Link to={`/${this.props.user.organization.path}/user/${this.props.user.username}`}>
                     { this.props.user.username } <span className="label label-success">{this.props.user.karma}</span>
                   </Link>
                 </li>

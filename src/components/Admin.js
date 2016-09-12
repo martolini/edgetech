@@ -233,7 +233,7 @@ class AdminComponent extends Component {
                     return (
                       <tr key={user.id}>
                         <td className="WHITE-TEXT">{index + 1}</td>
-                        <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
+                        <td><Link to={`/${this.props.user.organization.path}/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
                         <td className="WHITE-TEXT">{user.email}</td>
                       </tr>
                     )
@@ -241,7 +241,7 @@ class AdminComponent extends Component {
                     return (
                       <tr key={user.id}>
                         <td className="WHITE-TEXT">{index + 1}</td>
-                        <td><Link to={`/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
+                        <td><Link to={`/${this.props.user.organization.path}/user/${user.username}`} className="GREEN-TEXT">{user.username}</Link></td>
                         <td className="WHITE-TEXT">{user.email}</td>
                       </tr>
                     )
