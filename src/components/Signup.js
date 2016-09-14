@@ -19,7 +19,7 @@ class SignupComponent extends Component {
       org: ""
     }
 
-    this.orgRef = firebaseRef.database().ref('organizations')
+    this.orgRef = firebaseRef.database().ref('orginfo')
     this.handleSubmit = this.handleSubmit.bind(this)
     this.firebaseRef = firebaseRef.database().ref('users').orderByChild('username')
     this.tutorRef = firebaseRef.database().ref('tutors')

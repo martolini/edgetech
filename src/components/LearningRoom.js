@@ -189,8 +189,8 @@ class LearningRoomComponent extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link to={`/${this.props.user.organization.path}/ask`} className="navbar-brand logo-font">
-                Thx bro!
+              <Link to={`/${this.props.user.organization.path}/ask`}>
+                <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/logo-main.svg?alt=media&token=e01c0cf0-4918-4384-9f0a-fc81a318c760" className="navbar-brand"/>
               </Link>
             </div>
 
@@ -209,7 +209,7 @@ class LearningRoomComponent extends Component {
                     { this.state.question.tutor.connected && this.state.question.author.connected ?
                     <Counter clientIsHappy={this.state.isHappy} question={this.state.question}
                     isTutor={ this.state.question.tutor.id === this.props.user.id }
-                    thisUser={this.props.user} /> : null }
+                    user={this.props.user} /> : null }
                   </a>
                 </li>
                 <li>
@@ -259,9 +259,7 @@ class LearningRoomComponent extends Component {
           <div className="video-position col-xs-4">
             { this.state.question.tutor.connected && this.state.question.author.connected ?
               <VideoRoom questionId={ this.props.params.id }/> :
-              <WaitForVideo parent={this
-
-              } isActive={ this.state.question.author.connected && !this.state.question.tutor.id }/> }
+              <WaitForVideo parent={this} user={this.props.user} isActive={ this.state.question.author.connected && !this.state.question.tutor.id }/> }
             <Chat user={this.props.user} parent={this} isActive={ this.state.question.tutor.connected && this.state.question.author.connected }
               chatId={this.state.question.chatId}/>
           </div>

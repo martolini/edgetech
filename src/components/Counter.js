@@ -45,7 +45,7 @@ export class Counter extends Component {
         karmaRef.transaction(karma => {
 
           // Check if tutor should be given a new rank
-          if (this.props.thisUser.karma >= this.props.thisUser.level.nextLevel - 5) {
+          if (this.props.user.karma >= this.props.user.level.nextLevel - 5) {
 
             // Fetch level reference
             let levelRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.question.tutor.id}/level`)
@@ -53,7 +53,7 @@ export class Counter extends Component {
             let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.props.question.tutor.id}/hasLeveledUp`)
 
             // Increment level by one
-            levelRef.set(LEVELS[this.props.thisUser.level.id + 1])
+            levelRef.set(LEVELS[this.props.user.level.id + 1])
 
             // Set variable to notify tutor of new level when question is over
             hasLeveledUpRef.set(true)
