@@ -120,6 +120,7 @@ class ProfileComponent extends Component {
     let question = {
       text: 'Waiting to connect with ' + this.state.profile.username,
       category: this.syntax.value,
+      org: this.props.user.organization,
       author: {
         id: this.props.user.id,
         username: this.props.user.username,
