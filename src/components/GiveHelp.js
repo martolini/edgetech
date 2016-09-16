@@ -38,7 +38,7 @@ class GiveHelpComponent extends Component {
 			document.getElementById("give-help-link").className = ""
 		}
 
-		document.title = 'Thxbro!'
+		document.title = 'Codenudge'
 	}
 
 	onValueChange(snapshot) {
@@ -124,7 +124,7 @@ class GiveHelpComponent extends Component {
 			})
 
 			// Change title of document so tutor can get notified of incoming questions
-			document.title = '(' + categoryCount[category] + ') ' + 'Thxbro!';
+			document.title = '(' + categoryCount[category] + ') ' + 'Codenudge';
 			// Check if questions.length is increasing and play notification sound if true
 			if (categoryCount[category] > this.previousLength && this.previousLength !== -1) {
 				audio.play()
@@ -144,7 +144,7 @@ class GiveHelpComponent extends Component {
 				})
 			}
 		} else {
-			document.title = 'Thxbro!';
+			document.title = 'Codenudge';
 			this.previousLength = 0
 
 			this.setState({
