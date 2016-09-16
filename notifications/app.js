@@ -10,13 +10,14 @@ const mailer = nodemailer.createTransport(sgTransport({
   }
 }))
 
-firebaseRef.child('questions').orderByChild('createdAt').startAt(new Date().getTime()).on('child_added', questionSnap => {
+
+// NTNU
+firebaseRef.database().ref(`organizations/-KRPlzPJcfHIxQjkbJ_r/questions`).orderByChild('createdAt').startAt(new Date().getTime()).on('child_added', questionSnap => {
   let question = questionSnap.val()
   if (question.tutor.id) {
     sendEmailNotification(question.tutor.email, question)
   } else {
-    firebaseRef.child('users').orderByChild(`courses/${question.category}`).equalTo(true).once('value', tutorSnap => {
-      let tutors = tutorSnap.val()
+    firebaseRef.database().ref(`organizations/-KRPlzPJcfHIxQjkbJ_r/users`).orderByChild(`courses/${question.category}`).equalTo(true).once('value', tutorSnap => {
       tutorSnap.forEach(tutor => {
         if (tutor.val().enabledNotification && tutor.val().id !== question.author.id) {
           sendEmailNotification(tutor.val().email, question)
