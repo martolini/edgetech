@@ -40,15 +40,13 @@ export function login(data) {
     let auth = firebaseRef.auth()
     auth.signInWithEmailAndPassword(data.email, data.password).then(function(result){
       // signed in!
-      console.log(result.uid)
-      console.log(data.organization.id)
       let ref = firebaseRef.database().ref(`organizations/${data.organization.id}/users/${result.uid}`)
       ref.on('value', snapshot => {
         if (snapshot.exists()) {
           dispatch(pushPath(`/${snapshot.val().organization.path}/ask`))
         } else {
           dispatch(logout())
-          dispatch(pushPath('/'))
+          dispatch(pushPath('/login'))
         }
       })
 
@@ -118,7 +116,7 @@ export function signup(data) {
         enabledNotification: tutor,
         courses: courses,
         level: LEVELS[0],
-        organization: {id: org.id, name: org.name, path: org.path}
+        organization: {id: org.id, name: org.name, path: org.path, logo: org.logo}
       })
 
       dispatch(pushPath(`/${org.path}/ask`))
@@ -221,8 +219,16 @@ export function createOrganization(org) {
   return dispatch => {
     dispatch(createOrganizationRequest())
     let orgRef = firebaseRef.database().ref('organizations').push()
+    let orgInfoRef = firebaseRef.database().ref('orginfo').push()
     let organization = Object.assign({}, organization, {
-      info: {id: orgRef.key, name: org.name, path: org.domain, logo: org.logourl},
+      info: {id: orgRef.key, name: org.name, path: org.path, logo: org.logourl},
+      createdAt: firebaseRef.database.ServerValue.TIMESTAMP
+    })
+    let orgInfo = Object.assign({}, orgInfo, {
+      id: orgRef.key,
+      name: org.name,
+      path: org.path,
+      logo: org.logourl,
       createdAt: firebaseRef.database.ServerValue.TIMESTAMP
     })
 
@@ -231,8 +237,15 @@ export function createOrganization(org) {
         console.log(error)
         dispatch(createOrganizationError())
       } else {
-        console.log('success')
-        dispatch(createOrganizationSuccess())
+        orgInfoRef.set(orgInfo, error => {
+          if (!!error) {
+            console.log(error)
+            dispatch(createOrganizationError())
+          } else {
+            console.log('success')
+            dispatch(createOrganizationSuccess())
+          }
+        })
       }
     })
   }

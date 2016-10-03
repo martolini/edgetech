@@ -17,6 +17,7 @@ class AskQuestionComponent extends Component {
     if (document.getElementById("get-help-link") !== null) {
       document.getElementById("get-help-link").className = "active"
     }
+    console.log(this.props);
     if (this.props.user.hasLeveledUp) {
       $('#newLevelModal').modal()
       let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.orgId}/users/${this.props.user.id}/hasLeveledUp`)
@@ -102,7 +103,7 @@ class AskQuestionComponent extends Component {
                   ref={ref => this.category = ref}>
                   { CATEGORIES.map(category => {
                     // Only enable Test option in dev mode
-                    if ((window.location.href).indexOf('localhost') !== -1 && category.id !== 'Test') {
+                    if ((window.location.href).indexOf('localhost') == -1 && category.id !== 'Test') {
                       // Do nothing.
                     } else {
                       return <option key={category.id} className="DARK-TEXT" value={category.id}>{ category.name }</option>

@@ -42,7 +42,7 @@ class NavbarComponent extends Component {
               { this.props.user.admin ? admin : null }
             </ul>
             <p className="navbar-orgname">
-              <img className="navbar-orgimg" src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/orgs%2Fntnu-logo.png?alt=media&token=7d95ab6d-0160-4683-85d1-b6eff6f4666c" />
+              <img className="navbar-orgimg" src={this.props.user.organization.logo} />
             </p>
             <ul className="nav navbar-nav navbar-right">
               <li id="profile-link">

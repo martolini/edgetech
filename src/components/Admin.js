@@ -172,7 +172,7 @@ class AdminComponent extends Component {
     dispatch(createOrganization({
       name: orgname,
       logourl: logourl,
-      domain: subdomain
+      path: subdomain
     }))
   }
 

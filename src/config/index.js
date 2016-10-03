@@ -26,6 +26,10 @@ export const CATEGORIES = [
     name: 'Powershell'
   },
   {
+    id: 'Matlab',
+    name: 'Matlab'
+  },
+  {
     id: 'Test',
     name: 'Test'
   }
@@ -38,7 +42,8 @@ export const CODEMODES = {
   'Test': 'javascript',
   'Python': 'python',
   'PHP': 'php',
-  'Powershell': 'powershell'
+  'Powershell': 'powershell',
+  'Matlab': 'matlab'
 }
 
 export const SNIPPETS = {
@@ -48,7 +53,8 @@ export const SNIPPETS = {
   'Test': 'class Waiting extends Component {\n    constructor(props) {\n        super(props)\n        this.state = {\n            tutur: null,\n            loading: true\n        }\n        console.log("Waiting for a hero to help you out!")\n    }\n}',
   'Python': 'import antigravity\nprint "hello world!"',
   'PHP': '<?php\n    echo "Hello World!";\n?>',
-  'Powershell': '# This is a simple comment\nfunction Hello($name) {\n    Write-host "Hello $name"\n}'
+  'Powershell': '# This is a simple comment\nfunction Hello($name) {\n    Write-host "Hello $name"\n}',
+  'Matlab': 'x = 0:pi/100:2*pi;\ny = sin(x);\nplot(x,y)'
 }
 
 export const LEVELS = [
