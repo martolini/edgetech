@@ -19,20 +19,26 @@ blockquote {
   }
 }
 
-.btn-success {
+.btn-success, .btn-success:active:focus, .btn-success:active, .btn-success:focus, .btn-success:hover, .btn-success.disabled:hover, .btn-success:hover:focus, .btn-success:hover:active, .btn-success:hover:active:focus {
   background-color: #F67D1D;
 }
+
+.btn-success:active {
+  background-color: #39843c;
+  background-image: -webkit-radial-gradient(circle, #c66315 10%, #F67D1D 11%) !important;
+  background-image: -o-radial-gradient(circle, #c66315 10%, #F67D1D 11%) !important;
+  background-image: radial-gradient(circle, #c66315 10%, #F67D1D 11%) !important;
+  background-repeat: no-repeat;
+  -webkit-background-size: 1000% 1000%;
+          background-size: 1000%;
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
 .label-success {
   background-color: #F67D1D;
 }
 
-.btn-success:hover {
-  background-color: #F67D1D;
-}
-
-.btn-success.disabled:hover {
-  background-color: #F67D1D;
-}
 
 .bottom-whitespace {
   height: 100px;

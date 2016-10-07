@@ -28,7 +28,7 @@ class NavbarComponent extends Component {
               <span className="icon-bar"></span>
             </button>
             <Link to={`/${this.props.user.organization.path}/ask`} >
-              <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/logo-main.svg?alt=media&token=e01c0cf0-4918-4384-9f0a-fc81a318c760" className="navbar-brand"/>
+              <img src="https://firebasestorage.googleapis.com/v0/b/project-1024656250083069122.appspot.com/o/main-logo.png?alt=media&token=d94a0086-6a0b-4ee0-b095-f4decced32cc" className="navbar-brand"/>
             </Link>
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
