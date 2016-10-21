@@ -21,7 +21,7 @@ class AdminComponent extends Component {
       users: []
     }
 
-    this.userRef = firebaseRef.database().ref('users/')
+    this.userRef = firebaseRef.database().ref('organizations/-KRPlzPJcfHIxQjkbJ_r/users/')
     this.questionRef = firebaseRef.database().ref('questions/')
     this.orgRef = firebaseRef.database().ref('organizations/').push()
     this.userSearch = this.userSearch.bind(this)
@@ -49,6 +49,8 @@ class AdminComponent extends Component {
         let users = []
         snapshot.forEach(user => {
           users.push(user.val())
+          console.log(user.val().email);
+        
           if (user.val().courses !== undefined) {
 
             if (user.val().courses['C++']) {

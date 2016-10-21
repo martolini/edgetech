@@ -17,7 +17,7 @@ class AskQuestionComponent extends Component {
     if (document.getElementById("get-help-link") !== null) {
       document.getElementById("get-help-link").className = "active"
     }
-    console.log(this.props);
+
     if (this.props.user.hasLeveledUp) {
       $('#newLevelModal').modal()
       let hasLeveledUpRef = firebaseRef.database().ref(`organizations/${this.props.user.orgId}/users/${this.props.user.id}/hasLeveledUp`)

@@ -32,7 +32,8 @@ class LearningRoomComponent extends Component {
 
   componentWillUnmount() {
 
-
+    console.log("unmounting author: " + this.state.question.author.id);
+    console.log("unmounting user: " + this.props.user.id);
     // If you are the last person to leave, the question will be closed.
     if (this.props.user.id === this.state.question.author.id) {
       this.questionRef.child('author/connected').set(false)
@@ -86,6 +87,7 @@ class LearningRoomComponent extends Component {
               connected: true,
               oldKarma: this.props.user.karma // We need this so we can reset karma if nessecary
             }), 100)
+            console.log("on tutor disconnect false");
             this.questionRef.child('tutor/connected').onDisconnect().set(false)
           }
         } else {
@@ -94,6 +96,7 @@ class LearningRoomComponent extends Component {
             username: this.props.user.username,
             connected: true
           }), 100)
+          console.log("on author disconnect false");
           this.questionRef.child('author/connected').onDisconnect().set(false)
         }
         this.setState({
@@ -127,6 +130,7 @@ class LearningRoomComponent extends Component {
       $('#leaveModal').modal()
     } else {
       // leave room
+      console.log("leave room");
       dispatch(pushPath(`/${this.props.user.organization.path}/ask`))
     }
   }
@@ -134,7 +138,7 @@ class LearningRoomComponent extends Component {
   revertKarma(){
     const { dispatch } = this.props
     let karmaRef = firebaseRef.database().ref(`organizations/${this.props.user.organization.id}/users/${this.state.question.tutor.id}/karma`)
-
+    console.log("revert karma");
     // Resetting karma
     karmaRef.transaction(karma => this.state.question.tutor.oldKarma)
 
@@ -144,6 +148,7 @@ class LearningRoomComponent extends Component {
   // Suddenly couldn't use Link with data-dismiss="modal" so had to redirect with a function instead.
   goToAsk(){
     const { dispatch } = this.props
+    console.log("go to ask");
     dispatch(pushPath(`/${this.props.user.organization.path}/ask`))
   }
 

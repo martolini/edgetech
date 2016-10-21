@@ -74,6 +74,7 @@ export class Counter extends Component {
   }
 
   componentWillUnmount() {
+    console.log("unmounting counter");
     clearInterval(this.interval);
     this.firebaseRef.off('value', this.updateCallback)
   }
